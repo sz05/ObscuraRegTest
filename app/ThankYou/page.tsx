@@ -82,9 +82,12 @@ export default function ThankYouPage() {
           </Paper>
 
           <Button
-            variant="outlined"
+            // variant="outlined"
             className="text-white"
             sx={{
+              padding: 1.5,
+              bgcolor: "red",
+              borderRadius: "8px",
               mt: 4,
               borderColor: "white",
               fontFamily: "monospace",
@@ -94,9 +97,11 @@ export default function ThankYouPage() {
                 borderColor: "#dc2626",
               },
             }}
-            href="/team-dashboard"
+            href="/Dashboard"
           >
-            GO TO DASHBOARD
+            <Typography fontSize="50px" fontFamily="megarok" color="white">
+              GO TO DASHBOARD
+            </Typography>
           </Button>
         </Box>
       </Container>

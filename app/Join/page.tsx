@@ -78,7 +78,7 @@ export default function JoinTeam() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      <div className="min-h-screen bg-black text-white relative overflow-hidden  ">
         <Box className="absolute inset-0 opacity-30">
           <svg width="100%" height="100%" className="absolute inset-0">
             <defs>
@@ -111,21 +111,10 @@ export default function JoinTeam() {
           <div className="flex items-center space-x-3">
             <CcsLogo />
           </div>
-
-          <Button
-            sx={{ border: "1px solid white", borderRadius: "8px" }}
-            className="  text-xs md:text-sm px-3 md:px-4"
-          >
-            <Typography
-              sx={{ fontFamily: "GothamXNarrow", fontWeight: "bold" }}
-            >
-              YOUR TEAM
-            </Typography>
-          </Button>
         </Box>
 
         <Container maxWidth="sm" className="relative z-10 px-4 md:px-6">
-          <Box className="flex flex-col items-center justify-center  space-y-6 md:space-y-8">
+          <Box className="flex flex-col items-center justify-center  space-y-6 md:space-y-1">
             <Typography
               variant="h2"
               className="text-3xl md:text-4xl lg:text-5xl font-bold text-center tracking-wider mb-4 md:mb-8"
@@ -203,32 +192,18 @@ export default function JoinTeam() {
                   >
                     SUBMIT
                   </Button>
+
+                  <Button
+                    onClick={() => router.push("/Add")}
+                    fullWidth
+                    variant="outlined"
+                    className="w-full mt-4 bg-transparent border-2 border-white text-white hover:bg-red-600 hover:border-red-600 font-bold tracking-wide"
+                  >
+                    Or Create team
+                  </Button>
                 </Box>
               </Box>
             </Paper>
-
-            {/* <Box className="w-full space-y-3 md:space-y-4">
-              <Typography
-                variant="h4"
-                className="text-lg md:text-xl font-bold text-center tracking-wider"
-              >
-                TEAM CODE
-              </Typography>
-              <Paper
-                elevation={0}
-                className="border-2 border-white bg-transparent p-3 md:p-4"
-              >
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  placeholder="Enter team code"
-                  className="w-full"
-                  InputProps={{
-                    style: { textAlign: "center" },
-                  }}
-                />
-              </Paper>
-            </Box> */}
           </Box>
         </Container>
       </div>

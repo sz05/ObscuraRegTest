@@ -151,21 +151,10 @@ export default function CreateTeamPage() {
           <div className="flex items-center space-x-3">
             <CcsLogo />
           </div>
-
-          <Button
-            sx={{ border: "1px solid white", borderRadius: "8px" }}
-            className="  text-xs md:text-sm px-3 md:px-4"
-          >
-            <Typography
-              sx={{ fontFamily: "GothamXNarrow", fontWeight: "bold" }}
-            >
-              YOUR TEAM
-            </Typography>
-          </Button>
         </Box>
 
         <Container maxWidth="sm" className="relative z-10 px-4 md:px-6">
-          <Box className="flex flex-col items-center justify-center  space-y-6 md:space-y-8">
+          <Box className="flex flex-col items-center justify-center  space-y-6 md:space-y-1">
             <Typography
               variant="h2"
               className="text-3xl md:text-4xl lg:text-5xl font-bold text-center tracking-wider mb-4 md:mb-8"
@@ -242,6 +231,15 @@ export default function CreateTeamPage() {
                     className="w-full bg-transparent border-2 border-white text-white hover:bg-red-600 hover:border-red-600 font-bold tracking-wide"
                   >
                     SUBMIT
+                  </Button>
+
+                  <Button
+                    onClick={() => router.push("/Join")}
+                    fullWidth
+                    variant="outlined"
+                    className="w-full mt-4 bg-transparent border-2 border-white text-white hover:bg-red-600 hover:border-red-600 font-bold tracking-wide"
+                  >
+                    Or Join team
                   </Button>
                 </Box>
               </Box>

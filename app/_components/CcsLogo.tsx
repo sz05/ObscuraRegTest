@@ -11,7 +11,6 @@ const CcsLogo: React.FC<
     fill="none"
     viewBox="0 0 247 131"
     className={className}
-    // {...props}
   >
     <path fill="url(#pattern0_639_71)" d="M0 0h246.681v131H0z"></path>
     <defs>
