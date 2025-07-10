@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Custom Font === */
+@font-face {
+  font-family: "megarok";
+  src: url("/fonts/Megarok.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Prevents flash, shows fallback until custom font loads */
+}
+@font-face {
+  font-family: "Kdam Thmor Pro";
+  src: url("/fonts/KdamThmorPro-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Prevents flash, shows fallback until custom font loads */
+}
+
+/* === Dark Theme Variables === */
+:root {
+  --radius: 0.65rem;
+
+  --background: 0 0% 6%;
+  --foreground: 0 0% 95%;
+
+  --card: 0 0% 10%;
+  --card-foreground: 0 0% 98%;
+
+  --popover: 0 0% 10%;
+  --popover-foreground: 0 0% 98%;
+
+  --primary: 220 100% 66%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 240 4% 16%;
+  --secondary-foreground: 0 0% 98%;
+
+  --accent: 348 100% 60%; /* Red for neon/glow buttons */
+  --accent-foreground: 0 0% 100%;
+
+  --muted: 240 4% 20%;
+  --muted-foreground: 240 6% 70%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 240 5% 26%;
+  --input: 240 5% 26%;
+  --ring: 220 100% 66%;
+
+  --chart-1: 12 76% 61%;
+  --chart-2: 173 58% 39%;
+  --chart-3: 42 95% 60%;
+  --chart-4: 278 74% 53%;
+  --chart-5: 200 70% 55%;
+}
+
+/* === Base Styles === */
+body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+/* === Tailwind Custom Utilities === */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .font-megarok {
+    font-family: "megarok", sans-serif;
+  }
+  .font-Kdam_Thmor_Pro {
+    font-family: "Kdam_Thmor_Pro", sans-serif;
+  }
+
+  .btn-glass {
+    background-color: hsl(var(--accent) / 0.1);
+    color: hsl(var(--accent-foreground));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .btn-glass:hover {
+    background-color: hsl(var(--accent) / 0.2);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 6px hsl(var(--accent)), 0 0 12px hsl(var(--accent));
+  }
+
+  .card-glass {
+    background-color: hsl(var(--card) / 0.03);
+    backdrop-filter: blur(6px);
+    padding: 1.5rem;
+    border-radius: 1rem;
+  }
+}
