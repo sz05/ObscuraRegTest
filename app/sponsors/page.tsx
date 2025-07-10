@@ -42,20 +42,15 @@ export default function Page() {
     >
       <div className="absolute inset-0 bg-black/30 md:bg-black/50 z-10"></div>
 
-      <div className="absolute top-4 right-4 z-30">
-        <Button sx={sharedButtonSx} onClick={() => router.push("/")}>
-          <Typography
-            color="white"
-            fontFamily="GothamXNarrow"
-            fontWeight="bold"
-            fontSize={{ xs: "20px", sm: "20px" }}
-            textTransform="none"
-            textAlign="center"
-            width="100%"
-          >
+      <div className="absolute top-2 right-2 sm:top-4 sm:right-4 z-30">
+        <button
+          onClick={() => router.push("/")}
+          className="px-3 py-2 sm:px-4 sm:py-2 border-white/20 rounded-lg hover:bg-white/10 transition-all duration-300"
+        >
+          <span className="text-white font-bold text-sm sm:text-base md:text-lg lg:text-xl font-['GothamXNarrow'] uppercase tracking-wide">
             Home
-          </Typography>
-        </Button>
+          </span>
+        </button>
       </div>
 
       <div className="flex flex-col items-center relative z-20 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pt-8 sm:pt-12 md:pt-16 lg:pt-12 xl:pt-16">
@@ -64,7 +59,7 @@ export default function Page() {
         </div>
 
         <h1 className="text-white text-[80px] sm:text-[80px] md:text-[160px] lg:text-[140px] xl:text-[180px] font-megarok text-center leading-none tracking-wider drop-shadow-2xl mb-2">
-          OBSCURA
+          Our Sponsers
         </h1>
         <Grid
           container
