@@ -1,9 +1,10 @@
 import CcsLogo from "./_components/CcsLogo";
 import ShiftingCountdown from "../components/ui/countdown-timer";
+import { Button, Typography } from "@mui/material";
 
 export default function Page() {
   return (
-    <div 
+    <div
       className="relative min-h-screen flex flex-col"
       style={{
         backgroundImage: "url('/bg_image.png')",
@@ -21,19 +22,24 @@ export default function Page() {
         <div className="w-24 h-16 sm:w-32 sm:h-20 md:w-40 md:h-24 lg:w-48 lg:h-28 xl:w-56 xl:h-32 mb-4 md:mb-6">
           <CcsLogo className="w-full h-full" />
         </div>
-        
+
         {/* Presents */}
         <h2 className="text-white text-[24px] sm:text-[32px] md:text-[40px] lg:text-[48px] xl:text-[56px] font-megarok text-center leading-none tracking-wider drop-shadow-2xl mb-4 md:mb-6 lg:mb-8">
           PRESENTS
         </h2>
-        
+
         {/* Title */}
         <h1 className="text-white text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px] xl:text-[250px] font-megarok text-center leading-none tracking-wider drop-shadow-2xl mb-8">
           OBSCURA
         </h1>
-        
+
         {/* Countdown */}
         <ShiftingCountdown />
+        {/* <Button onClick={()=>router.push("create")} >
+          <Typography>
+            Go
+          </Typography>
+        </Button> */}
       </div>
     </div>
   );

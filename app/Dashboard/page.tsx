@@ -4,15 +4,20 @@ import CcsLogo from "../_components/CcsLogo";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState } from "react";
 
+type Role = "WIZARD" | "HACKER";
+type MemberRoles = {
+  [key: number]: Role;
+};
+
 export default function TeamDashboard() {
-  const [memberRoles, setMemberRoles] = useState({
+  const [memberRoles, setMemberRoles] = useState<MemberRoles>({
     1: "WIZARD",
-    3: "WIZARD",
     2: "HACKER",
+    3: "WIZARD",
     4: "HACKER",
   });
 
-  const handleRoleChange = (memberId: number, newRole: string | null) => {
+  const handleRoleChange = (memberId: number, newRole: Role | null) => {
     if (newRole !== null) {
       setMemberRoles((prev) => ({
         ...prev,
