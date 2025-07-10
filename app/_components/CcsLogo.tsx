@@ -1,6 +1,8 @@
 import * as React from "react";
 
-const CcsLogo: React.FC<React.SVGProps<SVGElement> & { className?: string }> = ({ className, ...props }) => (
+const CcsLogo: React.FC<
+  React.SVGProps<SVGElement> & { className?: string }
+> = ({ className, ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -9,7 +11,7 @@ const CcsLogo: React.FC<React.SVGProps<SVGElement> & { className?: string }> = (
     fill="none"
     viewBox="0 0 247 131"
     className={className}
-    {...props}
+    // {...props}
   >
     <path fill="url(#pattern0_639_71)" d="M0 0h246.681v131H0z"></path>
     <defs>
