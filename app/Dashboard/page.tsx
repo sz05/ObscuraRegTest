@@ -193,18 +193,18 @@ export default function TeamDashboard() {
                 MEMBER {memberNum}
               </Typography>
               <Card
-                sx={{ boxShadow: "0px 0px 5px 5px #FF0000" }}
+                sx={{ boxShadow: "0px 0px 5px 5px #FF0000", bgcolor: "black" }}
                 className="w-full bg-gray-200 border-none p-3 md:p-4 space-y-2 md:space-y-3"
               >
                 <Box className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                   <Typography
-                    className="text-black font-bold text-xs md:text-sm"
+                    className="text-red-500 font-bold text-xs md:text-sm"
                     sx={{ fontFamily: "monospace" }}
                   >
                     NAME:
                   </Typography>
                   <Typography
-                    className="text-black font-bold text-xs md:text-sm"
+                    className="text-red-500 font-bold text-xs md:text-sm"
                     sx={{ fontFamily: "monospace" }}
                   >
                     DHOLU PANCHO YADHU
@@ -212,13 +212,13 @@ export default function TeamDashboard() {
                 </Box>
                 <Box className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                   <Typography
-                    className="text-black font-bold text-xs md:text-sm"
+                    className="text-red-500 font-bold text-xs md:text-sm"
                     sx={{ fontFamily: "monospace" }}
                   >
                     EMAIL:
                   </Typography>
                   <Typography
-                    className="text-black font-bold text-xs md:text-sm break-all"
+                    className="text-red-500 font-bold text-xs md:text-sm break-all"
                     sx={{ fontFamily: "monospace" }}
                   >
                     DHOLU.THAPPAD.COM
@@ -226,13 +226,13 @@ export default function TeamDashboard() {
                 </Box>
                 <Box className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                   <Typography
-                    className="text-black font-bold text-xs md:text-sm"
+                    className="text-red-500 font-bold text-xs md:text-sm"
                     sx={{ fontFamily: "monospace" }}
                   >
                     PHONE NO:
                   </Typography>
                   <Typography
-                    className="text-black font-bold text-xs md:text-sm"
+                    className="text-red-500 font-bold text-xs md:text-sm"
                     sx={{ fontFamily: "monospace" }}
                   >
                     123456789
@@ -240,7 +240,7 @@ export default function TeamDashboard() {
                 </Box>
                 <Box className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                   <Typography
-                    className="text-black font-bold text-xs md:text-sm"
+                    className="text-red-500 font-bold text-xs md:text-sm"
                     sx={{ fontFamily: "monospace" }}
                   >
                     ROLE:
