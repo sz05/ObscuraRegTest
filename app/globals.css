@@ -4,12 +4,21 @@
 
 /* === Custom Font === */
 @font-face {
-  font-family: "megarok";
-  src: url("/fonts/Megarok.otf") format("truetype");
+  font-family: "Megarok";
+  src: url("/fonts/Megarok.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
   font-display: swap; /* Prevents flash, shows fallback until custom font loads */
 }
+
+@font-face {
+  font-family: "GothamXNarrow";
+  src: url("/fonts/GothamXNarrowBold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: "Kdam Thmor Pro";
   src: url("/fonts/KdamThmorPro-Regular.ttf") format("truetype");
@@ -101,5 +110,43 @@ body {
     backdrop-filter: blur(6px);
     padding: 1.5rem;
     border-radius: 1rem;
+  }
+}
+
+@layer base {
+  .theme {
+    --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+    --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@theme inline {
+  @keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+  @keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0);
+    }
+  15%, 35% {
+    transform: translateZ(0) rotate(90deg);
+    }
+  65%, 85% {
+    transform: translateZ(0) rotate(270deg);
+    }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+    }
   }
 }

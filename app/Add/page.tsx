@@ -1,275 +1,163 @@
 "use client";
 
-import {
-  TextField,
-  Button,
-  Typography,
-  Box,
-  Container,
-  Paper,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
-import AddBg from "./components/AddBg";
-import CcsLogo from "../_components/CcsLogo";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#fff",
-    },
-    background: {
-      default: "#000000",
-      paper: "transparent",
-    },
-    text: {
-      primary: "#ffffff",
-    },
-  },
-  components: {
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-              borderColor: "#ffffff",
-              borderWidth: "2px",
-            },
-            "&:hover fieldset": {
-              borderColor: "#dc2626",
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "#dc2626",
-            },
-          },
-          "& .MuiInputLabel-root": {
-            color: "#ffffff",
-            fontWeight: "bold",
-            fontSize: "0.875rem",
-            letterSpacing: "0.05em",
-          },
-          "& .MuiOutlinedInput-input": {
-            color: "#ffffff",
-            height: "1.5rem",
-          },
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderWidth: "2px",
-          fontWeight: "bold",
-          letterSpacing: "0.05em",
-          height: "3rem",
-          "&:hover": {
-            borderWidth: "2px",
-          },
-        },
-      },
-    },
-  },
-});
+import CCSLogoLarge from "../_components/CCSLogoLarge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Box, Typography } from "@mui/material";
 
 export default function CreateTeamPage() {
   const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [discordId, setDiscordId] = useState("");
+  const [teamName, setTeamName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    try {
+      setIsLoading(true);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/create-team`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            username,
+            email,
+            discord_id: discordId,
+            team_name: teamName,
+          }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Failed to create team");
+      } else {
+        alert("Team created successfully!");
+        router.push(`/ThankYou?code=${data.team_code}`);
+      }
+    } catch (err) {
+      console.error("Error submitting form", err);
+      alert("Something went wrong!");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <div className="min-h-screen bg-black text-white relative overflow-hidden">
-        {/* <div className="absolute inset-0 opacity-30">
-          <svg
-            className="w-full h-full"
-            viewBox="0 0 800 600"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <pattern
-                id="circuit"
-                x="0"
-                y="0"
-                width="100"
-                height="100"
-                patternUnits="userSpaceOnUse"
-              >
-                <path
-                  d="M20 20h60v20h-20v20h-20v20h-20v-60z M60 60h20v20h-20v-20z M40 40h20v-20h20v20h-20v20h-20v-20z"
-                  stroke="#dc2626"
-                  strokeWidth="2"
-                  fill="none"
-                />
-                <path
-                  d="M0 50h20v20h20v-20h20v20h20v-20h20"
-                  stroke="#dc2626"
-                  strokeWidth="2"
-                  fill="none"
-                />
-                <path
-                  d="M50 0v20h20v20h-20v20h20v20h-20v20"
-                  stroke="#dc2626"
-                  strokeWidth="2"
-                  fill="none"
-                />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#circuit)" />
-          </svg>
-        </div> */}
-        <Box className="absolute inset-0 opacity-30">
-          <svg width="100%" height="100%" className="absolute inset-0">
-            <defs>
-              <pattern
-                id="circuit"
-                x="0"
-                y="0"
-                width="100"
-                height="100"
-                patternUnits="userSpaceOnUse"
-              >
-                <path
-                  d="M20 20h60v20h-20v20h-20v20h-20z"
-                  fill="none"
-                  stroke="#dc2626"
-                  strokeWidth="2"
-                />
-                <path
-                  d="M80 40h-20v20h20v20h-40v-20h-20"
-                  fill="none"
-                  stroke="#dc2626"
-                  strokeWidth="2"
-                />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#circuit)" />
-          </svg>
-        </Box>
+    <div className="min-h-screen bg-black text-white relative overflow-hidden flex flex-col">
+      <Box className="absolute top-4 right-4 z-20">
+        <Button
+          onClick={() => router.push("/")}
+          className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2"
+        >
+          Home
+        </Button>
+      </Box>
 
-        <Box className="relative z-10  pt-1 md:pt-1 flex items-center justify-between p-4 md:p-6">
-          <div className="flex items-center space-x-3">
-            <CcsLogo />
-          </div>
-        </Box>
-
-        <Container maxWidth="sm" className="relative z-10 px-4 md:px-6">
-          <Box className="flex flex-col items-center justify-center  space-y-6 md:space-y-1">
-            <Typography
-              variant="h2"
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-center tracking-wider mb-4 md:mb-8"
-              sx={{ fontFamily: "megarok", fontSize: "80px" }}
-            >
-              Create a team
-            </Typography>
-
-            <Paper
-              elevation={0}
-              className="w-full border-4 border-white bg-transparent p-4 md:p-6 lg:p-8 space-y-4 md:space-y-6"
-            >
-              <Box className="space-y-4 md:space-y-6">
-                <Typography
-                  className="sm:text-2xl md:text-8xl"
-                  sx={{
-                    fontFamily: "GothamXNarrow",
-                    fontWeight: "bold",
-                    fontSize: "20px",
-                  }}
-                >
-                  Name
-                </Typography>
-                <TextField fullWidth variant="outlined" className="w-full" />
-                <Typography
-                  sx={{
-                    fontFamily: "GothamXNarrow",
-                    fontWeight: "bold",
-                    fontSize: "20px",
-                  }}
-                >
-                  Email
-                </Typography>
-
-                <TextField
-                  fullWidth
-                  type="email"
-                  variant="outlined"
-                  className="w-full"
-                />
-                <Typography
-                  sx={{
-                    fontFamily: "GothamXNarrow",
-                    fontWeight: "bold",
-                    fontSize: "20px",
-                  }}
-                >
-                  Phone No
-                </Typography>
-
-                <TextField
-                  fullWidth
-                  type="tel"
-                  variant="outlined"
-                  className="w-full"
-                />
-                <Typography
-                  sx={{
-                    fontFamily: "GothamXNarrow",
-                    fontWeight: "bold",
-                    fontSize: "20px",
-                  }}
-                >
-                  Team Name
-                </Typography>
-
-                <TextField fullWidth variant="outlined" className="w-full" />
-
-                <Box className="pt-2 md:pt-4">
-                  <Button
-                    onClick={() => router.push("/ThankYou")}
-                    fullWidth
-                    variant="outlined"
-                    className="w-full bg-transparent border-2 border-white text-white hover:bg-red-600 hover:border-red-600 font-bold tracking-wide"
-                  >
-                    SUBMIT
-                  </Button>
-
-                  <Button
-                    onClick={() => router.push("/Join")}
-                    fullWidth
-                    variant="outlined"
-                    className="w-full mt-4 bg-transparent border-2 border-white text-white hover:bg-red-600 hover:border-red-600 font-bold tracking-wide"
-                  >
-                    Or Join team
-                  </Button>
-                </Box>
-              </Box>
-            </Paper>
-
-            {/* <Box className="w-full space-y-3 md:space-y-4">
-              <Typography
-                variant="h4"
-                className="text-lg md:text-xl font-bold text-center tracking-wider"
-              >
-                TEAM CODE
-              </Typography>
-              <Paper
-                elevation={0}
-                className="border-2 border-white bg-transparent p-3 md:p-4"
-              >
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  placeholder="Enter team code"
-                  className="w-full"
-                  InputProps={{
-                    style: { textAlign: "center" },
-                  }}
-                />
-              </Paper>
-            </Box> */}
-          </Box>
-        </Container>
+      <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/bg_image2.png')", opacity: 0.7 }}
+        ></div>
       </div>
-    </ThemeProvider>
+
+      <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-black/60 z-0"></div>
+
+      <div className="relative z-10 pt-3 sm:pt-4 md:pt-6 flex items-center justify-between px-3 sm:px-4 md:px-6">
+        <CCSLogoLarge className="scale-90 sm:scale-100" />
+      </div>
+
+      <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 py-6 md:py-8 relative z-10">
+        <div className="w-full max-w-md mx-auto">
+          <h1
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6 md:mb-8 tracking-wider glitch-text"
+            style={{
+              fontFamily: "megarok",
+              textShadow: "0 0 8px rgba(255, 0, 0, 0.8)",
+            }}
+          >
+            CREATE A TEAM
+          </h1>
+
+          <Card className="border-2 border-red-600/70 bg-black/85 backdrop-blur-lg shadow-xl shadow-red-700/30 rounded-lg overflow-hidden">
+            <CardHeader className="py-4 sm:py-5 border-b border-red-500/30 bg-gradient-to-r from-red-900/30 to-pink-900/30">
+              <CardTitle
+                className="text-lg sm:text-xl md:text-2xl text-center text-white font-bold"
+                style={{ textShadow: "0 0 5px #f43f5e" }}
+              >
+                ENTER YOUR DETAILS
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-5 pt-5 px-4 sm:px-6">
+              <div className="space-y-2">
+                <Label htmlFor="name">NAME</Label>
+                <Input
+                  id="name"
+                  placeholder="Enter your name"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="mobile">Discord Id</Label>
+                <Input
+                  id="discord"
+                  type="id"
+                  placeholder="Enter your discord id"
+                  value={discordId}
+                  onChange={(e) => setDiscordId(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">EMAIL</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="teamName">TEAM NAME</Label>
+                <Input
+                  id="teamName"
+                  placeholder="Enter your team name"
+                  value={teamName}
+                  onChange={(e) => setTeamName(e.target.value)}
+                />
+              </div>
+              <div className="pt-6 space-y-4">
+                <Button
+                  onClick={handleSubmit}
+                  disabled={isLoading}
+                  className="w-full py-5 sm:py-6 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-bold text-base sm:text-lg shadow-lg shadow-red-600/30 border-none transition-all duration-300 relative overflow-hidden group"
+                >
+                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-red-400/10 to-pink-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  {isLoading ? "CREATING TEAM..." : "SUBMIT"}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => router.push("/Join")}
+                  className="w-full py-4 sm:py-5 border-2 border-red-500 text-white bg-black/30 hover:bg-red-500/20 font-bold text-base sm:text-lg transition-all duration-300"
+                >
+                  JOIN EXISTING TEAM
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
   );
 }

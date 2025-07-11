@@ -40,6 +40,20 @@ export default function Story() {
   }, []);
 
   useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}`, {
+      credentials: "include",
+    }).then((res) => {
+      if (res.ok) {
+        router.replace("/register");
+      }
+    });
+  }, []);
+
+  const handleLogin = () => {
+  window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
+};
+
+  useEffect(() => {
     if (!loading && !isComplete && currentIndex < story.length) {
       const timer = setTimeout(() => {
         setDisplayedText((prev) => prev + story[currentIndex]);
@@ -88,7 +102,7 @@ export default function Story() {
   }
 
   return (
-    <div className="min-h-screen bg-blacktext-[#ff3300] text-xl font-mono px-4 py-10 flex flex-col items-center">
+    <div className="min-h-screen bg-black text-[#ff3300] text-xl font-mono px-4 py-10 flex flex-col items-center">
       <div className="w-full max-w-4xl text-lg leading-relaxed whitespace-pre-wrap">
         {displayedText}
         {!isComplete && (
@@ -111,7 +125,7 @@ export default function Story() {
           </Button>
         )}
         {isComplete && (
-          <Button onClick={() => router.push("/register")} sx={sharedButtonSx}>
+          <Button onClick={handleLogin} sx={sharedButtonSx}>
             <Typography>Register</Typography>
           </Button>
         )}

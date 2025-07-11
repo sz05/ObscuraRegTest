@@ -1,13 +1,18 @@
 "use client";
 
-import { Box, Container, Typography, Paper, Button } from "@mui/material";
-import CcsLogo from "../_components/CcsLogo";
+import { useSearchParams } from "next/navigation";
+import CCSLogoLarge from "../_components/CCSLogoLarge";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function ThankYouPage() {
+  const searchParams = useSearchParams();
+  const code = searchParams.get("code");
+
   return (
-    <Box className="min-h-screen bg-black relative overflow-hidden flex items-center justify-center p-4">
-      {/* Background Pattern */}
-      <Box className="absolute inset-0 opacity-30">
+    <div className="min-h-screen bg-black relative overflow-hidden flex flex-col">
+      {/* Circuit background */}
+      <div className="absolute inset-0 opacity-30">
         <svg width="100%" height="100%" className="absolute inset-0">
           <defs>
             <pattern
@@ -34,77 +39,47 @@ export default function ThankYouPage() {
           </defs>
           <rect width="100%" height="100%" fill="url(#circuit)" />
         </svg>
-      </Box>
+      </div>
+
+      {/* Logo Header */}
+      <div className="relative z-10 pt-6 md:pt-8 flex justify-center">
+        <CCSLogoLarge />
+      </div>
 
       {/* Main Content */}
-      <Container maxWidth="sm" className="relative z-10">
-        <Box display="flex" justifyContent="center" mb={8}>
-          <CcsLogo />
-        </Box>
-
-        <Box className="text-center space-y-6 md:space-y-8">
-          <Typography
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 md:py-12 relative z-10">
+        <div className="w-full max-w-md mx-auto text-center space-y-6 md:space-y-8">
+          <h1 
             className="text-white text-3xl md:text-5xl font-bold tracking-wider"
-            sx={{ fontFamily: "monospace" }}
+            style={{ fontFamily: "megarok" }}
           >
             THANK YOU FOR REGISTERING
-          </Typography>
+          </h1>
 
-          <Typography
-            className="text-white text-base md:text-lg tracking-wide"
-            sx={{ fontFamily: "monospace" }}
-          >
+          <p className="text-white/80 text-base md:text-lg tracking-wide">
             Your team has been successfully created.
-          </Typography>
+          </p>
 
-          <Paper
-            elevation={0}
-            className="mx-auto border-2 border-red-600 px-6 py-4 bg-black"
-            sx={{
-              maxWidth: "300px",
-              borderRadius: "8px",
-              boxShadow: "0px 0px 6px 3px #dc2626",
-            }}
-          >
-            <Typography
-              variant="h6"
-              className="text-red-500 font-bold text-center"
-              sx={{ fontFamily: "monospace" }}
-            >
-              YOUR TEAM CODE
-            </Typography>
-            <Typography
-              className="text-white text-2xl md:text-3xl font-bold tracking-wider mt-2"
-              sx={{ fontFamily: "monospace" }}
-            >
-              ABC123
-            </Typography>
-          </Paper>
+          <div className="mx-auto max-w-xs rounded-lg border-2 border-purple-500 bg-black/80 backdrop-blur-md px-6 py-5 
+            shadow-[0px_0px_15px_5px_rgba(168,85,247,0.35)]">
+            <p className="text-purple-400 font-bold text-sm mb-2">YOUR TEAM CODE</p>
+            <p className="text-white text-2xl md:text-3xl font-mono font-bold tracking-wider">
+              {code || "ABC123"}
+            </p>
+          </div>
 
-          <Button
-            // variant="outlined"
-            className="text-white"
-            sx={{
-              padding: 1.5,
-              bgcolor: "red",
-              borderRadius: "8px",
-              mt: 4,
-              borderColor: "white",
-              fontFamily: "monospace",
-              fontWeight: "bold",
-              "&:hover": {
-                backgroundColor: "#dc2626",
-                borderColor: "#dc2626",
-              },
-            }}
-            href="/Dashboard"
-          >
-            <Typography fontSize="50px" fontFamily="megarok" color="white">
-              GO TO DASHBOARD
-            </Typography>
-          </Button>
-        </Box>
-      </Container>
-    </Box>
+          <div className="pt-6 md:pt-8">
+            <Link href="/Dashboard">
+              <Button 
+                className="py-6 px-8 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700
+                  text-white font-bold text-lg shadow-lg shadow-purple-600/30 border-none transition-all duration-300"
+              >
+                GO TO DASHBOARD
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
