@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function ThankYouPage() {
-  const searchParams = useSearchParams();
-  const code = searchParams.get("code");
+  // const searchParams = useSearchParams();
+  // const code = searchParams.get("code");
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden flex flex-col">
@@ -49,7 +49,7 @@ export default function ThankYouPage() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 md:py-12 relative z-10">
         <div className="w-full max-w-md mx-auto text-center space-y-6 md:space-y-8">
-          <h1 
+          <h1
             className="text-white text-3xl md:text-5xl font-bold tracking-wider"
             style={{ fontFamily: "megarok" }}
           >
@@ -60,17 +60,21 @@ export default function ThankYouPage() {
             Your team has been successfully created.
           </p>
 
-          <div className="mx-auto max-w-xs rounded-lg border-2 border-purple-500 bg-black/80 backdrop-blur-md px-6 py-5 
-            shadow-[0px_0px_15px_5px_rgba(168,85,247,0.35)]">
-            <p className="text-purple-400 font-bold text-sm mb-2">YOUR TEAM CODE</p>
+          <div
+            className="mx-auto max-w-xs rounded-lg border-2 border-purple-500 bg-black/80 backdrop-blur-md px-6 py-5 
+            shadow-[0px_0px_15px_5px_rgba(168,85,247,0.35)]"
+          >
+            <p className="text-purple-400 font-bold text-sm mb-2">
+              YOUR TEAM CODE
+            </p>
             <p className="text-white text-2xl md:text-3xl font-mono font-bold tracking-wider">
-              {code || "ABC123"}
+              {"ABC123"}
             </p>
           </div>
 
           <div className="pt-6 md:pt-8">
             <Link href="/Dashboard">
-              <Button 
+              <Button
                 className="py-6 px-8 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700
                   text-white font-bold text-lg shadow-lg shadow-purple-600/30 border-none transition-all duration-300"
               >
