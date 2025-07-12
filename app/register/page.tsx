@@ -12,12 +12,13 @@ export default function RegisterPage() {
   const checkRegistered = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/register`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
         {
           credentials: "include",
         }
       );
       const data = await res.json();
+      console.log(data);
       if (data.registered) {
         router.push("/Dashboard");
       }

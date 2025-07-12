@@ -8,8 +8,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Box, Typography } from "@mui/material";
+import withProtectedRoute from "../_components/ProtectedRoute";
 
-export default function CreateTeamPage() {
+function CreateTeamPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -153,13 +154,6 @@ export default function CreateTeamPage() {
                 >
                   JOIN EXISTING TEAM
                 </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => router.push("/Dashboard")}
-                  className="w-full py-3 sm:py-4 border-2 border-purple-500 text-white bg-black/30 hover:bg-purple-500/20 font-bold text-base transition-all duration-300"
-                >
-                  GO TO DASHBOARD
-                </Button>
               </div>
             </CardContent>
           </Card>
@@ -168,3 +162,5 @@ export default function CreateTeamPage() {
     </div>
   );
 }
+
+export default withProtectedRoute(CreateTeamPage);

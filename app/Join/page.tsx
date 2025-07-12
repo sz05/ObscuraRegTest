@@ -172,14 +172,6 @@ function JoinTeam() {
                 >
                   CREATE NEW TEAM
                 </Button>
-
-                <Button
-                  variant="outline"
-                  onClick={() => router.push("/Dashboard")}
-                  className="w-full py-4 border-2 border-purple-500 text-white bg-transparent hover:bg-purple-500/20 font-bold transition-all duration-300"
-                >
-                  GO TO DASHBOARD
-                </Button>
               </div>
             </CardContent>
           </Card>
