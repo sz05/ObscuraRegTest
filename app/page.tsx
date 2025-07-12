@@ -96,11 +96,14 @@ export default function Page() {
 
   const [registered, setRegistered] = useState(false);
 
-  const checkVerify = async () => {
+  const checkRegistered = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/verify`, {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
+        {
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       console.log(data);
       setRegistered(data.registered);
@@ -111,7 +114,7 @@ export default function Page() {
     }
   };
   useEffect(() => {
-    checkVerify();
+    checkRegistered();
   }, []);
 
   const handleDashboardClick = () => {
