@@ -8,15 +8,16 @@ import { useEffect, useState } from "react";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [registered, setRegistered] = useState(false);
 
-  const checkVerify = async () => {
+  const checkRegistered = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/verify`, {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/register`,
+        {
+          credentials: "include",
+        }
+      );
       const data = await res.json();
-      setRegistered(data.registered);
       if (data.registered) {
         router.push("/Dashboard");
       }
@@ -26,7 +27,7 @@ export default function RegisterPage() {
   };
 
   useEffect(() => {
-    checkVerify();
+    checkRegistered();
   }, []);
 
   return (

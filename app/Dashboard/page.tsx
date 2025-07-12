@@ -14,6 +14,7 @@ import {
 import { ContentCopy } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import CCSLogoLarge from "../_components/CCSLogoLarge";
+import withProtectedRoute from "../_components/ProtectedRoute";
 
 type Role = "WIZARD" | "HACKER";
 
@@ -26,7 +27,7 @@ type Member = {
   is_hacker: boolean;
 };
 
-export default function TeamDashboard() {
+function TeamDashboard() {
   const [members, setMembers] = useState<Member[]>([]);
   const [teamCode, setTeamCode] = useState("");
   const [isLeader, setIsLeader] = useState(false);
@@ -175,40 +176,43 @@ export default function TeamDashboard() {
           </Box>
 
           <Box sx={{ flex: "1 1 auto", color: "white", minWidth: 0 }}>
-            <Typography fontWeight={600} sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
+            <Typography
+              fontWeight={600}
+              sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}
+            >
               {member.name}
             </Typography>
-            <Typography 
-              variant="body2" 
-              color="gray" 
-              sx={{ 
-                fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                wordBreak: 'break-all'
+            <Typography
+              variant="body2"
+              color="gray"
+              sx={{
+                fontSize: { xs: "0.75rem", sm: "0.875rem" },
+                wordBreak: "break-all",
               }}
             >
               {member.email}
             </Typography>
-            <Typography 
-              variant="body2" 
-              color="gray" 
-              sx={{ 
-                fontSize: { xs: '0.7rem', sm: '0.8rem' },
-                wordBreak: 'break-all'
+            <Typography
+              variant="body2"
+              color="gray"
+              sx={{
+                fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                wordBreak: "break-all",
               }}
             >
-              Discord: {member.discord_id || 'Not provided'}
+              Discord: {member.discord_id || "Not provided"}
             </Typography>
           </Box>
         </Box>
 
         {isLeader ? (
           <Box
-            sx={{ 
-              display: "flex", 
-              alignItems: "center", 
+            sx={{
+              display: "flex",
+              alignItems: "center",
               width: { xs: "100%", sm: "auto" },
               justifyContent: { xs: "center", sm: "flex-end" },
-              mt: { xs: 1, sm: 0 }
+              mt: { xs: 1, sm: 0 },
             }}
           >
             <ToggleButtonGroup
@@ -221,7 +225,7 @@ export default function TeamDashboard() {
                 "& .MuiToggleButton-root": {
                   color: "#fff",
                   borderColor: "#333",
-                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                  fontSize: { xs: "0.75rem", sm: "0.875rem" },
                   px: { xs: 1.5, sm: 2 },
                   py: { xs: 0.5, sm: 0.75 },
                   "&.Mui-selected": {
@@ -252,7 +256,7 @@ export default function TeamDashboard() {
                 px: { xs: 2, sm: 2 },
                 py: { xs: 0.5, sm: 0.5 },
                 borderRadius: "8px",
-                fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                fontSize: { xs: "0.8rem", sm: "0.875rem" },
               }}
             >
               {role}
@@ -294,19 +298,19 @@ export default function TeamDashboard() {
         mb={4}
         sx={{ position: "relative", zIndex: 1 }}
       >
-        <Box sx={{ width: { xs: '120px', sm: '150px' } }}>
+        <Box sx={{ width: { xs: "120px", sm: "150px" } }}>
           <CCSLogoLarge />
         </Box>
-        <Button 
-          onClick={handleLogout} 
-          color="error" 
+        <Button
+          onClick={handleLogout}
+          color="error"
           variant="contained"
           size="small"
-          sx={{ 
-            textTransform: 'none',
-            fontSize: { xs: '0.8rem', sm: '0.875rem' },
+          sx={{
+            textTransform: "none",
+            fontSize: { xs: "0.8rem", sm: "0.875rem" },
             px: { xs: 2, sm: 3 },
-            py: { xs: 0.5, sm: 1 }
+            py: { xs: 0.5, sm: 1 },
           }}
         >
           Logout
@@ -315,22 +319,29 @@ export default function TeamDashboard() {
 
       <Container maxWidth="sm" sx={{ position: "relative", zIndex: 1 }}>
         <Box textAlign="center" mb={3}>
-          <Typography 
-            variant="h6" 
-            fontWeight="bold" 
+          <Typography
+            variant="h6"
+            fontWeight="bold"
             color="red"
-            sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}
+            sx={{ fontSize: { xs: "1rem", sm: "1.25rem" } }}
           >
             TEAM CODE
           </Typography>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-            <Typography 
-              variant="h4" 
-              fontWeight="bold" 
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+            }}
+          >
+            <Typography
+              variant="h4"
+              fontWeight="bold"
               color="white"
-              sx={{ 
-                fontSize: { xs: '1.5rem', sm: '2.125rem' },
-                wordBreak: 'break-all'
+              sx={{
+                fontSize: { xs: "1.5rem", sm: "2.125rem" },
+                wordBreak: "break-all",
               }}
             >
               {teamCode}
@@ -344,7 +355,12 @@ export default function TeamDashboard() {
                   setTimeout(() => setCopied(false), 1000);
                 }}
               >
-                <ContentCopy sx={{ color: "white", fontSize: { xs: '0.9rem', sm: '1rem' } }} />
+                <ContentCopy
+                  sx={{
+                    color: "white",
+                    fontSize: { xs: "0.9rem", sm: "1rem" },
+                  }}
+                />
               </IconButton>
             </Tooltip>
           </Box>
@@ -365,3 +381,5 @@ export default function TeamDashboard() {
     </Box>
   );
 }
+
+export default withProtectedRoute(TeamDashboard);

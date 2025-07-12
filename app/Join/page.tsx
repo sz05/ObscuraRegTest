@@ -8,8 +8,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Box } from "@mui/material";
+import withProtectedRoute from "../_components/ProtectedRoute";
 
-export default function JoinTeam() {
+function JoinTeam() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -187,3 +188,4 @@ export default function JoinTeam() {
     </div>
   );
 }
+export default withProtectedRoute(JoinTeam);
