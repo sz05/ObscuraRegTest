@@ -3,7 +3,8 @@ import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("session_token");
-
+  console.log("asddfbhfcasj");
+  console.log(token);
   if (!token) {
     alert("Access Denied , Kindly Login");
     return NextResponse.redirect(
