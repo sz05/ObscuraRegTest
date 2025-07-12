@@ -52,7 +52,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        megarok: ["megarok", "sans-serif"], // ✅ Register font-megarok utility
+        "zen-dots": ["Zen Dots", "sans-serif"], // ✅ Register font-zen-dots utility
         Kdam_Thmor_Pro: ["Kdam_Thmor_Pro", "sans-serif"],
       },
       borderRadius: {

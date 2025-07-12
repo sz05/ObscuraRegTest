@@ -82,7 +82,7 @@ export default function CreateTeamPage() {
           <h1
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6 md:mb-8 tracking-wider glitch-text"
             style={{
-              fontFamily: "megarok",
+              fontFamily: "Zen Dots",
               textShadow: "0 0 8px rgba(255, 0, 0, 0.8)",
             }}
           >
@@ -152,6 +152,13 @@ export default function CreateTeamPage() {
                   className="w-full py-4 sm:py-5 border-2 border-red-500 text-white bg-black/30 hover:bg-red-500/20 font-bold text-base sm:text-lg transition-all duration-300"
                 >
                   JOIN EXISTING TEAM
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => router.push("/Dashboard")}
+                  className="w-full py-3 sm:py-4 border-2 border-purple-500 text-white bg-black/30 hover:bg-purple-500/20 font-bold text-base transition-all duration-300"
+                >
+                  GO TO DASHBOARD
                 </Button>
               </div>
             </CardContent>

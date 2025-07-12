@@ -1,6 +1,5 @@
 "use client";
 
-import Bg from "./components/Bg";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CCSLogoLarge from "../_components/CCSLogoLarge";
@@ -9,7 +8,6 @@ import { useEffect, useState } from "react";
 
 export default function RegisterPage() {
   const router = useRouter();
-
   const [registered, setRegistered] = useState(false);
 
   const checkVerify = async () => {
@@ -21,92 +19,99 @@ export default function RegisterPage() {
       setRegistered(data.registered);
       if (data.registered) {
         router.push("/Dashboard");
-        return;
       }
-      if (!res.ok) throw new Error(data.error);
     } catch {
-      alert("Failed");
+      alert("Failed to verify registration.");
     }
   };
+
   useEffect(() => {
-    // checkVerify();
+    checkVerify();
   }, []);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
-      <Bg />
+    <div className="relative h-screen w-full overflow-hidden bg-black text-white">
+      {/* Background pattern */}
+      <div className="absolute inset-0 z-0">
+        <div
+          className="w-full h-full bg-cover bg-center bg-no-repeat opacity-20"
+          style={{ backgroundImage: "url('/bg_image2.png')" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/80" />
+      </div>
 
-      <div className="absolute top-4 left-4 md:top-8 md:left-8 z-10">
+      {/* Header logo */}
+      <div className="absolute top-6 left-4 sm:left-8 z-10">
         <CCSLogoLarge />
       </div>
 
-      <div className="flex justify-center h-full w-full">
-        <div className="hidden md:flex flex-1" />
+      {/* Main content */}
+      <div className="relative z-10 flex justify-center items-center h-full px-6">
+        <div className="w-full max-w-md mx-auto text-center space-y-10">
+          <div className="space-y-2">
+            <h1
+              className="text-5xl sm:text-6xl font-extrabold tracking-widest"
+              style={{
+                fontFamily: "Kdam Thmor Pro, monospace",
+                textShadow: "0 0 10px #dc2626cc",
+              }}
+            >
+              REGISTER
+            </h1>
+            <Typography className="text-white/80 tracking-wide text-sm sm:text-base">
+              Join the resistance. Form your squad. Escape the Labyrinth.
+            </Typography>
+          </div>
 
-        <div className="flex flex-col justify-between md:justify-center items-center w-full md:max-w-md px-4 md:pr-36 py-6 md:mr-32">
-          <h1 className="text-7xl md:text-9xl md:mb-20 font-bold tracking-widest font-megarok text-center mt-28 md:mt-0">
-            REGISTER NOW
-          </h1>
-
-          <div className="flex flex-col items-center space-y-12 w-full mb-4 md:mb-0">
+          <div className="flex flex-col space-y-6">
             <Button
               onClick={() => router.push("/Join")}
               sx={{
-                background: "linear-gradient(135deg, #3730A3 0%, #312E81 100%)",
+                background: "linear-gradient(90deg, #991b1b, #dc2626)",
                 width: "100%",
-                height: { xs: "60px", sm: "65px", md: "80px" },
-                maxWidth: { xs: "320px", md: "400px" },
-                border: "2px solid rgba(124, 58, 237, 0.5)",
-                borderRadius: { xs: "20px", md: "27px" },
-                transition: "all 0.3s ease",
+                maxWidth: "100%",
+                height: "60px",
+                borderRadius: "14px",
+                border: "2px solid #991b1b",
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+                color: "white",
+                fontFamily: "Kdam Thmor Pro, monospace",
+                transition: "0.3s",
+                boxShadow: "0 0 12px #dc262660",
                 "&:hover": {
-                  background:
-                    "linear-gradient(135deg, #4338CA 0%, #3730A3 100%)",
-                  transform: "translateY(-3px)",
-                  border: "2px solid rgba(139, 92, 246, 0.8)",
+                  background: "linear-gradient(90deg, #b91c1c, #ef4444)",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 0 20px #ef444480",
                 },
               }}
             >
-              <Typography
-                sx={{
-                  textTransform: "none",
-                  color: "white",
-                  fontSize: { xs: "20px", sm: "24px", md: "32px" },
-                  fontFamily: "Kdam Thmor Pro, sans-serif",
-                }}
-              >
-                Join a Team
-              </Typography>
+              Join a Team
             </Button>
 
             <Button
               onClick={() => router.push("/Add")}
               sx={{
-                background: "linear-gradient(135deg, #5B21B6 0%, #7E22CE 100%)",
+                background: "linear-gradient(90deg, #7f1d1d, #b91c1c)",
                 width: "100%",
-                height: { xs: "60px", sm: "65px", md: "80px" },
-                maxWidth: { xs: "320px", md: "400px" },
-                border: "2px solid rgba(139, 92, 246, 0.5)",
-                borderRadius: { xs: "20px", md: "27px" },
-                transition: "all 0.3s ease",
+                maxWidth: "100%",
+                height: "60px",
+                borderRadius: "14px",
+                border: "2px solid #7f1d1d",
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+                color: "white",
+                fontFamily: "Kdam Thmor Pro, monospace",
+                transition: "0.3s",
+                boxShadow: "0 0 12px #b91c1c66",
                 "&:hover": {
-                  background:
-                    "linear-gradient(135deg, #6D28D9 0%, #8B5CF6 100%)",
-                  transform: "translateY(-3px)",
-                  border: "2px solid rgba(167, 139, 250, 0.8)",
+                  background: "linear-gradient(90deg, #991b1b, #ef4444)",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 0 20px #ef4444aa",
                 },
               }}
             >
-              <Typography
-                sx={{
-                  textTransform: "none",
-                  color: "white",
-                  fontSize: { xs: "20px", sm: "24px", md: "32px" },
-                  fontFamily: "Kdam Thmor Pro, sans-serif",
-                }}
-              >
-                Add a Team
-              </Typography>
+              Create a Team
             </Button>
           </div>
         </div>

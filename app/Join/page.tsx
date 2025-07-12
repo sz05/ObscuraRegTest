@@ -86,7 +86,7 @@ export default function JoinTeam() {
           <h1
             className="text-4xl md:text-5xl font-bold text-center mb-8 md:mb-10 tracking-wider"
             style={{
-              fontFamily: "megarok",
+              fontFamily: "Zen Dots",
               textShadow: "0 0 8px rgba(239, 68, 68, 0.9)",
             }}
           >
@@ -170,6 +170,14 @@ export default function JoinTeam() {
                   className="w-full py-6 border-2 border-red-500 text-white bg-transparent hover:bg-red-500/20 font-bold text-lg transition-all duration-300"
                 >
                   CREATE NEW TEAM
+                </Button>
+
+                <Button
+                  variant="outline"
+                  onClick={() => router.push("/Dashboard")}
+                  className="w-full py-4 border-2 border-purple-500 text-white bg-transparent hover:bg-purple-500/20 font-bold transition-all duration-300"
+                >
+                  GO TO DASHBOARD
                 </Button>
               </div>
             </CardContent>

@@ -77,13 +77,6 @@ export default function RootLayout({
 
         <link
             rel="preload"
-            href="/fonts/Megarok.otf"
-            as="font"
-            type="font/otf"
-            crossOrigin="anonymous"
-        />
-        <link
-            rel="preload"
             href="/fonts/GothamXNarrowBold.otf"
             as="font"
             type="font/otf"

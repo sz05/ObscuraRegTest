@@ -1,15 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* === Custom Font === */
-@font-face {
-  font-family: "Megarok";
-  src: url("/fonts/Megarok.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap; /* Prevents flash, shows fallback until custom font loads */
-}
 
 @font-face {
   font-family: "GothamXNarrow";
@@ -80,8 +75,8 @@ body {
     text-wrap: balance;
   }
 
-  .font-megarok {
-    font-family: "megarok", sans-serif;
+  .font-zen-dots {
+    font-family: "Zen Dots", sans-serif;
   }
   .font-Kdam_Thmor_Pro {
     font-family: "Kdam_Thmor_Pro", sans-serif;

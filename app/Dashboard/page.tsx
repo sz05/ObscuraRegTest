@@ -31,39 +31,6 @@ export default function TeamDashboard() {
   const [teamCode, setTeamCode] = useState("");
   const [isLeader, setIsLeader] = useState(false);
   const [copied, setCopied] = useState(false);
-  useEffect(() => {
-    // Mocked data for local testing
-    const players: Member[] = [
-      {
-        name: "Alice",
-        email: "alice@example.com",
-        discord_id: "alice#1234",
-        id: "1",
-        is_wizard: true,
-        is_hacker: false,
-      },
-      {
-        name: "Bob",
-        email: "bob@example.com",
-        discord_id: "bob#5678",
-        id: "2",
-        is_wizard: false,
-        is_hacker: true,
-      },
-      {
-        name: "Charlie",
-        email: "charlie@example.com",
-        discord_id: "charlie#9999",
-        id: "3",
-        is_wizard: false,
-        is_hacker: true,
-      },
-    ];
-
-    setMembers(players);
-    setTeamCode("CCS12345");
-    setIsLeader(true); // toggle this to false to test the non-leader view
-  }, []);
 
   const fetchDashboard = async () => {
     try {
@@ -172,41 +139,77 @@ export default function TeamDashboard() {
           bgcolor: "#111",
           border: `2px solid ${badgeColor}`,
           borderRadius: "12px",
-          padding: "1rem",
+          padding: { xs: "0.8rem", sm: "1rem" },
           marginBottom: "1.5rem",
           flexWrap: "wrap",
+          flexDirection: { xs: "column", sm: "row" },
+          gap: { xs: 1, sm: 0 },
         }}
       >
         <Box
           sx={{
-            width: 60,
-            height: 60,
-            minWidth: 60,
-            borderRadius: "8px",
-            overflow: "hidden",
-            mr: 2,
-            backgroundColor: "#000",
+            display: "flex",
+            alignItems: "center",
+            width: { xs: "100%", sm: "auto" },
+            flex: { xs: "none", sm: "1 1 auto" },
+            gap: 2,
           }}
         >
-          <img
-            src={getAvatarUrl(role)}
-            alt="avatar"
-            width="60"
-            height="60"
-            className="object-cover"
-          />
-        </Box>
+          <Box
+            sx={{
+              width: { xs: 50, sm: 60 },
+              height: { xs: 50, sm: 60 },
+              minWidth: { xs: 50, sm: 60 },
+              borderRadius: "8px",
+              overflow: "hidden",
+              backgroundColor: "#000",
+            }}
+          >
+            <img
+              src={getAvatarUrl(role)}
+              alt="avatar"
+              width="100%"
+              height="100%"
+              className="object-cover"
+            />
+          </Box>
 
-        <Box sx={{ flex: "1 1 auto", color: "white" }}>
-          <Typography fontWeight={600}>{member.name}</Typography>
-          <Typography variant="body2" color="gray">
-            {member.email}
-          </Typography>
+          <Box sx={{ flex: "1 1 auto", color: "white", minWidth: 0 }}>
+            <Typography fontWeight={600} sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
+              {member.name}
+            </Typography>
+            <Typography 
+              variant="body2" 
+              color="gray" 
+              sx={{ 
+                fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                wordBreak: 'break-all'
+              }}
+            >
+              {member.email}
+            </Typography>
+            <Typography 
+              variant="body2" 
+              color="gray" 
+              sx={{ 
+                fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                wordBreak: 'break-all'
+              }}
+            >
+              Discord: {member.discord_id || 'Not provided'}
+            </Typography>
+          </Box>
         </Box>
 
         {isLeader ? (
           <Box
-            sx={{ display: "flex", alignItems: "center", mt: { xs: 2, sm: 0 } }}
+            sx={{ 
+              display: "flex", 
+              alignItems: "center", 
+              width: { xs: "100%", sm: "auto" },
+              justifyContent: { xs: "center", sm: "flex-end" },
+              mt: { xs: 1, sm: 0 }
+            }}
           >
             <ToggleButtonGroup
               value={role}
@@ -218,6 +221,9 @@ export default function TeamDashboard() {
                 "& .MuiToggleButton-root": {
                   color: "#fff",
                   borderColor: "#333",
+                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                  px: { xs: 1.5, sm: 2 },
+                  py: { xs: 0.5, sm: 0.75 },
                   "&.Mui-selected": {
                     bgcolor: badgeColor,
                     borderColor: badgeColor,
@@ -228,31 +234,29 @@ export default function TeamDashboard() {
               <ToggleButton value="HACKER">Hacker</ToggleButton>
               <ToggleButton value="WIZARD">Wizard</ToggleButton>
             </ToggleButtonGroup>
-            {/* Kick Button
-            {index !== 0 && (
-              <Button
-                size="small"
-                color="error"
-                sx={{ ml: 2, textTransform: "none" }}
-                onClick={() => alert("Kick not implemented")}
-              >
-                Kick
-              </Button>
-            )} */}
           </Box>
         ) : (
           <Box
             sx={{
-              mt: { xs: 2, sm: 0 },
-              backgroundColor: badgeColor,
-              color: "white",
-              fontWeight: "bold",
-              px: 2,
-              py: 0.5,
-              borderRadius: "8px",
+              width: { xs: "100%", sm: "auto" },
+              display: "flex",
+              justifyContent: { xs: "center", sm: "flex-end" },
+              mt: { xs: 1, sm: 0 },
             }}
           >
-            {role}
+            <Box
+              sx={{
+                backgroundColor: badgeColor,
+                color: "white",
+                fontWeight: "bold",
+                px: { xs: 2, sm: 2 },
+                py: { xs: 0.5, sm: 0.5 },
+                borderRadius: "8px",
+                fontSize: { xs: '0.8rem', sm: '0.875rem' },
+              }}
+            >
+              {role}
+            </Box>
           </Box>
         )}
       </Card>
@@ -286,22 +290,51 @@ export default function TeamDashboard() {
         width="100%"
         display="flex"
         justifyContent="space-between"
+        alignItems="center"
         mb={4}
         sx={{ position: "relative", zIndex: 1 }}
       >
-        <CCSLogoLarge />
-        <Button onClick={handleLogout} color="error" variant="contained">
+        <Box sx={{ width: { xs: '120px', sm: '150px' } }}>
+          <CCSLogoLarge />
+        </Box>
+        <Button 
+          onClick={handleLogout} 
+          color="error" 
+          variant="contained"
+          size="small"
+          sx={{ 
+            textTransform: 'none',
+            fontSize: { xs: '0.8rem', sm: '0.875rem' },
+            px: { xs: 2, sm: 3 },
+            py: { xs: 0.5, sm: 1 }
+          }}
+        >
           Logout
         </Button>
       </Box>
 
       <Container maxWidth="sm" sx={{ position: "relative", zIndex: 1 }}>
         <Box textAlign="center" mb={3}>
-          <Typography variant="h6" fontWeight="bold" color="red">
+          <Typography 
+            variant="h6" 
+            fontWeight="bold" 
+            color="red"
+            sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}
+          >
             TEAM CODE
           </Typography>
-          <Typography variant="h4" fontWeight="bold" color="white">
-            {teamCode}{" "}
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+            <Typography 
+              variant="h4" 
+              fontWeight="bold" 
+              color="white"
+              sx={{ 
+                fontSize: { xs: '1.5rem', sm: '2.125rem' },
+                wordBreak: 'break-all'
+              }}
+            >
+              {teamCode}
+            </Typography>
             <Tooltip title={copied ? "Copied!" : "Copy"}>
               <IconButton
                 size="small"
@@ -311,10 +344,10 @@ export default function TeamDashboard() {
                   setTimeout(() => setCopied(false), 1000);
                 }}
               >
-                <ContentCopy sx={{ color: "white", fontSize: "1rem" }} />
+                <ContentCopy sx={{ color: "white", fontSize: { xs: '0.9rem', sm: '1rem' } }} />
               </IconButton>
             </Tooltip>
-          </Typography>
+          </Box>
         </Box>
 
         {members.map((member, i) =>
