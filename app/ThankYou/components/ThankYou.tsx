@@ -1,5 +1,3 @@
-"use client";
-
 import { useSearchParams } from "next/navigation";
 import CCSLogoLarge from "@/app/_components/CCSLogoLarge";
 import { Button } from "@/components/ui/button";
