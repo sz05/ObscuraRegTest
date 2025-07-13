@@ -517,13 +517,14 @@ function TeamDashboard() {
   };
 
   const handleKick = async (email: string) => {
+    // console.log(email);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/remove-from-team`,
       {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email_to_remove: email }),
       }
     );
 
@@ -535,18 +536,23 @@ function TeamDashboard() {
     }
   };
 
-  const handleLeave = async () => {
+  const handleLeave = async (email: string) => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/leave-team`,
       {
         method: "POST",
         credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
       }
     );
 
     const data = await res.json();
-    if (!res.ok) toast.error("Leave failed");
-    else window.location.href = "/";
+    if (!res.ok) toast.error(data.error || "Leave failed");
+    else {
+      toast.success("Member kicked!");
+      fetchDashboard();
+    }
   };
 
   useEffect(() => {
@@ -636,7 +642,11 @@ function TeamDashboard() {
                 {role}
               </Box>
               {index !== 0 && (
-                <Button size="small" color="warning" onClick={handleLeave}>
+                <Button
+                  size="small"
+                  color="warning"
+                  onClick={() => handleLeave(member.email)}
+                >
                   Leave Team
                 </Button>
               )}
