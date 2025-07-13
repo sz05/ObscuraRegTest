@@ -71,7 +71,7 @@ function JoinTeam() {
           body: JSON.stringify({
             username: username,
             rollNo: rollNo,
-            discord_id,
+            discord_id: discord_id,
             team_code: teamCode,
           }),
         }
