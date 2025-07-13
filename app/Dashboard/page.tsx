@@ -73,8 +73,7 @@ function TeamDashboard() {
       setMembers(players);
       setTeamCode(data.team_code);
       setIsLeader(data.is_leader);
-      setCurrentUserEmail(data.current_user_email);
-      console.log(data.current_user_email);
+      setCurrentUserEmail(data.currentUserEmail);
     } catch {
       toast.error("Failed to load dashboard.");
     }
@@ -291,15 +290,15 @@ function TeamDashboard() {
         sx={{
           mb: 4,
           p: 2,
-          backgroundColor: "#1e1e1e",
+          backgroundColor: "#000",
           border: "1px solid #444",
           borderRadius: "12px",
           color: "white",
           textAlign: "center",
         }}
       >
-        <Typography variant="h6" fontWeight="bold" color="#00FFFF" gutterBottom>
-          🧠 Choose Your Champions
+        <Typography variant="h6" fontWeight="bold" color="red" gutterBottom>
+          Choose Your Roles
         </Typography>
         <Typography variant="body1" gutterBottom>
           Your team must have <strong>exactly 2 Wizards</strong> and{" "}
