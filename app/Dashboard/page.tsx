@@ -141,7 +141,7 @@ function TeamDashboard() {
     const wizardCount = members.filter((m) => m.is_wizard).length;
 
     if (hackerCount !== 2 || wizardCount !== 2) {
-      toast.error("Please assign exactly 2 Hackers and 2 Wizards.");
+      toast.error("You must assign exactly 2 Hackers and 2 Wizards.");
       return;
     }
 
@@ -169,8 +169,6 @@ function TeamDashboard() {
         is_wizard: m.is_wizard,
       })),
     };
-
-    console.log("Payload being sent to backend:", payload);
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/team-dashboard`,
@@ -405,37 +403,9 @@ function TeamDashboard() {
             <Button variant="contained" color="error" onClick={handleSave}>
               SAVE ROLES
             </Button>
-            {/* <Box
-              sx={{
-                mt: 1,
-                mb: 4,
-                p: 2,
-                color: "white",
-                textAlign: "center",
-              }}
-            >
-              <Typography
-                variant="h6"
-                fontWeight="bold"
-                color="#FF5555"
-                gutterBottom
-              >
-                Choose Your Roles
-              </Typography>
-              <Typography color="#FFD700" variant="body1" gutterBottom>
-                Your team must have <strong>exactly 2 Wizards</strong> and{" "}
-                <strong>2 Hackers</strong>.
-              </Typography>
-              <Typography variant="body2" color="#F1F1F1">
-                Wizards solve enchanted logic puzzles. Hackers tackle CTF-style
-                digital challenges.
-                <br />
-                Dont Worry , You can change these roles later.
-              </Typography>
-            </Box> */}
             <Box
               sx={{
-                mt: 1,
+                mt: 2,
                 mb: 4,
                 p: 3,
                 backgroundColor: "rgba(17, 17, 17, 0.9)",
