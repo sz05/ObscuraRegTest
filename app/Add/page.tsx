@@ -68,8 +68,8 @@ function CreateTeamPage() {
           headers: { "Content-Type": "application/json" },
           credentials: "include",
           body: JSON.stringify({
-            username,
-            email: rollNo,
+            username: username,
+            rollNo: rollNo,
             discord_id: discordId,
             team_name: teamName,
           }),

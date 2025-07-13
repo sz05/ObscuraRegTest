@@ -9,7 +9,7 @@ function withProtectedRoute(Component: React.ComponentType) {
     const router = useRouter();
 
     useEffect(() => {
-      console.log("in effect ", isAuth);
+      // console.log("in effect ", isAuth);
       if (!isAuth) {
         router.push("/");
       }

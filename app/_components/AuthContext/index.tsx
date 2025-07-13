@@ -35,7 +35,6 @@ const AuthProvider = ({ children }: React.PropsWithChildren) => {
   }, []);
 
   const value = useMemo(() => ({ isAuth: isAuthenticated }), [isAuthenticated]);
-  console.log("auth context value", value);
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 

@@ -69,7 +69,8 @@ function JoinTeam() {
           },
           credentials: "include",
           body: JSON.stringify({
-            username,
+            username: username,
+            rollNo: rollNo,
             discord_id,
             team_code: teamCode,
           }),
