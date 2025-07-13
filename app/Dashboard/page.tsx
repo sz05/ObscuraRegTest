@@ -409,6 +409,7 @@ import { useRouter } from "next/navigation";
 type Role = "WIZARD" | "HACKER";
 
 type Member = {
+  rollNo: string;
   email: string;
   name: string;
   discord_id: string;
@@ -422,6 +423,7 @@ function TeamDashboard() {
   const [teamCode, setTeamCode] = useState("");
   const [isLeader, setIsLeader] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [currentUserEmail, setCurrentUserEmail] = useState("");
 
   const handleLogout = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, {
@@ -448,6 +450,7 @@ function TeamDashboard() {
       const players: Member[] = data.players.map((p: any) => ({
         name: p.name,
         email: p.email,
+        rollNo: p.rollNo,
         discord_id: p.discord_id,
         id: p.id,
         is_wizard: p.is_wizard ?? false,
@@ -457,6 +460,7 @@ function TeamDashboard() {
       setMembers(players);
       setTeamCode(data.team_code);
       setIsLeader(data.is_leader);
+      setCurrentUserEmail(data.current_user_email);
     } catch {
       toast.error("Failed to load dashboard.");
     }
@@ -643,7 +647,7 @@ function TeamDashboard() {
               >
                 {role}
               </Box>
-              {index !== 0 && (
+              {index !== 0 && member.email === currentUserEmail && (
                 <Button
                   size="small"
                   color="warning"
