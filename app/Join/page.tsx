@@ -143,11 +143,11 @@ function JoinTeam() {
             <CardContent className="space-y-6">
               <div className="space-y-1">
                 <Label htmlFor="name" className="text-red-100">
-                  Name
+                  Username
                 </Label>
                 <Input
                   id="name"
-                  placeholder="Enter your name"
+                  placeholder="Enter your username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="bg-red-900/20 border-red-500/50 focus:border-red-400 placeholder:text-red-300/50"
