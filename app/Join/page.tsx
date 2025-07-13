@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Box } from "@mui/material";
 import withProtectedRoute from "../_components/ProtectedRoute";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function JoinTeam() {
   const router = useRouter();
@@ -80,14 +82,14 @@ function JoinTeam() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.error || "Failed to join team");
+        toast.error(data.error || "Failed to join team");
       } else {
-        alert("Team joined successfully!");
+        toast.success("Team joined successfully!");
         router.push("/Dashboard");
       }
     } catch (err) {
       console.error("Error joining team", err);
-      alert("Something went wrong!");
+      toast.error("Something went wrong!");
     } finally {
       setIsLoading(false);
     }
@@ -226,6 +228,7 @@ function JoinTeam() {
           </Card>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

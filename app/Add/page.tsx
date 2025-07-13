@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Box } from "@mui/material";
 import withProtectedRoute from "../_components/ProtectedRoute";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreateTeamPage() {
   const router = useRouter();
@@ -79,14 +81,14 @@ function CreateTeamPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.error || "Failed to create team");
+        toast.error(data.error || "Failed to create team");
       } else {
-        alert("Team created successfully!");
+        toast.success("Team created successfully!");
         router.push(`/ThankYou?code=${data.team_code}`);
       }
     } catch (err) {
       console.error("Error submitting form", err);
-      alert("Something went wrong!");
+      toast.error("Something went wrong!");
     } finally {
       setIsLoading(false);
     }
@@ -212,6 +214,7 @@ function CreateTeamPage() {
           </Card>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

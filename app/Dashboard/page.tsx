@@ -404,6 +404,7 @@ import CCSLogoLarge from "../_components/CCSLogoLarge";
 import withProtectedRoute from "../_components/ProtectedRoute";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 
 type Role = "WIZARD" | "HACKER";
 
@@ -528,11 +529,12 @@ function TeamDashboard() {
       }
     );
 
+    const router = useRouter();
     const data = await res.json();
     if (!res.ok) toast.error(data.error || "Kick failed");
     else {
       toast.success("Member kicked!");
-      fetchDashboard();
+      router.push("/");
     }
   };
 
@@ -550,7 +552,7 @@ function TeamDashboard() {
     const data = await res.json();
     if (!res.ok) toast.error(data.error || "Leave failed");
     else {
-      toast.success("Member kicked!");
+      toast.success("Team Left!");
       fetchDashboard();
     }
   };
