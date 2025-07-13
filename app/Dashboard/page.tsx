@@ -134,6 +134,7 @@ function TeamDashboard() {
     else toast.success("Roles saved successfully!");
   };
 
+  const router = useRouter();
   const handleKick = async (email: string) => {
     // console.log(email);
     const res = await fetch(
@@ -146,12 +147,11 @@ function TeamDashboard() {
       }
     );
 
-    const router = useRouter();
     const data = await res.json();
     if (!res.ok) toast.error(data.error || "Kick failed");
     else {
       toast.success("Member kicked!");
-      router.push("/");
+      router.push("/Dashboard");
     }
   };
 
@@ -170,7 +170,7 @@ function TeamDashboard() {
     if (!res.ok) toast.error(data.error || "Leave failed");
     else {
       toast.success("Team Left!");
-      fetchDashboard();
+      router.push("/");
     }
   };
 
@@ -286,31 +286,6 @@ function TeamDashboard() {
       }}
     >
       <ToastContainer />
-      <Box
-        sx={{
-          mb: 4,
-          p: 2,
-          backgroundColor: "#000",
-          border: "1px solid #444",
-          borderRadius: "12px",
-          color: "white",
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="h6" fontWeight="bold" color="red" gutterBottom>
-          Choose Your Roles
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          Your team must have <strong>exactly 2 Wizards</strong> and{" "}
-          <strong>2 Hackers</strong>.
-        </Typography>
-        <Typography variant="body2" color="gray">
-          Wizards solve enchanted logic puzzles. Hackers tackle CTF-style
-          digital challenges.
-          <br />
-          Dont Worry , You can change these roles later.
-        </Typography>
-      </Box>
 
       <Box
         sx={{
@@ -378,6 +353,35 @@ function TeamDashboard() {
             <Button variant="contained" color="error" onClick={handleSave}>
               SAVE ROLES
             </Button>
+            <Box
+              sx={{
+                mb: 4,
+                p: 2,
+                border: "1px solid #444",
+                borderRadius: "12px",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              <Typography
+                variant="h6"
+                fontWeight="bold"
+                color="red"
+                gutterBottom
+              >
+                Choose Your Roles
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                Your team must have <strong>exactly 2 Wizards</strong> and{" "}
+                <strong>2 Hackers</strong>.
+              </Typography>
+              <Typography variant="body2" color="gray">
+                Wizards solve enchanted logic puzzles. Hackers tackle CTF-style
+                digital challenges.
+                <br />
+                Dont Worry , You can change these roles later.
+              </Typography>
+            </Box>
           </Box>
         )}
       </Container>
