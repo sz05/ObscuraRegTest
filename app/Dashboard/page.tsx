@@ -517,12 +517,15 @@ function TeamDashboard() {
   };
 
   const handleKick = async (email: string) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/kick`, {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/remove-from-team`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      }
+    );
 
     const data = await res.json();
     if (!res.ok) toast.error(data.error || "Kick failed");
@@ -533,10 +536,13 @@ function TeamDashboard() {
   };
 
   const handleLeave = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/leave`, {
-      method: "POST",
-      credentials: "include",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/leave-team`,
+      {
+        method: "POST",
+        credentials: "include",
+      }
+    );
 
     const data = await res.json();
     if (!res.ok) toast.error("Leave failed");
@@ -602,6 +608,9 @@ function TeamDashboard() {
                   backgroundColor: "#1a1a1a",
                   color: "white",
                   border: "1px solid #444",
+                  "& .MuiSelect-icon": {
+                    color: "white",
+                  },
                 }}
               >
                 <MenuItem value="HACKER">Hacker</MenuItem>
