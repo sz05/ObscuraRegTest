@@ -405,7 +405,7 @@ function TeamDashboard() {
             <Button variant="contained" color="error" onClick={handleSave}>
               SAVE ROLES
             </Button>
-            <Box
+            {/* <Box
               sx={{
                 mt: 1,
                 mb: 4,
@@ -432,6 +432,116 @@ function TeamDashboard() {
                 <br />
                 Dont Worry , You can change these roles later.
               </Typography>
+            </Box> */}
+            <Box
+              sx={{
+                mt: 1,
+                mb: 4,
+                p: 3,
+                backgroundColor: "rgba(17, 17, 17, 0.9)",
+                border: "1px solid rgba(239, 68, 68, 0.3)",
+                borderRadius: "12px",
+                backdropFilter: "blur(8px)",
+              }}
+            >
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                gap={1}
+                mb={3}
+              >
+                <Typography variant="h6" fontWeight="bold" color="#FF5555">
+                  Choose Your Roles
+                </Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  background:
+                    "linear-gradient(90deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2))",
+                  border: "1px solid rgba(255, 215, 0, 0.3)",
+                  borderRadius: "8px",
+                  p: 2,
+                  mb: 3,
+                }}
+              >
+                <Typography
+                  color="#FFD700"
+                  variant="body1"
+                  fontWeight="600"
+                  textAlign="center"
+                >
+                  Your team must have{" "}
+                  <strong style={{ color: "#FFF" }}>exactly 2 Wizards</strong>{" "}
+                  and <strong style={{ color: "#FFF" }}>2 Hackers</strong>
+                </Typography>
+              </Box>
+
+              <Box
+                display="flex"
+                gap={2}
+                mb={3}
+                flexDirection={{ xs: "column", sm: "row" }}
+              >
+                <Box
+                  sx={{
+                    flex: 1,
+                    backgroundColor: "rgba(239, 68, 68, 0.1)",
+                    border: "1px solid rgba(239, 68, 68, 0.3)",
+                    borderRadius: "8px",
+                    p: 2,
+                  }}
+                >
+                  <Typography
+                    variant="subtitle2"
+                    fontWeight="bold"
+                    color="#FF6B6B"
+                    mb={1}
+                  >
+                    Wizards
+                  </Typography>
+                  <Typography variant="body2" color="#F1F1F1">
+                    Master enchanted logic puzzles and mystical challenges
+                  </Typography>
+                </Box>
+
+                <Box
+                  sx={{
+                    flex: 1,
+                    backgroundColor: "rgba(59, 130, 246, 0.1)",
+                    border: "1px solid rgba(59, 130, 246, 0.3)",
+                    borderRadius: "8px",
+                    p: 2,
+                  }}
+                >
+                  <Typography
+                    variant="subtitle2"
+                    fontWeight="bold"
+                    color="#60A5FA"
+                    mb={1}
+                  >
+                    Hackers
+                  </Typography>
+                  <Typography variant="body2" color="#F1F1F1">
+                    Tackle CTF-style digital security challenges
+                  </Typography>
+                </Box>
+              </Box>
+
+              <Box
+                sx={{
+                  backgroundColor: "rgba(75, 85, 99, 0.5)",
+                  border: "1px solid rgba(107, 114, 128, 0.3)",
+                  borderRadius: "8px",
+                  p: 2,
+                }}
+              >
+                <Typography variant="body2" color="#D1D5DB" textAlign="center">
+                  <strong style={{ color: "#F3F4F6" }}>Don't worry!</strong> You
+                  can change these roles later if needed.
+                </Typography>
+              </Box>
             </Box>
           </Box>
         )}
