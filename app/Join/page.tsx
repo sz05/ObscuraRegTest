@@ -13,12 +13,51 @@ import withProtectedRoute from "../_components/ProtectedRoute";
 function JoinTeam() {
   const router = useRouter();
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [rollNo, setRollNo] = useState("");
   const [discord_id, setDiscordId] = useState("");
   const [teamCode, setTeamCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const [errors, setErrors] = useState({
+    username: "",
+    rollNo: "",
+    discord_id: "",
+    teamCode: "",
+  });
+
+  const validateInputs = () => {
+    const newErrors = {
+      username: "",
+      rollNo: "",
+      discord_id: "",
+      teamCode: "",
+    };
+
+    if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(username)) {
+      newErrors.username =
+        "Username must be 2–32 characters using letters, numbers, dots or underscores. No special characters.";
+    }
+
+    if (!/^\d{4,12}$/.test(rollNo)) {
+      newErrors.rollNo = "Roll number must be between 4 and 12 digits";
+    }
+
+    if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(discord_id)) {
+      newErrors.discord_id =
+        "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores).";
+    }
+
+    if (teamCode.trim().length === 0) {
+      newErrors.teamCode = "Team code is required.";
+    }
+
+    setErrors(newErrors);
+    return Object.values(newErrors).every((e) => e === "");
+  };
+
   const handleSubmit = async () => {
+    if (!validateInputs()) return;
+
     try {
       setIsLoading(true);
       const res = await fetch(
@@ -64,7 +103,6 @@ function JoinTeam() {
         </Button>
       </Box>
 
-      {/* Red Circuit Background */}
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -74,14 +112,12 @@ function JoinTeam() {
 
       <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-black/60 z-0"></div>
 
-      {/* Header */}
       <div className="relative z-10 pt-4 md:pt-6 flex items-center justify-between px-4 md:px-6">
         <div className="flex items-center">
           <CCSLogoLarge />
         </div>
       </div>
 
-      {/* Main content */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 md:py-12 relative z-10">
         <div className="w-full max-w-md mx-auto">
           <h1
@@ -102,7 +138,7 @@ function JoinTeam() {
             </CardHeader>
 
             <CardContent className="space-y-6">
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <Label htmlFor="name" className="text-red-100">
                   Name
                 </Label>
@@ -113,37 +149,46 @@ function JoinTeam() {
                   onChange={(e) => setUsername(e.target.value)}
                   className="bg-red-900/20 border-red-500/50 focus:border-red-400 placeholder:text-red-300/50"
                 />
+                {errors.username && (
+                  <p className="text-red-400 text-sm">{errors.username}</p>
+                )}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="mobile" className="text-red-100">
-                  Discord Id
+              <div className="space-y-1">
+                <Label htmlFor="discord" className="text-red-100">
+                  Discord Username
                 </Label>
                 <Input
                   id="discord"
-                  type="id"
-                  placeholder="Enter your discord id"
+                  placeholder="Enter your Discord ID"
                   value={discord_id}
                   onChange={(e) => setDiscordId(e.target.value)}
                   className="bg-red-900/20 border-red-500/50 focus:border-red-400 placeholder:text-red-300/50"
                 />
+                {errors.discord_id && (
+                  <p className="text-red-400 text-sm">{errors.discord_id}</p>
+                )}
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-red-100">
-                  Email
+              <div className="space-y-1">
+                <Label htmlFor="rollNo" className="text-red-100">
+                  Roll Number
                 </Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="rollNo"
+                  placeholder="Enter your Roll Number"
+                  value={rollNo}
+                  onChange={(e) =>
+                    setRollNo(e.target.value.replace(/[^\d]/g, ""))
+                  }
                   className="bg-red-900/20 border-red-500/50 focus:border-red-400 placeholder:text-red-300/50"
                 />
+                {errors.rollNo && (
+                  <p className="text-red-400 text-sm">{errors.rollNo}</p>
+                )}
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <Label htmlFor="teamCode" className="text-red-100">
                   Team Code
                 </Label>
@@ -154,6 +199,9 @@ function JoinTeam() {
                   onChange={(e) => setTeamCode(e.target.value)}
                   className="bg-red-900/20 border-red-500/50 focus:border-red-400 placeholder:text-red-300/50"
                 />
+                {errors.teamCode && (
+                  <p className="text-red-400 text-sm">{errors.teamCode}</p>
+                )}
               </div>
 
               <div className="pt-4 space-y-3">
@@ -180,4 +228,5 @@ function JoinTeam() {
     </div>
   );
 }
+
 export default withProtectedRoute(JoinTeam);

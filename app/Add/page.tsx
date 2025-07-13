@@ -7,31 +7,69 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import withProtectedRoute from "../_components/ProtectedRoute";
 
 function CreateTeamPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [rollNo, setRollNo] = useState("");
   const [discordId, setDiscordId] = useState("");
   const [teamName, setTeamName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const [errors, setErrors] = useState({
+    username: "",
+    rollNo: "",
+    discordId: "",
+    teamName: "",
+  });
+
+  const validateInputs = () => {
+    const newErrors = {
+      username: "",
+      rollNo: "",
+      discordId: "",
+      teamName: "",
+    };
+
+    if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(username)) {
+      newErrors.username =
+        "Username must be 2–32 characters using letters, numbers, dots or underscores. No special characters.";
+    }
+
+    if (!/^\d{4,12}$/.test(rollNo)) {
+      newErrors.rollNo = "Roll number must be between 4 and 12 digits";
+    }
+
+    if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(discordId)) {
+      newErrors.discordId =
+        "Invalid Discord username. Use 2–32 characters (letters, numbers, underscores, dots). No spaces or special characters.";
+    }
+
+    if (!/^[\w\s]{1,20}$/.test(teamName)) {
+      newErrors.teamName =
+        "Team name must be between 1 and 20 characters and can include letters, numbers, spaces, or underscores.";
+    }
+
+    setErrors(newErrors);
+    return Object.values(newErrors).every((e) => e === "");
+  };
+
   const handleSubmit = async () => {
+    if (!validateInputs()) return;
+
     try {
       setIsLoading(true);
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/create-team`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           credentials: "include",
           body: JSON.stringify({
             username,
-            email,
+            email: rollNo,
             discord_id: discordId,
             team_name: teamName,
           }),
@@ -67,21 +105,20 @@ function CreateTeamPage() {
 
       <div className="absolute inset-0 z-0">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('/bg_image2.png')", opacity: 0.7 }}
         ></div>
       </div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-black/60 z-0" />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-black/60 z-0"></div>
-
-      <div className="relative z-10 pt-3 sm:pt-4 md:pt-6 flex items-center justify-between px-3 sm:px-4 md:px-6">
-        <CCSLogoLarge className="scale-90 sm:scale-100" />
+      <div className="relative z-10 pt-6 flex items-center justify-between px-4 md:px-6">
+        <CCSLogoLarge />
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 py-6 md:py-8 relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 relative z-10">
         <div className="w-full max-w-md mx-auto">
           <h1
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6 md:mb-8 tracking-wider glitch-text"
+            className="text-4xl font-bold text-center mb-8 tracking-wider"
             style={{
               fontFamily: "Zen Dots",
               textShadow: "0 0 8px rgba(255, 0, 0, 0.8)",
@@ -91,66 +128,82 @@ function CreateTeamPage() {
           </h1>
 
           <Card className="border-2 border-red-600/70 bg-black/85 backdrop-blur-lg shadow-xl shadow-red-700/30 rounded-lg overflow-hidden">
-            <CardHeader className="py-4 sm:py-5 border-b border-red-500/30 bg-gradient-to-r from-red-900/30 to-pink-900/30">
+            <CardHeader className="py-5 border-b border-red-500/30 bg-gradient-to-r from-red-900/30 to-pink-900/30">
               <CardTitle
-                className="text-lg sm:text-xl md:text-2xl text-center text-white font-bold"
+                className="text-xl text-center text-white font-bold"
                 style={{ textShadow: "0 0 5px #f43f5e" }}
               >
                 ENTER YOUR DETAILS
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-5 pt-5 px-4 sm:px-6">
-              <div className="space-y-2">
-                <Label htmlFor="name">NAME</Label>
+
+            <CardContent className="space-y-5 pt-5 px-6">
+              <div className="space-y-1">
+                <Label htmlFor="username">Username</Label>
                 <Input
-                  id="name"
-                  placeholder="Enter your name"
+                  id="username"
+                  placeholder="Enter your user name"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
+                {errors.username && (
+                  <p className="text-red-400 text-sm">{errors.username}</p>
+                )}
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="mobile">Discord Id</Label>
+
+              <div className="space-y-1">
+                <Label htmlFor="discord">Discord Username</Label>
                 <Input
                   id="discord"
-                  type="id"
-                  placeholder="Enter your discord id"
+                  placeholder="Enter your Discord ID"
                   value={discordId}
                   onChange={(e) => setDiscordId(e.target.value)}
                 />
+                {errors.discordId && (
+                  <p className="text-red-400 text-sm">{errors.discordId}</p>
+                )}
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">EMAIL</Label>
+
+              <div className="space-y-1">
+                <Label htmlFor="rollNo">Roll Number</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  id="rollNo"
+                  placeholder="Enter your Roll Number"
+                  value={rollNo}
+                  onChange={(e) =>
+                    setRollNo(e.target.value.replace(/[^\d]/g, ""))
+                  }
                 />
+                {errors.rollNo && (
+                  <p className="text-red-400 text-sm">{errors.rollNo}</p>
+                )}
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="teamName">TEAM NAME</Label>
+
+              <div className="space-y-1">
+                <Label htmlFor="teamName">Team Name</Label>
                 <Input
                   id="teamName"
                   placeholder="Enter your team name"
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
                 />
+                {errors.teamName && (
+                  <p className="text-red-400 text-sm">{errors.teamName}</p>
+                )}
               </div>
+
               <div className="pt-6 space-y-4">
                 <Button
                   onClick={handleSubmit}
                   disabled={isLoading}
-                  className="w-full py-5 sm:py-6 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-bold text-base sm:text-lg shadow-lg shadow-red-600/30 border-none transition-all duration-300 relative overflow-hidden group"
+                  className="w-full py-6 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-bold text-lg shadow-lg transition-all duration-300"
                 >
-                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-red-400/10 to-pink-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                   {isLoading ? "CREATING TEAM..." : "SUBMIT"}
                 </Button>
                 <Button
                   variant="outline"
                   onClick={() => router.push("/Join")}
-                  className="w-full py-4 sm:py-5 border-2 border-red-500 text-white bg-black/30 hover:bg-red-500/20 font-bold text-base sm:text-lg transition-all duration-300"
+                  className="w-full py-5 border-2 border-red-500 text-white bg-black/30 hover:bg-red-500/20 font-bold text-lg transition-all duration-300"
                 >
                   JOIN EXISTING TEAM
                 </Button>

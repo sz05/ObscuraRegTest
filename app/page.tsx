@@ -263,7 +263,7 @@ export default function Page() {
         >
           {/* Header */}
           <motion.div
-            className="text-center mb-12 sm:mb-16 md:mb-20"
+            className="text-center mb-12 sm:mb-16 md:mb-20  "
             variants={{
               hidden: { opacity: 0, y: 60 },
               visible: { opacity: 1, y: 0 },
@@ -271,7 +271,7 @@ export default function Page() {
           >
             <motion.button
               onClick={() => router.push("https://obscura-demo.ccstiet.com/")}
-              className="inline-flex items-center gap-3 px-4 py-2 rounded-lg bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 backdrop-blur-sm mb-8"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-lg bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 backdrop-blur-sm mb-8"
               whileHover={{ scale: 1.05, borderColor: "rgba(255, 51, 0, 0.5)" }}
             >
               <motion.div
@@ -280,7 +280,7 @@ export default function Page() {
               >
                 <Sparkles className="h-4 w-4 text-red-400" />
               </motion.div>
-              <span className="text-sm font-medium text-white/90 font-['GothamXNarrow'] uppercase tracking-wide">
+              <span className="text-xl font-medium text-white/90 font-['GothamXNarrow'] uppercase tracking-wide">
                 PLAY DEMO NOW
               </span>
               <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
@@ -338,14 +338,14 @@ export default function Page() {
                 className="w-full sm:w-auto px-8 py-4 rounded-lg bg-gradient-to-r from-purple-700 to-indigo-900 text-white font-bold text-lg font-['GothamXNarrow'] uppercase tracking-wide transition-all duration-300 ease-in-out border-2 border-purple-500/70 hover:border-purple-400 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-800 hover:to-indigo-950 relative overflow-hidden group"
               >
                 <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-purple-400/10 to-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                🚀 Register Now
+                Register Now
               </ShimmerButton>
 
               <ShimmerButton
                 onClick={handleDashboardClick}
                 className="w-full sm:w-auto px-8 py-4 rounded-lg bg-gradient-to-r from-orange-700 to-red-900 text-white font-bold text-lg font-['GothamXNarrow'] uppercase tracking-wide transition-all duration-300 ease-in-out border-2 border-orange-500/70 hover:border-orange-400 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-800 hover:to-indigo-950 relative overflow-hidden group"
               >
-                🎮 Team Dashboard
+                Team Dashboard
               </ShimmerButton>
             </motion.div>
           </motion.div>
