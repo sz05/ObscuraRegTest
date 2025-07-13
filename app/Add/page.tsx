@@ -15,14 +15,14 @@ import "react-toastify/dist/ReactToastify.css";
 function CreateTeamPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
-  const [rollNo, setRollNo] = useState("");
+  const [rollno, setRollno] = useState("");
   const [discordId, setDiscordId] = useState("");
   const [teamName, setTeamName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const [errors, setErrors] = useState({
     username: "",
-    rollNo: "",
+    rollno: "",
     discordId: "",
     teamName: "",
   });
@@ -30,7 +30,7 @@ function CreateTeamPage() {
   const validateInputs = () => {
     const newErrors = {
       username: "",
-      rollNo: "",
+      rollno: "",
       discordId: "",
       teamName: "",
     };
@@ -40,8 +40,8 @@ function CreateTeamPage() {
         "Username must be 2–32 characters using letters, numbers, dots or underscores. No special characters.";
     }
 
-    if (!/^\d{4,12}$/.test(rollNo)) {
-      newErrors.rollNo = "Roll number must be between 4 and 12 digits";
+    if (!/^\d{4,12}$/.test(rollno)) {
+      newErrors.rollno = "Roll number must be between 4 and 12 digits";
     }
 
     if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(discordId)) {
@@ -71,7 +71,7 @@ function CreateTeamPage() {
           credentials: "include",
           body: JSON.stringify({
             username: username,
-            rollNo: rollNo,
+            rollNo: rollno,
             discord_id: discordId,
             team_name: teamName,
           }),
@@ -167,17 +167,17 @@ function CreateTeamPage() {
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="rollNo">Roll Number</Label>
+                <Label htmlFor="rollno">Roll Number</Label>
                 <Input
-                  id="rollNo"
+                  id="rollno"
                   placeholder="Enter your Roll Number"
-                  value={rollNo}
+                  value={rollno}
                   onChange={(e) =>
-                    setRollNo(e.target.value.replace(/[^\d]/g, ""))
+                    setRollno(e.target.value.replace(/[^\d]/g, ""))
                   }
                 />
-                {errors.rollNo && (
-                  <p className="text-red-400 text-sm">{errors.rollNo}</p>
+                {errors.rollno && (
+                  <p className="text-red-400 text-sm">{errors.rollno}</p>
                 )}
               </div>
 

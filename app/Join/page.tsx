@@ -15,14 +15,14 @@ import "react-toastify/dist/ReactToastify.css";
 function JoinTeam() {
   const router = useRouter();
   const [username, setUsername] = useState("");
-  const [rollNo, setRollNo] = useState("");
+  const [rollno, setRollno] = useState("");
   const [discord_id, setDiscordId] = useState("");
   const [teamCode, setTeamCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const [errors, setErrors] = useState({
     username: "",
-    rollNo: "",
+    rollno: "",
     discord_id: "",
     teamCode: "",
   });
@@ -30,7 +30,7 @@ function JoinTeam() {
   const validateInputs = () => {
     const newErrors = {
       username: "",
-      rollNo: "",
+      rollno: "",
       discord_id: "",
       teamCode: "",
     };
@@ -40,8 +40,8 @@ function JoinTeam() {
         "Username must be 2–32 characters using letters, numbers, dots or underscores. No special characters.";
     }
 
-    if (!/^\d{4,12}$/.test(rollNo)) {
-      newErrors.rollNo = "Roll number must be between 4 and 12 digits";
+    if (!/^\d{4,12}$/.test(rollno)) {
+      newErrors.rollno = "Roll number must be between 4 and 12 digits";
     }
 
     if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(discord_id)) {
@@ -72,7 +72,7 @@ function JoinTeam() {
           credentials: "include",
           body: JSON.stringify({
             username: username,
-            rollNo: rollNo,
+            rollno: rollno,
             discord_id: discord_id,
             team_code: teamCode,
           }),
@@ -174,20 +174,20 @@ function JoinTeam() {
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="rollNo" className="text-red-100">
+                <Label htmlFor="rollno" className="text-red-100">
                   Roll Number
                 </Label>
                 <Input
-                  id="rollNo"
+                  id="rollno"
                   placeholder="Enter your Roll Number"
-                  value={rollNo}
+                  value={rollno}
                   onChange={(e) =>
-                    setRollNo(e.target.value.replace(/[^\d]/g, ""))
+                    setRollno(e.target.value.replace(/[^\d]/g, ""))
                   }
                   className="bg-red-900/20 border-red-500/50 focus:border-red-400 placeholder:text-red-300/50"
                 />
-                {errors.rollNo && (
-                  <p className="text-red-400 text-sm">{errors.rollNo}</p>
+                {errors.rollno && (
+                  <p className="text-red-400 text-sm">{errors.rollno}</p>
                 )}
               </div>
 
