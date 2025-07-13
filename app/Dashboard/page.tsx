@@ -109,6 +109,31 @@ function TeamDashboard() {
       )
     );
   };
+  const router = useRouter();
+
+  // const handleSave = async () => {
+  //   const hackerCount = members.filter((m) => m.is_hacker).length;
+  //   const wizardCount = members.filter((m) => m.is_wizard).length;
+
+  //   if (hackerCount !== 2 || wizardCount !== 2) {
+  //     toast.error("Please assign exactly 2 Hackers and 2 Wizards.");
+  //     return;
+  //   }
+
+  //   const res = await fetch(
+  //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/team-dashboard`,
+  //     {
+  //       method: "POST",
+  //       credentials: "include",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ team_code: teamCode, players: members }),
+  //     }
+  //   );
+
+  //   const data = await res.json();
+  //   if (!res.ok) toast.error(data.error || "Save failed");
+  //   else toast.success("Roles saved successfully!");
+  // };
 
   const handleSave = async () => {
     const hackerCount = members.filter((m) => m.is_hacker).length;
@@ -119,13 +144,40 @@ function TeamDashboard() {
       return;
     }
 
+    const invalidMembers = members.filter(
+      (m) => (m.is_hacker && m.is_wizard) || (!m.is_hacker && !m.is_wizard)
+    );
+
+    if (invalidMembers.length > 0) {
+      toast.error(
+        "Each member must be either a Hacker or a Wizard — not both or neither."
+      );
+      console.warn("Invalid members found:", invalidMembers);
+      return;
+    }
+
+    const payload = {
+      team_code: teamCode,
+      players: members.map((m) => ({
+        id: m.id,
+        name: m.name,
+        email: m.email,
+        rollNo: m.rollNo,
+        discord_id: m.discord_id,
+        is_hacker: m.is_hacker,
+        is_wizard: m.is_wizard,
+      })),
+    };
+
+    console.log("Payload being sent to backend:", payload);
+
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/team-dashboard`,
       {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ team_code: teamCode, players: members }),
+        body: JSON.stringify(payload),
       }
     );
 
@@ -134,7 +186,6 @@ function TeamDashboard() {
     else toast.success("Roles saved successfully!");
   };
 
-  const router = useRouter();
   const handleKick = async (email: string) => {
     // console.log(email);
     const res = await fetch(
@@ -151,7 +202,7 @@ function TeamDashboard() {
     if (!res.ok) toast.error(data.error || "Kick failed");
     else {
       toast.success("Member kicked!");
-      router.push("/Dashboard");
+      fetchDashboard();
     }
   };
 
@@ -355,10 +406,9 @@ function TeamDashboard() {
             </Button>
             <Box
               sx={{
+                mt: 4,
                 mb: 4,
                 p: 2,
-                border: "1px solid #444",
-                borderRadius: "12px",
                 color: "white",
                 textAlign: "center",
               }}
@@ -366,16 +416,16 @@ function TeamDashboard() {
               <Typography
                 variant="h6"
                 fontWeight="bold"
-                color="red"
+                color="#FF5555"
                 gutterBottom
               >
                 Choose Your Roles
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              <Typography color="#FFD700" variant="body1" gutterBottom>
                 Your team must have <strong>exactly 2 Wizards</strong> and{" "}
                 <strong>2 Hackers</strong>.
               </Typography>
-              <Typography variant="body2" color="gray">
+              <Typography variant="body2" color="#F1F1F1">
                 Wizards solve enchanted logic puzzles. Hackers tackle CTF-style
                 digital challenges.
                 <br />
