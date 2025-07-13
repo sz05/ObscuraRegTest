@@ -29,6 +29,7 @@ type Member = {
   id: string;
   is_wizard: boolean;
   is_hacker: boolean;
+  currentUserEmail: string;
 };
 
 function TeamDashboard() {
@@ -58,12 +59,14 @@ function TeamDashboard() {
         }
       );
       const data = await res.json();
+      console.log(data);
       if (!res.ok) throw new Error(data.error);
 
       const players: Member[] = data.players.map((p: any) => ({
         name: p.name,
         email: p.email,
         rollNo: p.rollNo,
+        currentUserEmail: p.currentUserEmail,
         discord_id: p.discord_id,
         id: p.id,
         is_wizard: p.is_wizard ?? false,
@@ -166,6 +169,7 @@ function TeamDashboard() {
         discord_id: m.discord_id,
         is_hacker: m.is_hacker,
         is_wizard: m.is_wizard,
+        currentUserEmail: m.currentUserEmail,
       })),
     };
 
