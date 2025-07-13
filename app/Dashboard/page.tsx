@@ -29,7 +29,6 @@ type Member = {
   id: string;
   is_wizard: boolean;
   is_hacker: boolean;
-  currentUserEmail: string;
 };
 
 function TeamDashboard() {
@@ -66,7 +65,6 @@ function TeamDashboard() {
         name: p.name,
         email: p.email,
         rollNo: p.rollNo,
-        currentUserEmail: p.currentUserEmail,
         discord_id: p.discord_id,
         id: p.id,
         is_wizard: p.is_wizard ?? false,
@@ -169,7 +167,6 @@ function TeamDashboard() {
         discord_id: m.discord_id,
         is_hacker: m.is_hacker,
         is_wizard: m.is_wizard,
-        currentUserEmail: m.currentUserEmail,
       })),
     };
 
@@ -410,7 +407,7 @@ function TeamDashboard() {
             </Button>
             <Box
               sx={{
-                mt: 4,
+                mt: 1,
                 mb: 4,
                 p: 2,
                 color: "white",
