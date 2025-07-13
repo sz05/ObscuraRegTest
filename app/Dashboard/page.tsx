@@ -140,10 +140,10 @@ function TeamDashboard() {
     const hackerCount = members.filter((m) => m.is_hacker).length;
     const wizardCount = members.filter((m) => m.is_wizard).length;
 
-    // if (hackerCount !== 2 || wizardCount !== 2) {
-    //   toast.error("You must assign exactly 2 Hackers and 2 Wizards.");
-    //   return;
-    // }
+    if (hackerCount !== 2 || wizardCount !== 2) {
+      toast.error("You must assign exactly 2 Hackers and 2 Wizards.");
+      return;
+    }
 
     const invalidMembers = members.filter(
       (m) => (m.is_hacker && m.is_wizard) || (!m.is_hacker && !m.is_wizard)
