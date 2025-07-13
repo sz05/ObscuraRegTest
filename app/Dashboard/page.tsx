@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
 type Role = "WIZARD" | "HACKER";
 
 type Member = {
-  rollNo: string;
+  rollno: string;
   email: string;
   name: string;
   discord_id: string;
@@ -64,7 +64,7 @@ function TeamDashboard() {
       const players: Member[] = data.players.map((p: any) => ({
         name: p.name,
         email: p.email,
-        rollNo: p.rollNo,
+        rollno: p.rollno,
         discord_id: p.discord_id,
         id: p.id,
         is_wizard: p.is_wizard ?? false,
@@ -163,7 +163,7 @@ function TeamDashboard() {
         id: m.id,
         name: m.name,
         email: m.email,
-        rollNo: m.rollNo,
+        rollno: m.rollno,
         discord_id: m.discord_id,
         is_hacker: m.is_hacker,
         is_wizard: m.is_wizard,
