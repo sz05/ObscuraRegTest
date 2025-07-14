@@ -172,11 +172,15 @@ function TeamDashboard() {
   const handleSave = async () => {
     const hackerCount = members.filter((m) => m.is_hacker).length;
     const wizardCount = members.filter((m) => m.is_wizard).length;
-    toast.error(
-      `Add ${
-        4 - (hackerCount + wizardCount)
-      } more members to complete registration of your team `
-    );
+    {
+      hackerCount + wizardCount < 4
+        ? toast.error(
+            `Add ${
+              4 - (hackerCount + wizardCount)
+            } more members to complete registration of your team `
+          )
+        : null;
+    }
 
     if (hackerCount < 2 || wizardCount < 2) {
       toast.error("You must assign exactly 2 Hackers and 2 Wizards.");
