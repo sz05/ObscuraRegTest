@@ -172,6 +172,11 @@ function TeamDashboard() {
   const handleSave = async () => {
     const hackerCount = members.filter((m) => m.is_hacker).length;
     const wizardCount = members.filter((m) => m.is_wizard).length;
+    toast.error(
+      `Add ${
+        4 - (hackerCount + wizardCount)
+      } more members to complete registration of your team `
+    );
 
     if (hackerCount < 2 || wizardCount < 2) {
       toast.error("You must assign exactly 2 Hackers and 2 Wizards.");
@@ -357,6 +362,9 @@ function TeamDashboard() {
     );
   };
 
+  const hackerCount = members.filter((m) => m.is_hacker).length;
+  const wizardCount = members.filter((m) => m.is_wizard).length;
+
   return (
     <Box
       className="min-h-screen flex flex-col items-center p-4 pb-32 relative"
@@ -403,6 +411,11 @@ function TeamDashboard() {
           <Typography variant="h6" fontWeight="bold" color="red">
             TEAM CODE
           </Typography>
+          <Typography color="red">
+            {`Add ${
+              4 - (hackerCount + wizardCount)
+            } more members to complete registration of your team `}
+          </Typography>
           <Box
             display="flex"
             alignItems="center"
@@ -440,30 +453,16 @@ function TeamDashboard() {
             flexDirection="column"
           >
             <Box display="flex" gap={2} flexWrap="wrap" justifyContent="center">
-              {members.length < 4 ? (
-                <Button
-                  disabled
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSave}
-                  sx={{
-                    minWidth: 140,
-                  }}
-                >
-                  Save Roles
-                </Button>
-              ) : (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSave}
-                  sx={{
-                    minWidth: 140,
-                  }}
-                >
-                  Save Roles
-                </Button>
-              )}
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSave}
+                sx={{
+                  minWidth: 140,
+                }}
+              >
+                Save Roles
+              </Button>
 
               {members.length === 1 && (
                 <Button
@@ -485,7 +484,7 @@ function TeamDashboard() {
               startIcon={<InfoOutlined />}
               sx={{
                 borderColor: "#666",
-                color: "#ddd",
+                color: "#3B82F6",
                 minWidth: 160,
                 "&:hover": {
                   borderColor: "#999",
