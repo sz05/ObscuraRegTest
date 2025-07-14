@@ -428,7 +428,13 @@ function TeamDashboard() {
         {members.map((member, i) => renderCard(member, i))}
 
         {isLeader && (
-          <Box textAlign="center" mt={4}>
+          <Box
+            textAlign="center"
+            mt={4}
+            display="flex"
+            flexDirection="row"
+            gap={2}
+          >
             <Button variant="contained" color="error" onClick={handleSave}>
               SAVE ROLES
             </Button>
@@ -436,7 +442,7 @@ function TeamDashboard() {
               <Button
                 variant="contained"
                 color="error"
-                sx={{ ml: 1 }}
+                // sx={{ ml: 2 }}
                 onClick={handleDeleteTeam}
               >
                 Delete Team
