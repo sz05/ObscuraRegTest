@@ -45,7 +45,7 @@ function TeamDashboard() {
     });
 
     const data = await res.json();
-    if (!res.ok) alert("Logout failed");
+    if (!res.ok) toast.error("Logout failed");
     else window.location.href = "/";
   };
 
@@ -436,7 +436,7 @@ function TeamDashboard() {
               <Button
                 variant="contained"
                 color="error"
-                sx={{ mt: 2 }}
+                // sx={{ mt: 2 }}
                 onClick={handleDeleteTeam}
               >
                 Delete Team
