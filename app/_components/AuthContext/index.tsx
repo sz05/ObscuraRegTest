@@ -22,7 +22,6 @@ const AuthProvider = ({ children }: React.PropsWithChildren) => {
         credentials: "include",
       });
       const data = await res.json();
-      //   console.log("isVCerified", data.valid);
       setIsAuthenticated(data.valid);
     } catch {
       alert("Failed to verify registration.");
