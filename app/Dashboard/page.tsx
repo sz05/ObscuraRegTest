@@ -544,7 +544,7 @@ function TeamDashboard() {
                 consisting of{" "}
                 <strong style={{ color: "#FFF" }}>
                   2 Hackers and 2 Wizards
-                </strong>
+                </strong>{" "}
                 to complete registration
               </Typography>
             </Box>
