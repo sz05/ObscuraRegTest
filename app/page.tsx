@@ -105,7 +105,6 @@ export default function Page() {
         }
       );
       const data = await res.json();
-      console.log(data);
       setRegistered(data.registered);
       if (!res.ok) throw new Error(data.error);
     } catch {
