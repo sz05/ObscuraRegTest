@@ -436,7 +436,7 @@ function TeamDashboard() {
               <Button
                 variant="contained"
                 color="error"
-                // sx={{ mt: 2 }}
+                sx={{ ml: 1 }}
                 onClick={handleDeleteTeam}
               >
                 Delete Team
