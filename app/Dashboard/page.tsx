@@ -691,8 +691,7 @@ function TeamDashboard() {
               • Teams must have exactly <span className="highlight">4 players</span><br/>
               • <span className="highlight">2 Hackers + 2 Wizards</span><br/>
               • Roles assigned by Team Leader<br/>
-              • Default: First 2 are Hackers, next 2 Wizards
-            </Typography>
+              </Typography>
           </Box>
 
           <Box className="section">
