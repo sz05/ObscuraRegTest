@@ -246,7 +246,7 @@ function TeamDashboard() {
     if (!res.ok) toast.error(data.error || "Leave failed");
     else {
       toast.success("Team Left!");
-      router.push("/");
+      router.push("/register");
     }
   };
 
