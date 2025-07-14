@@ -10,8 +10,12 @@ import {
   Tooltip,
   MenuItem,
   Select,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
-import { ContentCopy } from "@mui/icons-material";
+import { ContentCopy, InfoOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import CCSLogoLarge from "../_components/CCSLogoLarge";
 import withProtectedRoute from "../_components/ProtectedRoute";
@@ -37,6 +41,7 @@ function TeamDashboard() {
   const [isLeader, setIsLeader] = useState(false);
   const [copied, setCopied] = useState(false);
   const [currentUserEmail, setCurrentUserEmail] = useState("");
+  const [rulebookOpen, setRulebookOpen] = useState(false);
 
   const handleLogout = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, {
@@ -432,30 +437,50 @@ function TeamDashboard() {
             gap={2}
             flexWrap="wrap"
             mt={4}
+            flexDirection="column"
           >
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSave}
-              sx={{
-                minWidth: 140,
-              }}
-            >
-              Save Roles
-            </Button>
-
-            {members.length === 1 && (
+            <Box display="flex" gap={2} flexWrap="wrap" justifyContent="center">
               <Button
                 variant="contained"
-                color="error"
-                onClick={handleDeleteTeam}
+                color="primary"
+                onClick={handleSave}
                 sx={{
                   minWidth: 140,
                 }}
               >
-                Delete Team
+                Save Roles
               </Button>
-            )}
+
+              {members.length === 1 && (
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={handleDeleteTeam}
+                  sx={{
+                    minWidth: 140,
+                  }}
+                >
+                  Delete Team
+                </Button>
+              )}
+            </Box>
+            
+            <Button
+              variant="outlined"
+              onClick={() => setRulebookOpen(true)}
+              startIcon={<InfoOutlined />}
+              sx={{
+                borderColor: "#666",
+                color: "#ddd",
+                minWidth: 160,
+                "&:hover": {
+                  borderColor: "#999",
+                  bgcolor: "rgba(255,255,255,0.1)",
+                },
+              }}
+            >
+              View Rulebook
+            </Button>
           </Box>
         )}
 
@@ -571,7 +596,162 @@ function TeamDashboard() {
             </Box>
           </Box>
         )}
+
+        {!isLeader && (
+          <Box textAlign="center" mt={4}>
+            <Button
+              variant="outlined"
+              onClick={() => setRulebookOpen(true)}
+              startIcon={<InfoOutlined />}
+              sx={{
+                borderColor: "#666",
+                color: "#ddd",
+                minWidth: 160,
+                "&:hover": {
+                  borderColor: "#999",
+                  bgcolor: "rgba(255,255,255,0.1)",
+                },
+              }}
+            >
+              View Rulebook
+            </Button>
+          </Box>
+        )}
       </Container>
+
+      {/* Rulebook Modal */}
+      <Dialog 
+        open={rulebookOpen} 
+        onClose={() => setRulebookOpen(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            bgcolor: "#111",
+            border: "2px solid #333",
+            borderRadius: "12px",
+            maxHeight: "80vh",
+          }
+        }}
+      >
+        <DialogTitle
+          sx={{
+            bgcolor: "#111",
+            color: "#fff",
+            borderBottom: "2px solid #333",
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: { xs: "1.25rem", sm: "1.5rem" },
+            py: 3,
+          }}
+        >
+          🧠 OBSCURA RULEBOOK
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            bgcolor: "#111",
+            color: "#ddd",
+            p: { xs: 2, sm: 3 },
+            "& .section": {
+              mb: 3,
+              p: 2,
+              borderRadius: "8px",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              bgcolor: "rgba(255, 255, 255, 0.05)",
+            },
+            "& .section-title": {
+              color: "#ff6b6b",
+              fontWeight: "bold",
+              fontSize: { xs: "1rem", sm: "1.1rem" },
+              mb: 1,
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            },
+            "& .rule-text": {
+              fontSize: { xs: "0.85rem", sm: "0.9rem" },
+              lineHeight: 1.6,
+              color: "#ccc",
+            },
+            "& .highlight": {
+              color: "#60a5fa",
+              fontWeight: "600",
+            },
+            "& .warning": {
+              color: "#fbbf24",
+              fontWeight: "600",
+            }
+          }}
+        >
+          <Box className="section">
+            <Typography className="section-title">
+              👥 TEAM COMPOSITION
+            </Typography>
+            <Typography className="rule-text">
+              • Teams must have exactly <span className="highlight">4 players</span><br/>
+              • <span className="highlight">2 Hackers + 2 Wizards</span><br/>
+              • Roles assigned by Team Leader<br/>
+              • Default: First 2 are Hackers, next 2 Wizards
+            </Typography>
+          </Box>
+
+          <Box className="section">
+            <Typography className="section-title">
+              🎮 JOINING THE GAME
+            </Typography>
+            <Typography className="rule-text">
+              • Each player gets a <span className="highlight">Team Code via email</span><br/>
+              • Join your team using the code<br/>
+              • Game starts once <span className="highlight">all 4 players join</span>
+            </Typography>
+          </Box>
+
+          <Box className="section">
+            <Typography className="section-title">
+              🗺️ GAMEPLAY RULES
+            </Typography>
+            <Typography className="rule-text">
+              • Map split into <span className="highlight">2 sections</span><br/>
+              • Hackers and Wizards spawn in <span className="highlight">separate zones</span><br/>
+              • Each role faces <span className="highlight">unique puzzles</span><br/>
+              • <span className="warning">Teamwork is essential</span> to progress
+            </Typography>
+          </Box>
+
+          <Box className="section">
+            <Typography className="section-title">
+              💀 DEATH & RESPAWN
+            </Typography>
+            <Typography className="rule-text">
+              • If <span className="warning">even one player dies</span>, entire team<br/>
+              &nbsp;&nbsp;teleports to spawn point<br/>
+              • <span className="highlight">No progress is lost</span> — regroup and retry<br/>
+              • Communication is key to survival
+            </Typography>
+          </Box>
+        </DialogContent>
+        <DialogActions 
+          sx={{ 
+            bgcolor: "#111", 
+            borderTop: "2px solid #333",
+            p: { xs: 2, sm: 3 },
+            justifyContent: "center"
+          }}
+        >
+          <Button 
+            onClick={() => setRulebookOpen(false)} 
+            variant="contained"
+            sx={{ 
+              bgcolor: "#ef4444",
+              "&:hover": { bgcolor: "#dc2626" },
+              minWidth: 120,
+              fontWeight: "bold"
+            }}
+          >
+            Got It!
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
