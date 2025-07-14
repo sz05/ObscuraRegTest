@@ -411,11 +411,7 @@ function TeamDashboard() {
           <Typography variant="h6" fontWeight="bold" color="red">
             TEAM CODE
           </Typography>
-          <Typography color="red">
-            {`Add ${
-              4 - (hackerCount + wizardCount)
-            } more members to complete registration of your team `}
-          </Typography>
+
           <Box
             display="flex"
             alignItems="center"
@@ -453,6 +449,11 @@ function TeamDashboard() {
             flexDirection="column"
           >
             <Box display="flex" gap={2} flexWrap="wrap" justifyContent="center">
+              <Typography color="red">
+                {`Add ${
+                  4 - (hackerCount + wizardCount)
+                } more members to complete registration of your team `}
+              </Typography>
               <Button
                 variant="contained"
                 color="primary"
@@ -483,8 +484,9 @@ function TeamDashboard() {
               onClick={() => setRulebookOpen(true)}
               startIcon={<InfoOutlined />}
               sx={{
+                backgroundColor: "red",
                 borderColor: "#666",
-                color: "#3B82F6",
+                color: "#ddd",
                 minWidth: 160,
                 "&:hover": {
                   borderColor: "#999",
