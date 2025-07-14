@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -12,6 +12,14 @@
   font-weight: bold;
   font-style: normal;
   font-display: swap;
+}
+
+@font-face {
+  font-family: "Megarok";
+  src: url("/fonts/megarok.woff2") format("woff2"),
+    url("/fonts/megarok.otf") format("otf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
@@ -110,7 +118,8 @@ body {
 
 @layer base {
   .theme {
-    --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+    --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite
+      alternate;
     --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
   }
 }
@@ -126,22 +135,24 @@ body {
 
 @theme inline {
   @keyframes shimmer-slide {
-  to {
-    transform: translate(calc(100cqw - 100%), 0);
+    to {
+      transform: translate(calc(100cqw - 100%), 0);
     }
   }
   @keyframes spin-around {
-  0% {
-    transform: translateZ(0) rotate(0);
+    0% {
+      transform: translateZ(0) rotate(0);
     }
-  15%, 35% {
-    transform: translateZ(0) rotate(90deg);
+    15%,
+    35% {
+      transform: translateZ(0) rotate(90deg);
     }
-  65%, 85% {
-    transform: translateZ(0) rotate(270deg);
+    65%,
+    85% {
+      transform: translateZ(0) rotate(270deg);
     }
-  100% {
-    transform: translateZ(0) rotate(360deg);
+    100% {
+      transform: translateZ(0) rotate(360deg);
     }
   }
 }

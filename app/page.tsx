@@ -144,11 +144,11 @@ export default function Page() {
               <CCSLogo className="w-full h-full" />
             </div>
 
-            <h2 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-['Zen_Dots'] leading-none tracking-wider drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
+            <h2 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-megarok leading-none tracking-wider drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
               PRESENTS
             </h2>
 
-            <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-['Zen_Dots'] leading-none tracking-wider drop-shadow-[0_0_15px_rgba(0,0,0,0.9)]">
+            <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-megarok leading-none tracking-wider drop-shadow-[0_0_15px_rgba(0,0,0,0.9)]">
               OBSCURA
             </h1>
 
@@ -286,7 +286,7 @@ export default function Page() {
             </motion.button>
 
             <motion.h2
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-['Zen_Dots'] mb-6 tracking-wider leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-megarok mb-6 tracking-wider leading-tight"
               variants={{
                 hidden: { opacity: 0, y: 60 },
                 visible: { opacity: 1, y: 0 },
@@ -315,7 +315,7 @@ export default function Page() {
             </motion.p>
 
             <motion.p
-              className="text-lg sm:text-xl md:text-2xl text-red-300 font-['Zen_Dots'] mb-12 tracking-wide"
+              className="text-lg sm:text-xl md:text-2xl text-red-300 font-megarok mb-12 tracking-wide"
               variants={{
                 hidden: { opacity: 0, y: 60 },
                 visible: { opacity: 1, y: 0 },

@@ -54,6 +54,7 @@ const config: Config = {
       fontFamily: {
         "zen-dots": ["Zen Dots", "sans-serif"], // ✅ Register font-zen-dots utility
         Kdam_Thmor_Pro: ["Kdam_Thmor_Pro", "sans-serif"],
+        megarok: ["Megarok", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
