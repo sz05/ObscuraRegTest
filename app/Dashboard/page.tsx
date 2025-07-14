@@ -426,140 +426,148 @@ function TeamDashboard() {
 
         {isLeader && (
           <Box
-            textAlign="center"
-            mt={4}
-            // display="flex"
-            // flexDirection="row"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
             gap={2}
+            flexWrap="wrap"
+            mt={4}
           >
             <Button
               variant="contained"
-              color="error"
-              sx={{ marginRight: 1 }}
+              color="primary"
               onClick={handleSave}
+              sx={{
+                minWidth: 140,
+              }}
             >
-              SAVE ROLES
+              Save Roles
             </Button>
-            {isLeader && members.length === 1 && (
+
+            {members.length === 1 && (
               <Button
                 variant="contained"
                 color="error"
-                sx={{ ml: 1 }}
                 onClick={handleDeleteTeam}
+                sx={{
+                  minWidth: 140,
+                }}
               >
                 Delete Team
               </Button>
             )}
+          </Box>
+        )}
+
+        {isLeader && (
+          <Box
+            sx={{
+              mt: 2,
+              mb: 4,
+              p: 3,
+              backgroundColor: "rgba(17, 17, 17, 0.9)",
+              border: "1px solid rgba(239, 68, 68, 0.3)",
+              borderRadius: "12px",
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              gap={1}
+              mb={3}
+            >
+              <Typography variant="h6" fontWeight="bold" color="#FF5555">
+                Choose Your Roles
+              </Typography>
+            </Box>
 
             <Box
               sx={{
-                mt: 2,
-                mb: 4,
-                p: 3,
-                backgroundColor: "rgba(17, 17, 17, 0.9)",
-                border: "1px solid rgba(239, 68, 68, 0.3)",
-                borderRadius: "12px",
-                backdropFilter: "blur(8px)",
+                background:
+                  "linear-gradient(90deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2))",
+                border: "1px solid rgba(255, 215, 0, 0.3)",
+                borderRadius: "8px",
+                p: 2,
+                mb: 3,
               }}
             >
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                gap={1}
-                mb={3}
+              <Typography
+                color="#FFD700"
+                variant="body1"
+                fontWeight="600"
+                textAlign="center"
               >
-                <Typography variant="h6" fontWeight="bold" color="#FF5555">
-                  Choose Your Roles
-                </Typography>
-              </Box>
+                Your team must have{" "}
+                <strong style={{ color: "#FFF" }}>exactly 2 Wizards</strong> and{" "}
+                <strong style={{ color: "#FFF" }}>2 Hackers</strong>
+              </Typography>
+            </Box>
 
+            <Box
+              display="flex"
+              gap={2}
+              mb={3}
+              flexDirection={{ xs: "column", sm: "row" }}
+            >
               <Box
                 sx={{
-                  background:
-                    "linear-gradient(90deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2))",
-                  border: "1px solid rgba(255, 215, 0, 0.3)",
+                  flex: 1,
+                  backgroundColor: "rgba(239, 68, 68, 0.1)",
+                  border: "1px solid rgba(239, 68, 68, 0.3)",
                   borderRadius: "8px",
                   p: 2,
-                  mb: 3,
                 }}
               >
                 <Typography
-                  color="#FFD700"
-                  variant="body1"
-                  fontWeight="600"
-                  textAlign="center"
+                  variant="subtitle2"
+                  fontWeight="bold"
+                  color="#FF6B6B"
+                  mb={1}
                 >
-                  Your team must have{" "}
-                  <strong style={{ color: "#FFF" }}>exactly 2 Wizards</strong>{" "}
-                  and <strong style={{ color: "#FFF" }}>2 Hackers</strong>
+                  Wizards
                 </Typography>
-              </Box>
-
-              <Box
-                display="flex"
-                gap={2}
-                mb={3}
-                flexDirection={{ xs: "column", sm: "row" }}
-              >
-                <Box
-                  sx={{
-                    flex: 1,
-                    backgroundColor: "rgba(239, 68, 68, 0.1)",
-                    border: "1px solid rgba(239, 68, 68, 0.3)",
-                    borderRadius: "8px",
-                    p: 2,
-                  }}
-                >
-                  <Typography
-                    variant="subtitle2"
-                    fontWeight="bold"
-                    color="#FF6B6B"
-                    mb={1}
-                  >
-                    Wizards
-                  </Typography>
-                  <Typography variant="body2" color="#F1F1F1">
-                    Master enchanted logic puzzles and mystical challenges
-                  </Typography>
-                </Box>
-
-                <Box
-                  sx={{
-                    flex: 1,
-                    backgroundColor: "rgba(59, 130, 246, 0.1)",
-                    border: "1px solid rgba(59, 130, 246, 0.3)",
-                    borderRadius: "8px",
-                    p: 2,
-                  }}
-                >
-                  <Typography
-                    variant="subtitle2"
-                    fontWeight="bold"
-                    color="#60A5FA"
-                    mb={1}
-                  >
-                    Hackers
-                  </Typography>
-                  <Typography variant="body2" color="#F1F1F1">
-                    Tackle CTF-style digital security challenges
-                  </Typography>
-                </Box>
+                <Typography variant="body2" color="#F1F1F1">
+                  Master enchanted logic puzzles and mystical challenges
+                </Typography>
               </Box>
 
               <Box
                 sx={{
-                  backgroundColor: "rgba(75, 85, 99, 0.5)",
-                  border: "1px solid rgba(107, 114, 128, 0.3)",
+                  flex: 1,
+                  backgroundColor: "rgba(59, 130, 246, 0.1)",
+                  border: "1px solid rgba(59, 130, 246, 0.3)",
                   borderRadius: "8px",
                   p: 2,
                 }}
               >
-                <Typography variant="body2" color="#D1D5DB" textAlign="center">
-                  <strong style={{ color: "#F3F4F6" }}>Don't worry!</strong> You
-                  can change these roles later if needed.
+                <Typography
+                  variant="subtitle2"
+                  fontWeight="bold"
+                  color="#60A5FA"
+                  mb={1}
+                >
+                  Hackers
+                </Typography>
+                <Typography variant="body2" color="#F1F1F1">
+                  Tackle CTF-style digital security challenges
                 </Typography>
               </Box>
+            </Box>
+
+            <Box
+              sx={{
+                backgroundColor: "rgba(75, 85, 99, 0.5)",
+                border: "1px solid rgba(107, 114, 128, 0.3)",
+                borderRadius: "8px",
+                p: 2,
+              }}
+            >
+              <Typography variant="body2" color="#D1D5DB" textAlign="center">
+                <strong style={{ color: "#F3F4F6" }}>Don't worry!</strong> You
+                can change these roles later if needed.
+              </Typography>
             </Box>
           </Box>
         )}
