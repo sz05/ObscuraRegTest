@@ -440,16 +440,30 @@ function TeamDashboard() {
             flexDirection="column"
           >
             <Box display="flex" gap={2} flexWrap="wrap" justifyContent="center">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSave}
-                sx={{
-                  minWidth: 140,
-                }}
-              >
-                Save Roles
-              </Button>
+              {members.length < 4 ? (
+                <Button
+                  disabled
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSave}
+                  sx={{
+                    minWidth: 140,
+                  }}
+                >
+                  Save Roles
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSave}
+                  sx={{
+                    minWidth: 140,
+                  }}
+                >
+                  Save Roles
+                </Button>
+              )}
 
               {members.length === 1 && (
                 <Button
@@ -464,7 +478,7 @@ function TeamDashboard() {
                 </Button>
               )}
             </Box>
-            
+
             <Button
               variant="outlined"
               onClick={() => setRulebookOpen(true)}
@@ -620,8 +634,8 @@ function TeamDashboard() {
       </Container>
 
       {/* Rulebook Modal */}
-      <Dialog 
-        open={rulebookOpen} 
+      <Dialog
+        open={rulebookOpen}
         onClose={() => setRulebookOpen(false)}
         maxWidth="sm"
         fullWidth
@@ -631,7 +645,7 @@ function TeamDashboard() {
             border: "2px solid #333",
             borderRadius: "12px",
             maxHeight: "80vh",
-          }
+          },
         }}
       >
         <DialogTitle
@@ -680,7 +694,7 @@ function TeamDashboard() {
             "& .warning": {
               color: "#fbbf24",
               fontWeight: "600",
-            }
+            },
           }}
         >
           <Box className="section">
@@ -688,10 +702,13 @@ function TeamDashboard() {
               👥 TEAM COMPOSITION
             </Typography>
             <Typography className="rule-text">
-              • Teams must have exactly <span className="highlight">4 players</span><br/>
-              • <span className="highlight">2 Hackers + 2 Wizards</span><br/>
-              • Roles assigned by Team Leader<br/>
-              </Typography>
+              • Teams must have exactly{" "}
+              <span className="highlight">4 players</span>
+              <br />• <span className="highlight">2 Hackers + 2 Wizards</span>
+              <br />
+              • Roles assigned by Team Leader
+              <br />
+            </Typography>
           </Box>
 
           <Box className="section">
@@ -699,21 +716,25 @@ function TeamDashboard() {
               🎮 JOINING THE GAME
             </Typography>
             <Typography className="rule-text">
-              • Each player gets a <span className="highlight">Team Code via email</span><br/>
-              • Join your team using the code<br/>
-              • Game starts once <span className="highlight">all 4 players join</span>
+              • Each player gets a{" "}
+              <span className="highlight">Team Code via email</span>
+              <br />
+              • Join your team using the code
+              <br />• Game starts once{" "}
+              <span className="highlight">all 4 players join</span>
             </Typography>
           </Box>
 
           <Box className="section">
-            <Typography className="section-title">
-              🗺️ GAMEPLAY RULES
-            </Typography>
+            <Typography className="section-title">🗺️ GAMEPLAY RULES</Typography>
             <Typography className="rule-text">
-              • Map split into <span className="highlight">2 sections</span><br/>
-              • Hackers and Wizards spawn in <span className="highlight">separate zones</span><br/>
-              • Each role faces <span className="highlight">unique puzzles</span><br/>
-              • <span className="warning">Teamwork is essential</span> to progress
+              • Map split into <span className="highlight">2 sections</span>
+              <br />• Hackers and Wizards spawn in{" "}
+              <span className="highlight">separate zones</span>
+              <br />• Each role faces{" "}
+              <span className="highlight">unique puzzles</span>
+              <br />• <span className="warning">Teamwork is essential</span> to
+              progress
             </Typography>
           </Box>
 
@@ -722,29 +743,32 @@ function TeamDashboard() {
               💀 DEATH & RESPAWN
             </Typography>
             <Typography className="rule-text">
-              • If <span className="warning">even one player dies</span>, entire team<br/>
-              &nbsp;&nbsp;teleports to spawn point<br/>
-              • <span className="highlight">No progress is lost</span> — regroup and retry<br/>
-              • Communication is key to survival
+              • If <span className="warning">even one player dies</span>, entire
+              team
+              <br />
+              &nbsp;&nbsp;teleports to spawn point
+              <br />• <span className="highlight">No progress is lost</span> —
+              regroup and retry
+              <br />• Communication is key to survival
             </Typography>
           </Box>
         </DialogContent>
-        <DialogActions 
-          sx={{ 
-            bgcolor: "#111", 
+        <DialogActions
+          sx={{
+            bgcolor: "#111",
             borderTop: "2px solid #333",
             p: { xs: 2, sm: 3 },
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
-          <Button 
-            onClick={() => setRulebookOpen(false)} 
+          <Button
+            onClick={() => setRulebookOpen(false)}
             variant="contained"
-            sx={{ 
+            sx={{
               bgcolor: "#ef4444",
               "&:hover": { bgcolor: "#dc2626" },
               minWidth: 120,
-              fontWeight: "bold"
+              fontWeight: "bold",
             }}
           >
             Got It!
