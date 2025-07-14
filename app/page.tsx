@@ -268,7 +268,7 @@ export default function Page() {
               visible: { opacity: 1, y: 0 },
             }}
           >
-            <motion.button
+            {/* <motion.button
               onClick={() => router.push("https://obscura-demo.ccstiet.com/")}
               className="inline-flex items-center gap-3 px-8 py-4 rounded-lg bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 backdrop-blur-sm mb-8"
               whileHover={{ scale: 1.05, borderColor: "rgba(255, 51, 0, 0.5)" }}
@@ -283,7 +283,7 @@ export default function Page() {
                 PLAY DEMO NOW
               </span>
               <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-            </motion.button>
+            </motion.button> */}
 
             <motion.h2
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-megarok mb-6 tracking-wider leading-tight"
