@@ -726,9 +726,6 @@ function TeamDashboard() {
               2. JOINING THE GAME
             </Typography>
             <Typography className="rule-text">
-              • Each player gets a{" "}
-              <span className="highlight">Team Code via email</span>
-              <br />
               • Join your team using the code
               <br />• Game starts once{" "}
               <span className="highlight">all 4 players join</span>
