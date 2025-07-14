@@ -16,8 +16,8 @@
 
 @font-face {
   font-family: "Megarok";
-  src: url("/fonts/megarok.woff2") format("woff2"),
-    url("/fonts/megarok.otf") format("otf");
+  src: url("/fonts/Megarok.woff2") format("woff2"),
+    url("/fonts/Megarok.otf") format("otf");
   font-weight: normal;
   font-style: normal;
 }
