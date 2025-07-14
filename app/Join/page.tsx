@@ -88,7 +88,6 @@ function JoinTeam() {
         router.push("/Dashboard");
       }
     } catch (err) {
-      console.error("Error joining team", err);
       toast.error("Something went wrong!");
     } finally {
       setIsLoading(false);

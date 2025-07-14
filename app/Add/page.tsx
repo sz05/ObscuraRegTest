@@ -87,7 +87,7 @@ function CreateTeamPage() {
         router.push(`/ThankYou?code=${data.team_code}`);
       }
     } catch (err) {
-      console.error("Error submitting form", err);
+      // console.error("Error submitting form", err);
       toast.error("Something went wrong!");
     } finally {
       setIsLoading(false);
