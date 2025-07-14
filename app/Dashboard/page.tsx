@@ -704,7 +704,9 @@ function TeamDashboard() {
           }}
         >
           <Box className="section">
-            <Typography className="section-title">TEAM COMPOSITION</Typography>
+            <Typography className="section-title">
+              1. TEAM COMPOSITION
+            </Typography>
             <Typography className="rule-text">
               • Teams must have exactly{" "}
               <span className="highlight">4 players</span>
@@ -716,7 +718,9 @@ function TeamDashboard() {
           </Box>
 
           <Box className="section">
-            <Typography className="section-title">JOINING THE GAME</Typography>
+            <Typography className="section-title">
+              2. JOINING THE GAME
+            </Typography>
             <Typography className="rule-text">
               • Each player gets a{" "}
               <span className="highlight">Team Code via email</span>
@@ -728,7 +732,7 @@ function TeamDashboard() {
           </Box>
 
           <Box className="section">
-            <Typography className="section-title">🗺️ GAMEPLAY RULES</Typography>
+            <Typography className="section-title">3. GAMEPLAY RULES</Typography>
             <Typography className="rule-text">
               • Map split into <span className="highlight">2 sections</span>
               <br />• Hackers and Wizards spawn in{" "}
@@ -741,7 +745,9 @@ function TeamDashboard() {
           </Box>
 
           <Box className="section">
-            <Typography className="section-title">DEATH & RESPAWN</Typography>
+            <Typography className="section-title">
+              4. DEATH & RESPAWN
+            </Typography>
             <Typography className="rule-text">
               • If <span className="warning">even one player dies</span>, entire
               team
