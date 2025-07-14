@@ -449,11 +449,11 @@ function TeamDashboard() {
             flexDirection="column"
           >
             <Box display="flex" gap={2} flexWrap="wrap" justifyContent="center">
-              <Typography color="red">
+              {/* <Typography color="red">
                 {`Add ${
                   4 - (hackerCount + wizardCount)
                 } more members to complete registration of your team `}
-              </Typography>
+              </Typography> */}
               <Button
                 variant="contained"
                 color="primary"
@@ -540,8 +540,11 @@ function TeamDashboard() {
                 textAlign="center"
               >
                 Your team must have{" "}
-                <strong style={{ color: "#FFF" }}>exactly 2 Wizards</strong> and{" "}
-                <strong style={{ color: "#FFF" }}>2 Hackers</strong>
+                <strong style={{ color: "#FFF" }}>exactly 4 members</strong>{" "}
+                consisting of{" "}
+                <strong style={{ color: "#FFF" }}>
+                  2 Hackers and 2 Wizards
+                </strong>
               </Typography>
             </Box>
 
@@ -660,7 +663,7 @@ function TeamDashboard() {
             py: 3,
           }}
         >
-          🧠 OBSCURA RULEBOOK
+          OBSCURA RULEBOOK
         </DialogTitle>
         <DialogContent
           sx={{
@@ -699,9 +702,7 @@ function TeamDashboard() {
           }}
         >
           <Box className="section">
-            <Typography className="section-title">
-              👥 TEAM COMPOSITION
-            </Typography>
+            <Typography className="section-title">TEAM COMPOSITION</Typography>
             <Typography className="rule-text">
               • Teams must have exactly{" "}
               <span className="highlight">4 players</span>
@@ -713,9 +714,7 @@ function TeamDashboard() {
           </Box>
 
           <Box className="section">
-            <Typography className="section-title">
-              🎮 JOINING THE GAME
-            </Typography>
+            <Typography className="section-title">JOINING THE GAME</Typography>
             <Typography className="rule-text">
               • Each player gets a{" "}
               <span className="highlight">Team Code via email</span>
@@ -740,9 +739,7 @@ function TeamDashboard() {
           </Box>
 
           <Box className="section">
-            <Typography className="section-title">
-              💀 DEATH & RESPAWN
-            </Typography>
+            <Typography className="section-title">DEATH & RESPAWN</Typography>
             <Typography className="rule-text">
               • If <span className="warning">even one player dies</span>, entire
               team
