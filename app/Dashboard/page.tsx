@@ -545,6 +545,7 @@ function TeamDashboard() {
                 <strong style={{ color: "#FFF" }}>
                   2 Hackers and 2 Wizards
                 </strong>
+                to complete registration
               </Typography>
             </Box>
 
@@ -622,6 +623,7 @@ function TeamDashboard() {
               onClick={() => setRulebookOpen(true)}
               startIcon={<InfoOutlined />}
               sx={{
+                backgroundColor: "red",
                 borderColor: "#666",
                 color: "#ddd",
                 minWidth: 160,
