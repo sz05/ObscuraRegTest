@@ -80,6 +80,35 @@ function TeamDashboard() {
     }
   };
 
+  const handleDeleteTeam = async () => {
+    if (
+      !confirm(
+        "Are you sure you want to delete your team? This cannot be undone."
+      )
+    )
+      return;
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/delete-team`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
+      const data = await res.json();
+      if (!res.ok) {
+        toast.error(data.error || "Team deletion failed");
+      } else {
+        toast.success("Team deleted successfully!");
+        router.push("/register");
+      }
+    } catch (error) {
+      toast.error("Error deleting team");
+    }
+  };
+
   const handleRoleChange = (index: number, role: Role | null) => {
     if (!role) return;
 
@@ -403,6 +432,17 @@ function TeamDashboard() {
             <Button variant="contained" color="error" onClick={handleSave}>
               SAVE ROLES
             </Button>
+            {isLeader && members.length === 1 && (
+              <Button
+                variant="contained"
+                color="error"
+                sx={{ mt: 2 }}
+                onClick={handleDeleteTeam}
+              >
+                Delete Team
+              </Button>
+            )}
+
             <Box
               sx={{
                 mt: 2,
