@@ -315,7 +315,7 @@ export default function Page() {
             </motion.p>
 
             <motion.p
-              className="text-lg sm:text-xl md:text-2xl text-red-300 font-megarok mb-12 tracking-wide"
+              className="text-lg sm:text-3xl md:text-4xl text-red-300 font-megarok mb-12 tracking-wide"
               variants={{
                 hidden: { opacity: 0, y: 60 },
                 visible: { opacity: 1, y: 0 },
