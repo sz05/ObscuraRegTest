@@ -58,7 +58,6 @@ function TeamDashboard() {
         }
       );
       const data = await res.json();
-      console.log(data);
       if (!res.ok) throw new Error(data.error);
 
       const players: Member[] = data.players.map((p: any) => ({
@@ -182,7 +181,6 @@ function TeamDashboard() {
       toast.error(
         "Each member must be either a Hacker or a Wizard — not both or neither."
       );
-      console.warn("Invalid members found:", invalidMembers);
       return;
     }
 
@@ -215,7 +213,6 @@ function TeamDashboard() {
   };
 
   const handleKick = async (email: string) => {
-    // console.log(email);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/remove-from-team`,
       {
@@ -431,18 +428,23 @@ function TeamDashboard() {
           <Box
             textAlign="center"
             mt={4}
-            display="flex"
-            flexDirection="row"
+            // display="flex"
+            // flexDirection="row"
             gap={2}
           >
-            <Button variant="contained" color="error" onClick={handleSave}>
+            <Button
+              variant="contained"
+              color="error"
+              sx={{ marginRight: 1 }}
+              onClick={handleSave}
+            >
               SAVE ROLES
             </Button>
             {isLeader && members.length === 1 && (
               <Button
                 variant="contained"
                 color="error"
-                // sx={{ ml: 2 }}
+                sx={{ ml: 1 }}
                 onClick={handleDeleteTeam}
               >
                 Delete Team
