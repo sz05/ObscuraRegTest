@@ -284,7 +284,6 @@ export default function Page() {
               </span>
               <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
             </motion.button> */}
-
             <motion.h2
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-megarok mb-6 tracking-wider leading-tight"
               variants={{
@@ -296,7 +295,6 @@ export default function Page() {
                 HACK THE MAZE
               </span>
             </motion.h2>
-
             <motion.p
               className="text-lg sm:text-xl md:text-2xl text-white/70 max-w-4xl mx-auto leading-relaxed mb-8 font-['GothamXNarrow']"
               variants={{
@@ -309,11 +307,12 @@ export default function Page() {
               between logic and sorcery, a rogue demonic entity named{" "}
               <span className="text-orange-400 font-bold">Obscura</span> has
               hijacked the overworld's robotic army and fractured two souls into
-              hacker and wizard. Now trapped in a shifting digital labyrinth,
-              you and your team must outwit firewalls, dodge arcane traps, and
-              decode corrupted transmissions.
+              hacker and wizard. Now , with your{" "}
+              <span className="text-red-400 font-bold"> team of 4 </span> ,
+              you're trapped in a shifting digital labyrinth, you and your team
+              must outwit firewalls, dodge arcane traps, and decode corrupted
+              transmissions.
             </motion.p>
-
             <motion.p
               className="text-lg sm:text-3xl md:text-4xl text-red-300 font-megarok mb-12 tracking-wide"
               variants={{
@@ -323,7 +322,6 @@ export default function Page() {
             >
               Are you smart enough to escape? Or will the glitch claim you too?
             </motion.p>
-
             {/* Action Buttons */}
             <motion.div
               className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-lg mx-auto"
