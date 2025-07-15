@@ -37,7 +37,7 @@ function JoinTeam() {
 
     if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(username)) {
       newErrors.username =
-        "Username must be 2–32 characters using letters, numbers, dots or underscores. No special characters.";
+        "Username must be 2–32 characters using letters, numbers, dots or underscores. No special characters. No trailing or leading underscores.";
     }
 
     if (!/^\d{4,12}$/.test(rollno)) {
@@ -46,7 +46,7 @@ function JoinTeam() {
 
     if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(discord_id)) {
       newErrors.discord_id =
-        "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores).";
+        "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores). No trailing or leading underscores.";
     }
 
     if (teamCode.trim().length === 0) {

@@ -37,7 +37,7 @@ function CreateTeamPage() {
 
     if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(username)) {
       newErrors.username =
-        "Username must be 2–32 characters using letters, numbers, dots or underscores. No special characters.";
+        "Username must be 2–32 characters using letters, numbers, dots or underscores. No special characters. No trailing or leading underscores.";
     }
 
     if (!/^\d{4,12}$/.test(rollno)) {
@@ -46,7 +46,7 @@ function CreateTeamPage() {
 
     if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(discordId)) {
       newErrors.discordId =
-        "Invalid Discord username. Use 2–32 characters (letters, numbers, underscores, dots). No spaces or special characters.";
+        "Invalid Discord username. Use 2–32 characters (letters, numbers, underscores, dots). No spaces or special characters. No trailing or leading underscores.";
     }
 
     if (!/^[\w\s]{1,20}$/.test(teamName)) {
