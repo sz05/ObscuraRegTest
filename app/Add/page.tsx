@@ -145,7 +145,10 @@ function CreateTeamPage() {
                   id="username"
                   placeholder="Enter your user name"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => {
+                    setErrors((errors) => ({ ...errors, username: "" }));
+                    setUsername(e.target.value);
+                  }}
                 />
                 {errors.username && (
                   <p className="text-red-400 text-sm">{errors.username}</p>
@@ -158,7 +161,10 @@ function CreateTeamPage() {
                   id="discord"
                   placeholder="Enter your Discord ID"
                   value={discordId}
-                  onChange={(e) => setDiscordId(e.target.value)}
+                  onChange={(e) => {
+                    setErrors((errors) => ({ ...errors, discordId: "" }));
+                    setDiscordId(e.target.value);
+                  }}
                 />
                 {errors.discordId && (
                   <p className="text-red-400 text-sm">{errors.discordId}</p>
@@ -171,9 +177,10 @@ function CreateTeamPage() {
                   id="rollno"
                   placeholder="Enter your Roll Number"
                   value={rollno}
-                  onChange={(e) =>
-                    setRollno(e.target.value.replace(/[^\d]/g, ""))
-                  }
+                  onChange={(e) => {
+                    setErrors((errors) => ({ ...errors, rollno: "" }));
+                    setRollno(e.target.value.replace(/[^\d]/g, ""));
+                  }}
                 />
                 {errors.rollno && (
                   <p className="text-red-400 text-sm">{errors.rollno}</p>
@@ -186,7 +193,10 @@ function CreateTeamPage() {
                   id="teamName"
                   placeholder="Enter your team name"
                   value={teamName}
-                  onChange={(e) => setTeamName(e.target.value)}
+                  onChange={(e) => {
+                    setErrors((errors) => ({ ...errors, teamName: "" }));
+                    setTeamName(e.target.value);
+                  }}
                 />
                 {errors.teamName && (
                   <p className="text-red-400 text-sm">{errors.teamName}</p>

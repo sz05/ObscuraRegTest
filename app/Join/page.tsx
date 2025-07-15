@@ -148,7 +148,10 @@ function JoinTeam() {
                   id="name"
                   placeholder="Enter your username"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => {
+                    setErrors((errors) => ({ ...errors, username: "" }));
+                    setUsername(e.target.value);
+                  }}
                   className="bg-red-900/20 border-red-500/50 focus:border-red-400 placeholder:text-red-300/50"
                 />
                 {errors.username && (
@@ -164,7 +167,10 @@ function JoinTeam() {
                   id="discord"
                   placeholder="Enter your Discord ID"
                   value={discord_id}
-                  onChange={(e) => setDiscordId(e.target.value)}
+                  onChange={(e) => {
+                    setErrors((errors) => ({ ...errors, discord_id: "" }));
+                    setDiscordId(e.target.value);
+                  }}
                   className="bg-red-900/20 border-red-500/50 focus:border-red-400 placeholder:text-red-300/50"
                 />
                 {errors.discord_id && (
@@ -180,9 +186,10 @@ function JoinTeam() {
                   id="rollno"
                   placeholder="Enter your Roll Number"
                   value={rollno}
-                  onChange={(e) =>
-                    setRollno(e.target.value.replace(/[^\d]/g, ""))
-                  }
+                  onChange={(e) => {
+                    setErrors((errors) => ({ ...errors, rollno: "" }));
+                    setRollno(e.target.value.replace(/[^\d]/g, ""));
+                  }}
                   className="bg-red-900/20 border-red-500/50 focus:border-red-400 placeholder:text-red-300/50"
                 />
                 {errors.rollno && (
@@ -198,7 +205,10 @@ function JoinTeam() {
                   id="teamCode"
                   placeholder="Enter your team code"
                   value={teamCode}
-                  onChange={(e) => setTeamCode(e.target.value)}
+                  onChange={(e) => {
+                    setErrors((errors) => ({ ...errors, teamCode: "" }));
+                    setTeamCode(e.target.value);
+                  }}
                   className="bg-red-900/20 border-red-500/50 focus:border-red-400 placeholder:text-red-300/50"
                 />
                 {errors.teamCode && (

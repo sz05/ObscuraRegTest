@@ -5,14 +5,14 @@ import { useAuthContext } from "./AuthContext";
 
 function withProtectedRoute(Component: React.ComponentType) {
   const Wrapper = () => {
-    const { isAuth } = useAuthContext();
+    const { isAuth, isAuthenticatedLoaded } = useAuthContext();
     const router = useRouter();
 
     useEffect(() => {
-      if (!isAuth) {
+      if (!isAuth && isAuthenticatedLoaded) {
         router.push("/");
       }
-    }, [isAuth]);
+    }, [isAuth, isAuthenticatedLoaded]);
 
     if (!isAuth) return null;
 
