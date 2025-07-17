@@ -394,7 +394,7 @@ function TeamDashboard() {
                 </Box>
               </Box>
             ) : (
-              <Box display="flex" justifyContent="center" alignItems="center">
+              <Box display="flex">
                 <Typography variant="body2" color="gray">
                   Discord: {member.discord_id || "Not provided"}
                 </Typography>
