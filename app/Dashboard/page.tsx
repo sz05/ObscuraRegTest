@@ -185,6 +185,8 @@ function TeamDashboard() {
     const data = await res.json();
     if (!res.ok) toast.error(data.error || "Update failed");
     else toast.success("Discord ID updated successfully !");
+    setEdit(false);
+    fetchDashboard();
   };
 
   const handleSave = async () => {
