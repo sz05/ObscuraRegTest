@@ -103,6 +103,79 @@ function TeamDashboard() {
     }
   };
 
+  // const fetchDashboard = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/team-dashboard`,
+  //       {
+  //         credentials: "include",
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     if (!res.ok) throw new Error(data.error);
+
+  //     const players: Member[] = data.players.map((p: any) => ({
+  //       name: p.name,
+  //       email: p.email,
+  //       rollno: p.rollno,
+  //       discord_id: p.discord_id,
+  //       id: p.id,
+  //       is_wizard: p.is_wizard ?? false,
+  //       is_hacker: p.is_hacker ?? true,
+  //     }));
+
+  //     setMembers(players);
+  //     setTeamCode(data.team_code);
+  //     setIsLeader(data.is_leader);
+  //     setCurrentUserEmail(data.currentUserEmail);
+  //   } catch (error) {
+  //     toast.error("Failed to load dashboard. Loading demo data...");
+
+  //     // Load dummy data
+  //     setMembers([
+  //       {
+  //         id: "1",
+  //         name: "Alice Wonderland",
+  //         email: "alice@example.com",
+  //         rollno: "CS101",
+  //         discord_id: "Al",
+  //         is_wizard: true,
+  //         is_hacker: false,
+  //       },
+  //       {
+  //         id: "2",
+  //         name: "Bob Matrix",
+  //         email: "bob@example.com",
+  //         rollno: "CS102",
+  //         discord_id: "Bob#5678",
+  //         is_wizard: false,
+  //         is_hacker: true,
+  //       },
+  //       {
+  //         id: "3",
+  //         name: "Charlie Quantum",
+  //         email: "charlie@example.com",
+  //         rollno: "CS103",
+  //         discord_id: "Charlie#4321",
+  //         is_wizard: true,
+  //         is_hacker: false,
+  //       },
+  //       {
+  //         id: "4",
+  //         name: "Dana Cyber",
+  //         email: "dana@example.com",
+  //         rollno: "CS104",
+  //         discord_id: "Dana#9876",
+  //         is_wizard: false,
+  //         is_hacker: true,
+  //       },
+  //     ]);
+  //     setTeamCode("DEMO1234");
+  //     setIsLeader(true);
+  //     setCurrentUserEmail("alice@example.com");
+  //   }
+  // };
+
   const handleDeleteTeam = async () => {
     if (
       !confirm(
@@ -394,7 +467,7 @@ function TeamDashboard() {
                 </Box>
               </Box>
             ) : (
-              <Box display="flex">
+              <Box display="flex" alignItems="center">
                 <Typography variant="body2" color="gray">
                   Discord: {member.discord_id || "Not provided"}
                 </Typography>
