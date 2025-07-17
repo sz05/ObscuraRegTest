@@ -394,7 +394,7 @@ function TeamDashboard() {
                 </Box>
               </Box>
             ) : (
-              <>
+              <Box display="flex">
                 <Typography variant="body2" color="gray">
                   Discord: {member.discord_id || "Not provided"}
                 </Typography>
@@ -403,7 +403,7 @@ function TeamDashboard() {
                     <EditIcon sx={{ fontSize: 20 }} />
                   </Button>
                 )}
-              </>
+              </Box>
             )}
           </Box>
         </Box>
