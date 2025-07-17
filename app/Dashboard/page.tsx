@@ -14,14 +14,17 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Input,
+  TextField,
 } from "@mui/material";
-import { ContentCopy, InfoOutlined } from "@mui/icons-material";
+import { ContentCopy, InfoOutlined, Label } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import CCSLogoLarge from "../_components/CCSLogoLarge";
 import withProtectedRoute from "../_components/ProtectedRoute";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
+import EditIcon from "@mui/icons-material/Edit";
 
 type Role = "WIZARD" | "HACKER";
 
@@ -42,6 +45,22 @@ function TeamDashboard() {
   const [copied, setCopied] = useState(false);
   const [currentUserEmail, setCurrentUserEmail] = useState("");
   const [rulebookOpen, setRulebookOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [new_id, setNew_id] = useState<string>("");
+  const [new_id_errors, setNew_id_error] = useState("");
+
+  const validateNewID = () => {
+    let new_id_error = "";
+
+    if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(new_id)) {
+      new_id_error =
+        "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores). No trailing or leading underscores.";
+    }
+
+    setNew_id_error(new_id_error);
+    return new_id_error === "";
+    // return Object.values(newErrors).every((e) => e === "");
+  };
 
   const handleLogout = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, {
@@ -145,29 +164,28 @@ function TeamDashboard() {
   };
   const router = useRouter();
 
-  // const handleSave = async () => {
-  //   const hackerCount = members.filter((m) => m.is_hacker).length;
-  //   const wizardCount = members.filter((m) => m.is_wizard).length;
+  const handleDiscordEdit = async () => {
+    if (!validateNewID()) return;
+    const payload = {
+      discord_id: new_id,
+    };
 
-  //   if (hackerCount !== 2 || wizardCount !== 2) {
-  //     toast.error("Please assign exactly 2 Hackers and 2 Wizards.");
-  //     return;
-  //   }
+    // console.log(payload);
 
-  //   const res = await fetch(
-  //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/team-dashboard`,
-  //     {
-  //       method: "POST",
-  //       credentials: "include",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ team_code: teamCode, players: members }),
-  //     }
-  //   );
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/change_discord`,
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
 
-  //   const data = await res.json();
-  //   if (!res.ok) toast.error(data.error || "Save failed");
-  //   else toast.success("Roles saved successfully!");
-  // };
+    const data = await res.json();
+    if (!res.ok) toast.error(data.error || "Update failed");
+    else toast.success("Discord ID updated successfully !");
+  };
 
   const handleSave = async () => {
     const hackerCount = members.filter((m) => m.is_hacker).length;
@@ -305,9 +323,86 @@ function TeamDashboard() {
             <Typography variant="body2" color="gray">
               {member.email}
             </Typography>
-            <Typography variant="body2" color="gray">
-              Discord: {member.discord_id || "Not provided"}
-            </Typography>
+            {edit && member.email === currentUserEmail ? (
+              <Box
+                display="flex"
+                flexDirection={{ xs: "column", sm: "row" }}
+                alignItems="center"
+                gap={1.5}
+                mt={1}
+              >
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  placeholder="Enter Discord ID"
+                  value={new_id}
+                  onChange={(e) => {
+                    setNew_id_error("");
+                    setNew_id(e.target.value.trim());
+                  }}
+                  error={Boolean(new_id_errors)}
+                  helperText={new_id_errors}
+                  sx={{
+                    input: { color: "white" },
+                    "& .MuiOutlinedInput-root": {
+                      backgroundColor: "#2c2c2c",
+                      borderRadius: "6px",
+                    },
+                    "& .MuiFormHelperText-root": {
+                      color: "red",
+                    },
+                    width: { xs: "100%", sm: "150px" },
+                  }}
+                />
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  gap={2}
+                >
+                  <Button
+                    variant="contained"
+                    size="small"
+                    // disabled={!new_id}
+                    onClick={handleDiscordEdit}
+                    sx={{
+                      bgcolor: "#FF5555",
+                      "&:hover": { bgcolor: "#FF3333" },
+                      textTransform: "none",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    // disabled={!new_id}
+                    onClick={() => setEdit(false)}
+                    sx={{
+                      bgcolor: "#FF5555",
+                      "&:hover": { bgcolor: "#FF3333" },
+                      textTransform: "none",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Box>
+              </Box>
+            ) : (
+              <>
+                <Typography variant="body2" color="gray">
+                  Discord: {member.discord_id || "Not provided"}
+                </Typography>
+                {member.email === currentUserEmail && (
+                  <Button onClick={() => setEdit(true)}>
+                    <EditIcon sx={{ fontSize: 20 }} />
+                  </Button>
+                )}
+              </>
+            )}
           </Box>
         </Box>
 
@@ -786,4 +881,4 @@ function TeamDashboard() {
   );
 }
 
-export default withProtectedRoute(TeamDashboard);
+export default TeamDashboard;
