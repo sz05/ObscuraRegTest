@@ -41,15 +41,20 @@ type Member = {
 function TeamDashboard() {
   const [members, setMembers] = useState<Member[]>([]);
   const [teamCode, setTeamCode] = useState("");
+  const [teamName, setTeamName] = useState("");
   const [isLeader, setIsLeader] = useState(false);
   const [copied, setCopied] = useState(false);
   const [currentUserEmail, setCurrentUserEmail] = useState("");
   const [rulebookOpen, setRulebookOpen] = useState(false);
-  const [edit, setEdit] = useState(false);
+  const [editDiscord, setEditDiscord] = useState(false);
+  // const [editTeamName , setEditTeamName] = useState(false)
   const [new_id, setNew_id] = useState<string>("");
   const [new_id_errors, setNew_id_error] = useState("");
+  const [teamNameDialogOpen, setTeamNameDialogOpen] = useState(false);
+  const [new_team_name, setNewTeamName] = useState("");
+  const [newTeamNameError, setNewTeamNameError] = useState("");
 
-  const validateNewID = () => {
+  const validateNewDiscordID = () => {
     let new_id_error = "";
 
     if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(new_id)) {
@@ -59,6 +64,19 @@ function TeamDashboard() {
 
     setNew_id_error(new_id_error);
     return new_id_error === "";
+    // return Object.values(newErrors).every((e) => e === "");
+  };
+
+  const validateNewTeamName = () => {
+    let error = "";
+
+    if (!/^[\w\s]{1,20}$/.test(new_team_name)) {
+      error =
+        "Team name must be between 1 and 20 characters and can include letters, numbers, spaces, or underscores.";
+    }
+
+    setNewTeamNameError(error);
+    return error === "";
     // return Object.values(newErrors).every((e) => e === "");
   };
 
@@ -96,6 +114,7 @@ function TeamDashboard() {
 
       setMembers(players);
       setTeamCode(data.team_code);
+      setTeamName(data.team_name);
       setIsLeader(data.is_leader);
       setCurrentUserEmail(data.currentUserEmail);
     } catch {
@@ -126,6 +145,8 @@ function TeamDashboard() {
 
   //     setMembers(players);
   //     setTeamCode(data.team_code);
+  //     setTeamName(data.team_name);
+
   //     setIsLeader(data.is_leader);
   //     setCurrentUserEmail(data.currentUserEmail);
   //   } catch (error) {
@@ -171,6 +192,7 @@ function TeamDashboard() {
   //       },
   //     ]);
   //     setTeamCode("DEMO1234");
+  //     setTeamName("Team");
   //     setIsLeader(true);
   //     setCurrentUserEmail("alice@example.com");
   //   }
@@ -237,8 +259,35 @@ function TeamDashboard() {
   };
   const router = useRouter();
 
+  const handleTeamNameEdit = async () => {
+    if (!validateNewTeamName()) return;
+    const payload = {
+      new_team_name: new_team_name,
+    };
+
+    // console.log(payload);
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/change_team_name`,
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    const data = await res.json();
+    if (!res.ok) toast.error(data.error || "Update failed");
+    else {
+      toast.success("Team Name updated successfully!");
+      setTeamNameDialogOpen(false);
+      fetchDashboard();
+    }
+  };
+
   const handleDiscordEdit = async () => {
-    if (!validateNewID()) return;
+    if (!validateNewDiscordID()) return;
     const payload = {
       discord_id: new_id,
     };
@@ -258,7 +307,7 @@ function TeamDashboard() {
     const data = await res.json();
     if (!res.ok) toast.error(data.error || "Update failed");
     else toast.success("Discord ID updated successfully !");
-    setEdit(false);
+    setEditDiscord(false);
     fetchDashboard();
   };
 
@@ -398,7 +447,7 @@ function TeamDashboard() {
             <Typography variant="body2" color="gray">
               {member.email}
             </Typography>
-            {edit && member.email === currentUserEmail ? (
+            {editDiscord && member.email === currentUserEmail ? (
               <Box
                 display="flex"
                 flexDirection={{ xs: "column", sm: "row" }}
@@ -454,7 +503,7 @@ function TeamDashboard() {
                     variant="contained"
                     size="small"
                     // disabled={!new_id}
-                    onClick={() => setEdit(false)}
+                    onClick={() => setEditDiscord(false)}
                     sx={{
                       bgcolor: "#FF5555",
                       "&:hover": { bgcolor: "#FF3333" },
@@ -472,7 +521,7 @@ function TeamDashboard() {
                   Discord: {member.discord_id || "Not provided"}
                 </Typography>
                 {member.email === currentUserEmail && (
-                  <IconButton onClick={() => setEdit(true)}>
+                  <IconButton onClick={() => setEditDiscord(true)}>
                     <EditIcon sx={{ fontSize: 18, color: "#2188E5" }} />
                   </IconButton>
                 )}
@@ -564,7 +613,6 @@ function TeamDashboard() {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        mb={4}
         sx={{ zIndex: 1 }}
       >
         <Box sx={{ width: { xs: "120px", sm: "150px" } }}>
@@ -579,12 +627,31 @@ function TeamDashboard() {
           Logout
         </Button>
       </Box>
+      <Box display="flex" justifyContent="center" alignItems="center" gap={2}>
+        <Typography zIndex={2} variant="h2" fontWeight="bold" color="white">
+          {teamName}
+        </Typography>
+        {isLeader && (
+          <IconButton
+            onClick={() => {
+              setNewTeamName(teamName);
+              setNewTeamNameError("");
+              setTeamNameDialogOpen(true);
+            }}
+            sx={{ zIndex: 2 }}
+          >
+            <EditIcon sx={{ zIndex: 2, color: "white" }} />
+          </IconButton>
+        )}
+      </Box>
 
       <Container maxWidth="sm" sx={{ zIndex: 1 }}>
         <Box textAlign="center" mb={3}>
-          <Typography variant="h6" fontWeight="bold" color="red">
-            TEAM CODE
-          </Typography>
+          <Box display="flex" justifyContent="center">
+            <Typography variant="h6" fontWeight="bold" color="red">
+              TEAM CODE
+            </Typography>
+          </Box>
 
           <Box
             display="flex"
@@ -813,7 +880,6 @@ function TeamDashboard() {
         )}
       </Container>
 
-      {/* Rulebook Modal */}
       <Dialog
         open={rulebookOpen}
         onClose={() => setRulebookOpen(false)}
@@ -952,8 +1018,103 @@ function TeamDashboard() {
           </Button>
         </DialogActions>
       </Dialog>
+      <Dialog
+        open={teamNameDialogOpen}
+        onClose={() => setTeamNameDialogOpen(false)}
+        maxWidth="xs"
+        fullWidth
+        PaperProps={{
+          sx: {
+            bgcolor: "#111",
+            border: "2px solid #333",
+            borderRadius: "12px",
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            bgcolor: "#111",
+            color: "#fff",
+            borderBottom: "2px solid #333",
+            fontWeight: "bold",
+            textAlign: "center",
+            py: 1,
+          }}
+        >
+          Edit Team Name
+        </DialogTitle>
+
+        <DialogContent
+          sx={{
+            bgcolor: "#111",
+            color: "#ddd",
+            p: 1,
+          }}
+        >
+          <TextField
+            fullWidth
+            variant="outlined"
+            label="New Team Name"
+            value={new_team_name}
+            onChange={(e) => {
+              setNewTeamNameError("");
+              setNewTeamName(e.target.value);
+            }}
+            error={Boolean(newTeamNameError)}
+            helperText={newTeamNameError}
+            sx={{
+              mt: 2,
+              input: { color: "white" },
+              label: { color: "#bbb" },
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "#222",
+                borderRadius: "6px",
+                "& fieldset": {
+                  borderColor: "#444",
+                },
+              },
+              "& .MuiFormHelperText-root": {
+                color: "red",
+              },
+            }}
+          />
+        </DialogContent>
+
+        <DialogActions
+          sx={{
+            bgcolor: "#111",
+            borderTop: "2px solid #333",
+            justifyContent: "center",
+            p: 2,
+          }}
+        >
+          <Button
+            onClick={handleTeamNameEdit}
+            variant="contained"
+            sx={{
+              bgcolor: "#ef4444",
+              "&:hover": { bgcolor: "#dc2626" },
+              fontWeight: "bold",
+            }}
+          >
+            Save
+          </Button>
+          <Button
+            onClick={() => setTeamNameDialogOpen(false)}
+            variant="outlined"
+            sx={{
+              borderColor: "#666",
+              color: "#ddd",
+              "&:hover": { borderColor: "#999" },
+            }}
+          >
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
 
 export default withProtectedRoute(TeamDashboard);
+// export default TeamDashboard;
