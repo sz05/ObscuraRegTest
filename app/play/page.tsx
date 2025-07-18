@@ -1,19 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PanelRightOpen, Pause, Play } from "lucide-react";
-
+import { Pause } from "lucide-react";
 import PauseOverlay from "./PauseOverlay";
-import CountdownTimer from "./CountdownTimer";
-
-
+import { useAuthContext } from "../_components/AuthContext";
+import ProtectedRoute from "../_components/ProtectedRoute";
 
 const isMobileDevice = () => {
   if (typeof window === "undefined") return false;
-  const ua = navigator.userAgent;
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || window.innerWidth < 900;
+  return window.innerWidth < 900;
 };
 
 const Game = () => {
@@ -29,7 +26,6 @@ const Game = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Mobile view
   if (isMobile) {
     return (
       <div className="w-screen h-screen flex items-center justify-center bg-background">
@@ -47,7 +43,6 @@ const Game = () => {
     );
   }
 
-  // Desktop view
   return (
     <div className="w-screen h-screen overflow-hidden bg-background relative">
       {/* Pause Button Top Center */}
@@ -84,4 +79,4 @@ const Game = () => {
   );
 };
 
-export default Game;
+export default ProtectedRoute(Game);
