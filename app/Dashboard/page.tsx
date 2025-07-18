@@ -57,9 +57,14 @@ function TeamDashboard() {
   const validateNewDiscordID = () => {
     let new_id_error = "";
 
-    if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(new_id)) {
+    // if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(new_id)) {
+    //   new_id_error =
+    //     "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores). No trailing or leading underscores.";
+    // }
+
+    if (!/^[a-zA-Z0-9._]{2,32}$/.test(new_id)) {
       new_id_error =
-        "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores). No trailing or leading underscores.";
+        "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores).";
     }
 
     setNew_id_error(new_id_error);

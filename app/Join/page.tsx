@@ -44,9 +44,9 @@ function JoinTeam() {
       newErrors.rollno = "Roll number must be between 4 and 12 digits";
     }
 
-    if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(discord_id)) {
+    if (!/^[a-zA-Z0-9._]{2,32}$/.test(discord_id)) {
       newErrors.discord_id =
-        "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores). No trailing or leading underscores.";
+        "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores).";
     }
 
     if (teamCode.trim().length === 0) {

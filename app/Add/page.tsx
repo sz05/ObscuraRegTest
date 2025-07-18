@@ -44,9 +44,9 @@ function CreateTeamPage() {
       newErrors.rollno = "Roll number must be between 4 and 12 digits";
     }
 
-    if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(discordId)) {
+    if (!/^[a-zA-Z0-9._]{2,32}$/.test(discordId)) {
       newErrors.discordId =
-        "Invalid Discord username. Use 2–32 characters (letters, numbers, underscores, dots). No spaces or special characters. No trailing or leading underscores.";
+        "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores).";
     }
 
     if (!/^[\w\s]{1,20}$/.test(teamName)) {
