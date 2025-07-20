@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import CCSLogoLarge from "../_components/CCSLogoLarge";
 import { Input } from "@/components/ui/input";
@@ -19,6 +19,11 @@ function CreateTeamPage() {
   const [discordId, setDiscordId] = useState("");
   const [teamName, setTeamName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    alert("New teams cant be created now");
+    router.push("/");
+  });
 
   const [errors, setErrors] = useState({
     username: "",
