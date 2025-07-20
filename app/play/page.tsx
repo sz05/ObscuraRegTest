@@ -20,12 +20,11 @@ const isMobileDevice = () => {
 
 const router = useRouter();
 
-useEffect(() => {
-  router.push("/");
-});
-
 const Game = () => {
   const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    router.push("/");
+  });
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
