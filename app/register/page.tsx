@@ -9,25 +9,8 @@ import { useEffect, useState } from "react";
 export default function RegisterPage() {
   const router = useRouter();
 
-  const checkRegistered = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
-        {
-          credentials: "include",
-        }
-      );
-      const data = await res.json();
-      if (data.registered) {
-        router.push("/Dashboard");
-      }
-    } catch {
-      alert("Failed to verify registration.");
-    }
-  };
-
   useEffect(() => {
-    checkRegistered();
+    window.location.replace("https://obscura.ccstiet.com/");
   }, []);
 
   return (
