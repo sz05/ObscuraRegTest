@@ -96,7 +96,7 @@ export default function Page() {
       if (data.registered) {
         router.push("/Dashboard");
       } else {
-        window.location.href = "https://obscura.ccstiet.com";
+        window.location.href = "https://obscura.ccstiet.com/login";
       }
     } catch {
       window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
