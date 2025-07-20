@@ -14,7 +14,6 @@ type Sponsor = {
   id: number;
   name: string;
   logo: string;
-  tier: "platinum" | "gold" | "silver" | "bronze";
   website: string;
 };
 
@@ -22,72 +21,40 @@ type Sponsor = {
 const sponsors: Sponsor[] = [
   {
     id: 1,
-    name: "TechCorp Global",
-    logo: "/sponsors/techcorp.png", // Placeholder path - you'll need actual images
-    tier: "platinum",
-    website: "https://example.com/techcorp",
+    name: "Deradh",
+    logo: "/sponsors/deradh.png",
+    website: "#",
   },
   {
     id: 2,
-    name: "Innovate Solutions",
-    logo: "/sponsors/innovate.png",
-    tier: "gold",
-    website: "https://example.com/innovate",
+    name: "KOMPTE",
+    logo: "/sponsors/kompte.webp",
+    website: "#",
   },
   {
     id: 3,
-    name: "Digital Dynamics",
-    logo: "/sponsors/digital.png",
-    tier: "gold",
-    website: "https://example.com/digital",
+    name: "MedX",
+    logo: "/sponsors/medx.png",
+    website: "#",
   },
   {
     id: 4,
-    name: "ByteForge",
-    logo: "/sponsors/byteforge.png",
-    tier: "silver",
-    website: "https://example.com/byteforge",
+    name: "Rebec",
+    logo: "/sponsors/rebec.png",
+    website: "#",
   },
   {
     id: 5,
-    name: "NextGen Systems",
-    logo: "/sponsors/nextgen.png",
-    tier: "silver",
-    website: "https://example.com/nextgen",
-  },
-  {
-    id: 6,
-    name: "CloudPeak",
-    logo: "/sponsors/cloudpeak.png",
-    tier: "bronze",
-    website: "https://example.com/cloudpeak",
-  },
-  {
-    id: 7,
-    name: "Quantum Labs",
-    logo: "/sponsors/quantum.png",
-    tier: "bronze",
-    website: "https://example.com/quantum",
-  },
-  {
-    id: 8,
-    name: "Cyber Secure",
-    logo: "/sponsors/cybersecure.png",
-    tier: "bronze",
-    website: "https://example.com/cybersecure",
+    name: "Talkeys",
+    logo: "/sponsors/talkeys.png",
+    website: "#",
   },
 ];
 
 export default function Page() {
   const router = useRouter();
 
-  const handleLogin = () => {
-    if (registered) {
-      router.push("/Dashboard");
-      return;
-    }
-    window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
-  };
+  // Removed Register button logic
 
   // Set initial title on component mount
   useEffect(() => {
@@ -116,14 +83,24 @@ export default function Page() {
     checkRegistered();
   }, []);
 
-  const handleDashboardClick = () => {
-    if (registered) {
-      router.push("/Dashboard");
-      return;
-    } else {
+  const handleDashboardClick = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
+        {
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
+      if (data.registered) {
+        router.push("/Dashboard");
+      } else {
+        window.location.href = "https://obscura.ccstiet.com";
+      }
+    } catch {
       window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
     }
-  };
+  } 
 
   return (
     <>
@@ -330,14 +307,6 @@ export default function Page() {
                 visible: { opacity: 1, y: 0 },
               }}
             >
-              <ShimmerButton
-                onClick={handleLogin}
-                className="w-full sm:w-auto px-8 py-4 rounded-lg bg-gradient-to-r from-purple-700 to-indigo-900 text-white font-bold text-lg font-['GothamXNarrow'] uppercase tracking-wide transition-all duration-300 ease-in-out border-2 border-purple-500/70 hover:border-purple-400 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-800 hover:to-indigo-950 relative overflow-hidden group"
-              >
-                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-purple-400/10 to-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                Register Now
-              </ShimmerButton>
-
               <ShimmerButton
                 onClick={handleDashboardClick}
                 className="w-full sm:w-auto px-8 py-4 rounded-lg bg-gradient-to-r from-orange-700 to-red-900 text-white font-bold text-lg font-['GothamXNarrow'] uppercase tracking-wide transition-all duration-300 ease-in-out border-2 border-orange-500/70 hover:border-orange-400 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-800 hover:to-indigo-950 relative overflow-hidden group"
