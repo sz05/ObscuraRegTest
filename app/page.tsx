@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { useEffect } from "react";
-import {BrandsGrid} from "@/components/SponsorsGrid";
+import { BrandsGrid } from "@/components/SponsorsGrid";
 
 // Define sponsor type
 type Sponsor = {
@@ -101,7 +101,25 @@ export default function Page() {
     } catch {
       window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
     }
-  } 
+  };
+  const handlePlayClick = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
+        {
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
+      if (data.registered) {
+        router.push("/play");
+      } else {
+        window.location.href = "https://obscura.ccstiet.com";
+      }
+    } catch {
+      window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
+    }
+  };
 
   return (
     <>
@@ -301,6 +319,21 @@ export default function Page() {
               Are you smart enough to escape? Or will the glitch claim you too?
             </motion.p>
             {/* Action Buttons */}
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-lg mx-auto"
+              variants={{
+                hidden: { opacity: 0, y: 60 },
+                visible: { opacity: 1, y: 0 },
+              }}
+            >
+              <ShimmerButton
+                onClick={handlePlayClick}
+                className="w-full sm:w-auto px-8 py-4 rounded-lg bg-gradient-to-r from-orange-700 to-red-900 text-white font-bold text-lg font-['GothamXNarrow'] uppercase tracking-wide transition-all duration-300 ease-in-out border-2 border-orange-500/70 hover:border-orange-400 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-800 hover:to-indigo-950 relative overflow-hidden group"
+              >
+                Play
+              </ShimmerButton>
+            </motion.div>
+
             <motion.div
               className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-lg mx-auto"
               variants={{
