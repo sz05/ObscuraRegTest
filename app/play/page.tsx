@@ -18,6 +18,12 @@ const isMobileDevice = () => {
   );
 };
 
+const router = useRouter();
+
+useEffect(() => {
+  router.push("/");
+});
+
 const Game = () => {
   const [paused, setPaused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
