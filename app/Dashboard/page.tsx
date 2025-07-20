@@ -72,6 +72,24 @@ function TeamDashboard() {
     // return Object.values(newErrors).every((e) => e === "");
   };
 
+  const checkRegistered = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
+        {
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+    } catch {
+      alert("Failed");
+    }
+  };
+  useEffect(() => {
+    checkRegistered();
+  }, []);
+
   const validateNewTeamName = () => {
     let error = "";
 
