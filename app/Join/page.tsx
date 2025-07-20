@@ -225,13 +225,13 @@ function JoinTeam() {
                   {isLoading ? "JOINING TEAM..." : "SUBMIT"}
                 </Button>
 
-                <Button
+                {/* <Button
                   variant="outline"
                   onClick={() => router.push("/Add")}
                   className="w-full py-6 border-2 border-red-500 text-white bg-transparent hover:bg-red-500/20 font-bold text-lg transition-all duration-300"
                 >
                   CREATE NEW TEAM
-                </Button>
+                </Button> */}
               </div>
             </CardContent>
           </Card>
