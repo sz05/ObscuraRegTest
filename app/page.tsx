@@ -9,6 +9,7 @@ import { Sparkles } from "lucide-react";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { useEffect } from "react";
 import { BrandsGrid } from "@/components/SponsorsGrid";
+import { verify } from "crypto";
 
 // Define sponsor type
 type Sponsor = {
@@ -89,6 +90,24 @@ export default function Page() {
   useEffect(() => {
     checkRegistered();
   }, []);
+  const [verify, setVerified] = useState(false);
+
+  const checkVerified = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/verify`, {
+        credentials: "include",
+      });
+      const data = await res.json();
+      setVerified(data.valid);
+      if (!res.ok) throw new Error(data.error);
+    } catch {
+      alert("Failed");
+      setVerified(false);
+    }
+  };
+  useEffect(() => {
+    checkVerified();
+  }, []);
 
   // const handleDashboardClick = async () => {
   //   try {
@@ -124,6 +143,15 @@ export default function Page() {
       return;
     } else {
       localStorage.setItem("redirectTo", "play");
+      window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
+    }
+  };
+  const handleJoinClick = () => {
+    if (verify) {
+      router.push("/Join");
+      return;
+    } else {
+      localStorage.setItem("redirectTo", "Join");
       window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
     }
   };
@@ -366,7 +394,7 @@ export default function Page() {
               }}
             >
               <ShimmerButton
-                onClick={() => router.push("/Join")}
+                onClick={() => handleJoinClick}
                 className="w-full sm:w-auto px-8 py-4 my-4 rounded-lg bg-gradient-to-r from-orange-700 to-red-900 text-white font-bold text-lg font-['GothamXNarrow'] uppercase tracking-wide transition-all duration-300 ease-in-out border-2 border-orange-500/70 hover:border-orange-400 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-800 hover:to-indigo-950 relative overflow-hidden group"
               >
                 Join A team
