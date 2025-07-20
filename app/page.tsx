@@ -108,17 +108,20 @@ export default function Page() {
       router.push("/Dashboard");
       return;
     } else {
+      localStorage.setItem("redirectTo", "Dashboard");
       window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
     }
   };
   const handlePlayClick = () => {
     if (registered) {
-      router.push("/Login");
+      router.push("/play");
       return;
     } else {
+      localStorage.setItem("redirectTo", "play");
       window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
     }
   };
+
   // const handlePlayClick = async () => {
   //   try {
   //     const res = await fetch(
