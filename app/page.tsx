@@ -348,7 +348,7 @@ export default function Page() {
             >
               <ShimmerButton
                 onClick={handlePlayClick}
-                className="w-full sm:w-auto px-8 py-4 my-2 rounded-lg bg-gradient-to-r from-orange-700 to-red-900 text-white font-bold text-lg font-['GothamXNarrow'] uppercase tracking-wide transition-all duration-300 ease-in-out border-2 border-orange-500/70 hover:border-orange-400 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-800 hover:to-indigo-950 relative overflow-hidden group"
+                className="w-full sm:w-auto px-8 py-4 my-8 rounded-lg bg-gradient-to-r from-orange-700 to-red-900 text-white font-bold text-lg font-['GothamXNarrow'] uppercase tracking-wide transition-all duration-300 ease-in-out border-2 border-orange-500/70 hover:border-orange-400 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-800 hover:to-indigo-950 relative overflow-hidden group"
               >
                 Play
               </ShimmerButton>
