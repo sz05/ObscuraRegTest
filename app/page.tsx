@@ -344,7 +344,7 @@ export default function Page() {
             >
               Are you smart enough to escape? Or will the glitch claim you too?
             </motion.p>
-            <motion.div
+            {/* <motion.div
               className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-lg mx-auto"
               variants={{
                 hidden: { opacity: 0, y: 60 },
@@ -357,7 +357,7 @@ export default function Page() {
               >
                 Play
               </ShimmerButton>
-            </motion.div>
+            </motion.div> */}
             <motion.div
               className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-lg mx-auto"
               variants={{
