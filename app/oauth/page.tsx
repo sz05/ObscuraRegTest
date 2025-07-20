@@ -1,5 +1,4 @@
-// 
-
+//
 
 "use client";
 import { useEffect } from "react";
@@ -10,7 +9,7 @@ export default function OAuthRedirect() {
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/me`, {
-      method: 'GET',
+      method: "GET",
       credentials: "include",
     })
       .then(async (res) => {
@@ -20,7 +19,7 @@ export default function OAuthRedirect() {
         localStorage.setItem("name", data.name);
         localStorage.setItem("email", data.email);
 
-        router.replace("/register");
+        router.replace("/play");
       })
       .catch(() => {
         router.replace("/login");
