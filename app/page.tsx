@@ -84,42 +84,59 @@ export default function Page() {
     checkRegistered();
   }, []);
 
-  const handleDashboardClick = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
-        {
-          credentials: "include",
-        }
-      );
-      const data = await res.json();
-      if (data.registered) {
-        router.push("/Dashboard");
-      } else {
-        window.location.href = "https://obscura.ccstiet.com/login";
-      }
-    } catch {
+  // const handleDashboardClick = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
+  //       {
+  //         credentials: "include",
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     if (data.registered) {
+  //       router.push("/Dashboard");
+  //     } else {
+  //       window.location.href = "https://obscura.ccstiet.com/login";
+  //     }
+  //   } catch {
+  //     window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
+  //   }
+  // };
+
+  const handleDashboardClick = () => {
+    if (registered) {
+      router.push("/Dashboard");
+      return;
+    } else {
       window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
     }
   };
-  const handlePlayClick = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
-        {
-          credentials: "include",
-        }
-      );
-      const data = await res.json();
-      if (data.registered) {
-        router.push("/play");
-      } else {
-        window.location.href = "https://obscura.ccstiet.com";
-      }
-    } catch {
+  const handlePlayClick = () => {
+    if (registered) {
+      router.push("/Login");
+      return;
+    } else {
       window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
     }
   };
+  // const handlePlayClick = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
+  //       {
+  //         credentials: "include",
+  //       }
+  //     );
+  //     const data = await res.json();
+  //     if (data.registered) {
+  //       router.push("/play");
+  //     } else {
+  //       window.location.href = "https://obscura.ccstiet.com";
+  //     }
+  //   } catch {
+  //     window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
+  //   }
+  // };
 
   return (
     <>
