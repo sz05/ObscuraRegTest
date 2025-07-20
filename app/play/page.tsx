@@ -18,10 +18,9 @@ const isMobileDevice = () => {
   );
 };
 
-const router = useRouter();
-
 const Game = () => {
   const [paused, setPaused] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     router.push("/");
   });
@@ -35,8 +34,6 @@ const Game = () => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
-
-  const router = useRouter();
 
   const checkRegistered = async () => {
     try {
