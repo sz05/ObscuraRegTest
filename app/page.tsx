@@ -149,6 +149,7 @@ export default function Page() {
   const handleJoinClick = () => {
     if (verify) {
       router.push("/Join");
+      console.log(verify);
       return;
     } else {
       localStorage.setItem("redirectTo", "Join");
