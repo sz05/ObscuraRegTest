@@ -133,7 +133,7 @@ export default function Page() {
       router.push("/Dashboard");
       return;
     } else {
-      localStorage.setItem("redirectTo", "Dashboard");
+      localStorage.setItem("redirectTo", "/Dashboard");
       window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
     }
   };
@@ -147,9 +147,9 @@ export default function Page() {
     }
   };
   const handleJoinClick = () => {
+    console.log(verify);
     if (verify) {
       router.push("/Join");
-      console.log(verify);
       return;
     } else {
       localStorage.setItem("redirectTo", "/Join");
