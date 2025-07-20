@@ -142,7 +142,7 @@ export default function Page() {
       router.push("/play");
       return;
     } else {
-      localStorage.setItem("redirectTo", "play");
+      localStorage.setItem("redirectTo", "/play");
       window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
     }
   };
@@ -152,7 +152,7 @@ export default function Page() {
       console.log(verify);
       return;
     } else {
-      localStorage.setItem("redirectTo", "Join");
+      localStorage.setItem("redirectTo", "/Join");
       window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
     }
   };
