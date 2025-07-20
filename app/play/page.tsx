@@ -7,13 +7,15 @@ import { PanelRightOpen, Pause, Play } from "lucide-react";
 
 import PauseOverlay from "./PauseOverlay";
 import CountdownTimer from "./CountdownTimer";
-
-
+import { useRouter } from "next/navigation";
 
 const isMobileDevice = () => {
   if (typeof window === "undefined") return false;
   const ua = navigator.userAgent;
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || window.innerWidth < 900;
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) ||
+    window.innerWidth < 900
+  );
 };
 
 const Game = () => {
@@ -29,6 +31,30 @@ const Game = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const router = useRouter();
+
+  const checkRegistered = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
+        {
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      if (data.registered === false) {
+        alert("You are not part of a team!");
+        router.push("/");
+      }
+    } catch {
+      // alert("Failed");
+    }
+  };
+  useEffect(() => {
+    checkRegistered();
+  }, []);
+
   // Mobile view
   if (isMobile) {
     return (
@@ -39,7 +65,9 @@ const Game = () => {
           </CardHeader>
           <CardContent>
             <div className="text-lg text-foreground font-semibold mb-4">
-              Please open this game from a laptop or desktop device.<br />Mobile gameplay is not supported.
+              Please open this game from a laptop or desktop device.
+              <br />
+              Mobile gameplay is not supported.
             </div>
           </CardContent>
         </Card>

@@ -72,6 +72,8 @@ function TeamDashboard() {
     // return Object.values(newErrors).every((e) => e === "");
   };
 
+  // const [reg]
+
   const checkRegistered = async () => {
     try {
       const res = await fetch(
@@ -82,8 +84,12 @@ function TeamDashboard() {
       );
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
+      if (data.registered === false) {
+        alert("You are not part of a team!");
+        router.push("/");
+      }
     } catch {
-      alert("Failed");
+      // alert("Failed");
     }
   };
   useEffect(() => {
