@@ -284,7 +284,7 @@ export default function Page() {
         >
           {/* Header */}
           <motion.div
-            className="text-center mb-12 sm:mb-16 md:mb-20  "
+            className="text-center mb-12 sm:mb-16"
             variants={{
               hidden: { opacity: 0, y: 60 },
               visible: { opacity: 1, y: 0 },
