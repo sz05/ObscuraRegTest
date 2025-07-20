@@ -21,34 +21,40 @@ type Sponsor = {
 // Hardcoded list of sponsors
 const sponsors: Sponsor[] = [
   {
-    id: 1,
-    name: "Deradh",
-    logo: "/sponsors/deradh.png",
-    website: "#",
+    id: 2,
+    name: "Syntx",
+    logo: "/sponsors/syntx.svg",
+    website: "https://syntx.dev/",
   },
   {
     id: 2,
-    name: "KOMPTE",
-    logo: "/sponsors/kompte.webp",
-    website: "#",
+    name: "Deradh",
+    logo: "/sponsors/deradh.png",
+    website: "https://www.deradh.com/",
   },
   {
     id: 3,
-    name: "MedX",
-    logo: "/sponsors/medx.png",
-    website: "#",
+    name: "KOMPTE",
+    logo: "/sponsors/kompte.webp",
+    website: "https://www.kompte.com/",
   },
   {
     id: 4,
-    name: "Rebec",
-    logo: "/sponsors/rebec.png",
-    website: "#",
+    name: "MedX",
+    logo: "/sponsors/medx.png",
+    website: "https://medx.org.in/",
   },
   {
     id: 5,
+    name: "Rebec",
+    logo: "/sponsors/rebec.png",
+    website: "https://rebec.in/",
+  },
+  {
+    id: 6,
     name: "Talkeys",
     logo: "/sponsors/talkeys.png",
-    website: "#",
+    website: "https://www.talkeys.xyz/",
   },
 ];
 
@@ -339,7 +345,8 @@ export default function Page() {
               Are you smart enough to escape? Or will the glitch claim you too?
             </motion.p>
             {/* Action Buttons */}
-            <motion.div
+            {/* TODO: ISKO UNCOMMENT KARDENA */}
+            {/* <motion.div
               className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-lg mx-auto"
               variants={{
                 hidden: { opacity: 0, y: 60 },
@@ -352,7 +359,7 @@ export default function Page() {
               >
                 Play
               </ShimmerButton>
-            </motion.div>
+            </motion.div> */}
 
             <motion.div
               className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center max-w-lg mx-auto"
