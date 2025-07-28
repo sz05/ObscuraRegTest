@@ -123,7 +123,7 @@ function TeamDashboard() {
       setIsLeader(data.is_leader);
       setCurrentUserEmail(data.currentUserEmail);
     } catch {
-      toast.error("Failed to load dashboard.");
+      toast.error("Failed to load dashboard..");
     }
   };
 
