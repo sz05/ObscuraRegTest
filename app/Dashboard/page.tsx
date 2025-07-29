@@ -270,8 +270,6 @@ function TeamDashboard() {
       new_team_name: new_team_name,
     };
 
-    // console.log(payload);
-
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/change_team_name`,
       {
@@ -297,8 +295,6 @@ function TeamDashboard() {
       discord_id: new_id,
     };
 
-    // console.log(payload);
-
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/change_discord`,
       {
@@ -320,17 +316,17 @@ function TeamDashboard() {
     const hackerCount = members.filter((m) => m.is_hacker).length;
     const wizardCount = members.filter((m) => m.is_wizard).length;
     {
-      hackerCount + wizardCount < 4
+      hackerCount + wizardCount < 2
         ? toast.error(
             `Add ${
-              4 - (hackerCount + wizardCount)
+              2 - (hackerCount + wizardCount)
             } more members to complete registration of your team `
           )
         : null;
     }
 
-    if (hackerCount < 2 || wizardCount < 2) {
-      toast.error("You must assign exactly 2 Hackers and 2 Wizards.");
+    if (hackerCount < 1 || wizardCount < 1) {
+      toast.error("You must assign atleast 1 Hacker and atleast 1 Wizard");
       return;
     }
 
@@ -786,10 +782,10 @@ function TeamDashboard() {
                 textAlign="center"
               >
                 Your team must have{" "}
-                <strong style={{ color: "#FFF" }}>exactly 4 members</strong>{" "}
+                <strong style={{ color: "#FFF" }}>atleast 2 members</strong>{" "}
                 consisting of{" "}
                 <strong style={{ color: "#FFF" }}>
-                  2 Hackers and 2 Wizards
+                  atleast 1 Hacker and atleast 1 Wizard
                 </strong>{" "}
                 to complete registration
               </Typography>
@@ -953,9 +949,10 @@ function TeamDashboard() {
               1. TEAM COMPOSITION
             </Typography>
             <Typography className="rule-text">
-              • Teams must have exactly{" "}
-              <span className="highlight">4 players</span>
-              <br />• <span className="highlight">2 Hackers + 2 Wizards</span>
+              • Teams must have atleast{" "}
+              <span className="highlight">2 players</span>
+              <br />•{" "}
+              <span className="highlight">Atleast 1 Hacker + 1 Wizard</span>
               <br />
               • Roles assigned by Team Leader
               <br />
@@ -969,7 +966,7 @@ function TeamDashboard() {
             <Typography className="rule-text">
               • Join your team using the code
               <br />• Game starts once{" "}
-              <span className="highlight">all 4 players join</span>
+              <span className="highlight">atleast 2 players join</span>
             </Typography>
           </Box>
 
@@ -977,9 +974,7 @@ function TeamDashboard() {
             <Typography className="section-title">3. GAMEPLAY RULES</Typography>
             <Typography className="rule-text">
               • Map split into <span className="highlight">2 sections</span>
-              <br />• Hackers and Wizards spawn in{" "}
-              <span className="highlight">separate zones</span>
-              <br />• Each role faces{" "}
+              <br />• Hackers and Wizards spawn <br />• Each role faces{" "}
               <span className="highlight">unique puzzles</span>
               <br />• <span className="warning">Teamwork is essential</span> to
               progress
