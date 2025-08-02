@@ -213,6 +213,7 @@ function CreateTeamPage() {
                     sx={{
                       backgroundColor: "rgba(127, 29, 29, 0.2)",
                       border: "1px solid rgba(239, 68, 68, 0.5)",
+                      borderRadius: "0.375rem",
                       "&:focus": {
                         borderColor: "rgba(239, 68, 68, 0.4)",
                       },
@@ -231,6 +232,14 @@ function CreateTeamPage() {
                       color: "white",
                       "& .MuiSelect-select": {
                         color: "white",
+                        padding: "0.5rem 0.75rem",
+                        fontSize: "0.875rem",
+                        "&::placeholder": {
+                          color: "rgba(239, 68, 68, 0.5)",
+                        },
+                      },
+                      "&:hover": {
+                        borderColor: "rgba(239, 68, 68, 0.4)",
                       },
                     }}
                     MenuProps={{
@@ -247,7 +256,16 @@ function CreateTeamPage() {
                         },
                       },
                     }}
+                    displayEmpty
+                    inputProps={{
+                      style: { color: "white" },
+                    }}
                   >
+                    <MenuItem value="" disabled>
+                      <span style={{ color: "rgba(239, 68, 68, 0.5)" }}>
+                        Select your year
+                      </span>
+                    </MenuItem>
                     <MenuItem value="1">1st Year</MenuItem>
                     <MenuItem value="2">2nd Year</MenuItem>
                     <MenuItem value="3">3rd Year</MenuItem>
