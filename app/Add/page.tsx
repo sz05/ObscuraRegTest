@@ -7,7 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Box } from "@mui/material";
+import {
+  Box,
+  Select as MuiSelect,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import withProtectedRoute from "../_components/ProtectedRoute";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,6 +24,7 @@ function CreateTeamPage() {
   const [rollno, setRollno] = useState("");
   const [discordId, setDiscordId] = useState("");
   const [teamName, setTeamName] = useState("");
+  const [year, setYear] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const [errors, setErrors] = useState({
@@ -25,6 +32,7 @@ function CreateTeamPage() {
     rollno: "",
     discordId: "",
     teamName: "",
+    year: "",
   });
 
   const validateInputs = () => {
@@ -33,6 +41,7 @@ function CreateTeamPage() {
       rollno: "",
       discordId: "",
       teamName: "",
+      year: "",
     };
 
     if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(username)) {
@@ -52,6 +61,10 @@ function CreateTeamPage() {
     if (!/^[\w\s]{1,20}$/.test(teamName)) {
       newErrors.teamName =
         "Team name must be between 1 and 20 characters and can include letters, numbers, spaces, or underscores.";
+    }
+
+    if (!year) {
+      newErrors.year = "Year is required.";
     }
 
     setErrors(newErrors);
@@ -74,6 +87,7 @@ function CreateTeamPage() {
             rollno: rollno,
             discord_id: discordId,
             team_name: teamName,
+            year: year,
           }),
         }
       );
@@ -184,6 +198,64 @@ function CreateTeamPage() {
                 />
                 {errors.rollno && (
                   <p className="text-red-400 text-sm">{errors.rollno}</p>
+                )}
+              </div>
+
+              <div className="space-y-1">
+                <Label htmlFor="year">Year</Label>
+                <FormControl fullWidth>
+                  <MuiSelect
+                    value={year}
+                    onChange={(e) => {
+                      setErrors((errors) => ({ ...errors, year: "" }));
+                      setYear(e.target.value);
+                    }}
+                    sx={{
+                      backgroundColor: "rgba(127, 29, 29, 0.2)",
+                      border: "1px solid rgba(239, 68, 68, 0.5)",
+                      "&:focus": {
+                        borderColor: "rgba(239, 68, 68, 0.4)",
+                      },
+                      "& .MuiSelect-icon": {
+                        color: "rgba(239, 68, 68, 0.7)",
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        border: "none",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        border: "none",
+                      },
+                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        border: "none",
+                      },
+                      color: "white",
+                      "& .MuiSelect-select": {
+                        color: "white",
+                      },
+                    }}
+                    MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          backgroundColor: "black",
+                          border: "1px solid rgba(239, 68, 68, 0.5)",
+                          "& .MuiMenuItem-root": {
+                            color: "white",
+                            "&:hover": {
+                              backgroundColor: "rgba(239, 68, 68, 0.2)",
+                            },
+                          },
+                        },
+                      },
+                    }}
+                  >
+                    <MenuItem value="1">1st Year</MenuItem>
+                    <MenuItem value="2">2nd Year</MenuItem>
+                    <MenuItem value="3">3rd Year</MenuItem>
+                    <MenuItem value="4">4th Year</MenuItem>
+                  </MuiSelect>
+                </FormControl>
+                {errors.year && (
+                  <p className="text-red-400 text-sm">{errors.year}</p>
                 )}
               </div>
 

@@ -7,7 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Box } from "@mui/material";
+import {
+  Box,
+  Select as MuiSelect,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import withProtectedRoute from "../_components/ProtectedRoute";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,6 +24,7 @@ function JoinTeam() {
   const [rollno, setRollno] = useState("");
   const [discord_id, setDiscordId] = useState("");
   const [teamCode, setTeamCode] = useState("");
+  const [year, setYear] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const [errors, setErrors] = useState({
@@ -25,6 +32,7 @@ function JoinTeam() {
     rollno: "",
     discord_id: "",
     teamCode: "",
+    year: "",
   });
 
   const validateInputs = () => {
@@ -33,6 +41,7 @@ function JoinTeam() {
       rollno: "",
       discord_id: "",
       teamCode: "",
+      year: "",
     };
 
     if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(username)) {
@@ -51,6 +60,10 @@ function JoinTeam() {
 
     if (teamCode.trim().length === 0) {
       newErrors.teamCode = "Team code is required.";
+    }
+
+    if (!year) {
+      newErrors.year = "Year is required.";
     }
 
     setErrors(newErrors);
@@ -75,6 +88,7 @@ function JoinTeam() {
             rollno: rollno,
             discord_id: discord_id,
             team_code: teamCode,
+            year: year,
           }),
         }
       );
@@ -194,6 +208,66 @@ function JoinTeam() {
                 />
                 {errors.rollno && (
                   <p className="text-red-400 text-sm">{errors.rollno}</p>
+                )}
+              </div>
+
+              <div className="space-y-1">
+                <Label htmlFor="year" className="text-red-100">
+                  Year
+                </Label>
+                <FormControl fullWidth>
+                  <MuiSelect
+                    value={year}
+                    onChange={(e) => {
+                      setErrors((errors) => ({ ...errors, year: "" }));
+                      setYear(e.target.value);
+                    }}
+                    sx={{
+                      backgroundColor: "rgba(127, 29, 29, 0.2)",
+                      border: "1px solid rgba(239, 68, 68, 0.5)",
+                      "&:focus": {
+                        borderColor: "rgba(239, 68, 68, 0.4)",
+                      },
+                      "& .MuiSelect-icon": {
+                        color: "rgba(239, 68, 68, 0.7)",
+                      },
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        border: "none",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        border: "none",
+                      },
+                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        border: "none",
+                      },
+                      color: "white",
+                      "& .MuiSelect-select": {
+                        color: "white",
+                      },
+                    }}
+                    MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          backgroundColor: "black",
+                          border: "1px solid rgba(239, 68, 68, 0.5)",
+                          "& .MuiMenuItem-root": {
+                            color: "white",
+                            "&:hover": {
+                              backgroundColor: "rgba(239, 68, 68, 0.2)",
+                            },
+                          },
+                        },
+                      },
+                    }}
+                  >
+                    <MenuItem value="1">1st Year</MenuItem>
+                    <MenuItem value="2">2nd Year</MenuItem>
+                    <MenuItem value="3">3rd Year</MenuItem>
+                    <MenuItem value="4">4th Year</MenuItem>
+                  </MuiSelect>
+                </FormControl>
+                {errors.year && (
+                  <p className="text-red-400 text-sm">{errors.year}</p>
                 )}
               </div>
 

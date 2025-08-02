@@ -32,7 +32,6 @@ export default function RegisterPage() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-black text-white">
-      {/* Background pattern */}
       <div className="absolute inset-0 z-0">
         <div
           className="w-full h-full bg-cover bg-center bg-no-repeat opacity-20"
@@ -41,12 +40,10 @@ export default function RegisterPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/80" />
       </div>
 
-      {/* Header logo */}
       <div className="absolute top-6 left-4 sm:left-8 z-10">
         <CCSLogoLarge />
       </div>
 
-      {/* Main content */}
       <div className="relative z-10 flex justify-center items-center h-full px-6">
         <div className="w-full max-w-md mx-auto text-center space-y-10">
           <div className="space-y-2">
