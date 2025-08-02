@@ -38,8 +38,11 @@ function Leaderboard() {
     <ul className="space-y-2">
       {data.map((entry, i) => (
         <li key={i} className="flex justify-between text-white">
-          <span>{entry.team_name}</span>
-          <span className="font-mono">{entry.score}</span>
+          <span>{entry.team_code}</span>
+          <span className="font-mono">{entry.Points}</span>
+          <span className="font-mono">{entry.Current_level}</span>
+          <span className="font-mono">{entry.Levels_Cleared}</span>
+          <span className="font-mono">{entry.Questions_solved}</span>
         </li>
       ))}
     </ul>
