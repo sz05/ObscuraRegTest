@@ -9,18 +9,24 @@ function Leaderboard() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/leaderboard`, {
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((json) => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/leaderboard`,
+          {
+            credentials: "include",
+          }
+        );
+        const json = await res.json();
+        console.log(json);
         setData(json || []);
         setLoading(false);
-      })
-      .catch(() => {
+      } catch (e) {
         setError("Failed to load leaderboard");
         setLoading(false);
-      });
+      }
+    };
+    fetchData();
   }, []);
 
   if (loading) return <div className="text-gray-400">Loading...</div>;
