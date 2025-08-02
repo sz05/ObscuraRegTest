@@ -36,6 +36,7 @@ type Member = {
   id: string;
   is_wizard: boolean;
   is_hacker: boolean;
+  year: string;
 };
 
 function TeamDashboard() {
@@ -115,6 +116,7 @@ function TeamDashboard() {
         id: p.id,
         is_wizard: p.is_wizard ?? false,
         is_hacker: p.is_hacker ?? true,
+        year: p.year,
       }));
 
       setMembers(players);
@@ -351,6 +353,7 @@ function TeamDashboard() {
         discord_id: m.discord_id,
         is_hacker: m.is_hacker,
         is_wizard: m.is_wizard,
+        year: m.year,
       })),
     };
 
