@@ -18,11 +18,16 @@ function Leaderboard() {
           }
         );
         const json = await res.json();
-        console.log(json);
-        setData(json || []);
-        setLoading(false);
+        console.log("Leaderboard response:", json);
+
+        if (Array.isArray(json)) {
+          setData(json);
+        } else {
+          throw new Error("Response is not an array");
+        }
       } catch (e) {
         setError("Failed to load leaderboard");
+      } finally {
         setLoading(false);
       }
     };
@@ -31,13 +36,18 @@ function Leaderboard() {
 
   if (loading) return <div className="text-gray-400">Loading...</div>;
   if (error) return <div className="text-red-400">{error}</div>;
-  if (!data.length)
+  if (!Array.isArray(data) || data.length === 0)
     return <div className="text-gray-400">No leaderboard data</div>;
-  if (data) {
-    console.log(data);
-  }
+
   return (
     <ul className="space-y-2">
+      <li className="flex justify-between text-gray-400 font-semibold">
+        <span>Team</span>
+        <span>Points</span>
+        <span>Level</span>
+        <span>Cleared</span>
+        <span>Solved</span>
+      </li>
       {data.map((entry, i) => (
         <li key={i} className="flex justify-between text-white">
           <span>{entry.team_code}</span>
