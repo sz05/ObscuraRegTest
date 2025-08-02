@@ -44,7 +44,7 @@ function Leaderboard() {
           <span className="font-mono">{entry.Points}</span>
           <span className="font-mono">{entry.Current_level}</span>
           <span className="font-mono">{entry.Levels_Cleared}</span>
-          <span className="font-mono">{entry.Questions_solved}</span>
+          <span className="font-mono">{entry.Question_solved}</span>
         </li>
       ))}
     </ul>
