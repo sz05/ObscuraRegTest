@@ -33,7 +33,9 @@ function Leaderboard() {
   if (error) return <div className="text-red-400">{error}</div>;
   if (!data.length)
     return <div className="text-gray-400">No leaderboard data</div>;
-
+  if (data) {
+    console.log(data);
+  }
   return (
     <ul className="space-y-2">
       {data.map((entry, i) => (
