@@ -8,6 +8,9 @@ import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { useEffect } from "react";
+import { Box, Button, Typography } from "@mui/material";
+import { toast, Toaster } from "sonner";
+import CCSLogoLarge from "./_components/CCSLogoLarge";
 
 // Define sponsor type
 type Sponsor = {
@@ -91,7 +94,7 @@ export default function Page() {
 
   // Set initial title on component mount
   useEffect(() => {
-    document.title = "Obscura";
+    document.title = "Checkmate";
   }, []);
 
   const [registered, setRegistered] = useState(false);
@@ -125,8 +128,36 @@ export default function Page() {
     }
   };
 
+  const handleLogout = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) toast.error("Logout failed");
+    // else window.location.href = "/";
+    else {
+      toast.success("Logged out successfully");
+    }
+  };
+
   return (
     <>
+      {registered ? (
+        <Box className="absolute top-4 right-4 z-20">
+          <Button
+            onClick={handleLogout}
+            color="error"
+            variant="contained"
+            size="small"
+          >
+            Logout
+          </Button>
+        </Box>
+      ) : null}
+      <Toaster richColors position="top-right" />
       <div
         className="relative min-h-[80vh] sm:min-h-[90vh] md:min-h-screen flex flex-col"
         style={{
@@ -140,16 +171,33 @@ export default function Page() {
 
         <div className="relative z-20 flex flex-col justify-center items-center min-h-[80vh] sm:min-h-[90vh] md:min-h-screen px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-10 sm:py-12 md:py-16 lg:py-20">
           <div className="flex flex-col items-center text-center gap-4 sm:gap-6 md:gap-8 pt-8 sm:pt-0">
-            <div className="w-24 h-16 sm:w-28 sm:h-18 md:w-36 md:h-22 lg:w-44 lg:h-26 xl:w-52 xl:h-32">
+            {/* <div className=" flex flex-row ">
               <CCSLogo className="w-full h-full" />
+              <Typography fontSize="100px" fontFamily="Megarok">
+                X
+              </Typography>
+              <img src="froshLogo.png" width="220px" height="220px" />
+            </div> */}
+            <div className="flex flex-row items-center justify-center gap-4">
+              <CCSLogoLarge />
+
+              <img
+                src="/froshLogo.png"
+                alt="Frosh Logo"
+                width={235}
+                height={250}
+                style={{
+                  objectFit: "contain",
+                }}
+              />
             </div>
 
-            <h2 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-megarok leading-none tracking-wider drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
+            <h2 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-7xl font-megarok leading-none tracking-wider drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
               PRESENTS
             </h2>
 
             <h1 className="text-white text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-9xl font-megarok leading-none tracking-wider drop-shadow-[0_0_15px_rgba(0,0,0,0.9)]">
-              OBSCURA
+              CHECKMATE
             </h1>
 
             <div className="mt-4 sm:mt-6 mb-6 sm:mb-8 w-full max-w-[280px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]">
@@ -302,17 +350,17 @@ export default function Page() {
                 visible: { opacity: 1, y: 0 },
               }}
             >
-              In a{" "}
-              <span className="text-red-400 font-bold">fractured realm</span>{" "}
-              between logic and sorcery, a rogue demonic entity named{" "}
-              <span className="text-orange-400 font-bold">Obscura</span> has
-              hijacked the overworld's robotic army and fractured two souls into
-              hacker and wizard. Now , with your{" "}
-              <span className="text-red-400 font-bold"> team of 4 </span> ,
-              you're trapped in a shifting digital labyrinth, you and your team
-              must outwit firewalls, dodge arcane traps, and decode corrupted
-              transmissions.
+              Where logic collides with sorcery, the rogue mastermind{" "}
+              <span className="text-orange-400 font-bold">Checkmate</span> has
+              seized control of the overworld’s robotic legions. Enter the{" "}
+              <span className="text-red-400 font-bold">
+                ultimate hacking gauntlet
+              </span>
+              , navigate the{" "}
+              <span className="text-red-400 font-bold">digital labyrinth</span>,
+              and claim your triumph.{" "}
             </motion.p>
+
             <motion.p
               className="text-lg sm:text-3xl md:text-4xl text-red-300 font-megarok mb-12 tracking-wide"
               variants={{

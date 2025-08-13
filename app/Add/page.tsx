@@ -7,16 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import {
-  Box,
-  Select as MuiSelect,
-  MenuItem,
-  FormControl,
-  InputLabel,
-} from "@mui/material";
+import { Box, Select as MuiSelect, MenuItem, FormControl } from "@mui/material";
 import withProtectedRoute from "../_components/ProtectedRoute";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, Toaster } from "sonner";
+import Logos from "../_components/Logos";
 
 function CreateTeamPage() {
   const router = useRouter();
@@ -26,6 +20,7 @@ function CreateTeamPage() {
   const [teamName, setTeamName] = useState("");
   const [year, setYear] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [password, setPassword] = useState("");
 
   const [errors, setErrors] = useState({
     username: "",
@@ -33,6 +28,7 @@ function CreateTeamPage() {
     discordId: "",
     teamName: "",
     year: "",
+    password: "",
   });
 
   const validateInputs = () => {
@@ -42,7 +38,14 @@ function CreateTeamPage() {
       discordId: "",
       teamName: "",
       year: "",
+      password: "",
     };
+
+    if (!password.trim()) {
+      newErrors.password = "Password is required.";
+    } else if (password.trim().length < 6) {
+      newErrors.password = "Password must be at least 6 characters long.";
+    }
 
     if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(username)) {
       newErrors.username =
@@ -88,6 +91,7 @@ function CreateTeamPage() {
             discord_id: discordId,
             team_name: teamName,
             year: year,
+            password: password.trim(),
           }),
         }
       );
@@ -109,15 +113,6 @@ function CreateTeamPage() {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden flex flex-col">
-      <Box className="absolute top-4 right-4 z-20">
-        <Button
-          onClick={() => router.push("/")}
-          className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2"
-        >
-          Home
-        </Button>
-      </Box>
-
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -126,20 +121,18 @@ function CreateTeamPage() {
       </div>
       <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-black/60 z-0" />
 
-      <div className="relative z-10 pt-6 flex items-center justify-between px-4 md:px-6">
-        <CCSLogoLarge />
-      </div>
+      <Logos />
 
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 relative z-10">
         <div className="w-full max-w-md mx-auto">
           <h1
-            className="text-4xl font-bold text-center mb-8 tracking-wider"
+            className="text-4xl md:text-5xl font-bold text-center mb-8 md:mb- tracking-wider"
             style={{
               fontFamily: "Zen Dots",
-              textShadow: "0 0 8px rgba(255, 0, 0, 0.8)",
+              textShadow: "0 0 8px rgba(239, 68, 68, 0.9)",
             }}
           >
-            CREATE A TEAM
+            Create Team
           </h1>
 
           <Card className="border-2 border-red-600/70 bg-black/85 backdrop-blur-lg shadow-xl shadow-red-700/30 rounded-lg overflow-hidden">
@@ -152,7 +145,7 @@ function CreateTeamPage() {
               </CardTitle>
             </CardHeader>
 
-            <CardContent className="space-y-5 pt-5 px-6">
+            <CardContent className="space-y-6 pt-4 px-6">
               <div className="space-y-1">
                 <Label htmlFor="username">Username</Label>
                 <Input
@@ -211,9 +204,9 @@ function CreateTeamPage() {
                       setYear(e.target.value);
                     }}
                     sx={{
-                      backgroundColor: "rgba(127, 29, 29, 0.2)",
-                      border: "1px solid rgba(239, 68, 68, 0.5)",
+                      height: "44px",
                       borderRadius: "0.375rem",
+                      border: "1px solid rgba(244, 63, 94, 0.3)",
                       "&:focus": {
                         borderColor: "rgba(239, 68, 68, 0.4)",
                       },
@@ -262,9 +255,7 @@ function CreateTeamPage() {
                     }}
                   >
                     <MenuItem value="" disabled>
-                      <span style={{ color: "rgba(239, 68, 68, 0.5)" }}>
-                        Select your year
-                      </span>
+                      <span style={{ color: "grey" }}>Select your year</span>
                     </MenuItem>
                     <MenuItem value="1">1st Year</MenuItem>
                     <MenuItem value="2">2nd Year</MenuItem>
@@ -274,6 +265,27 @@ function CreateTeamPage() {
                 </FormControl>
                 {errors.year && (
                   <p className="text-red-400 text-sm">{errors.year}</p>
+                )}
+              </div>
+
+              <div className="space-y-1">
+                <Label htmlFor="password">Create Password for Game</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Enter a secure password"
+                  value={password}
+                  onChange={(e) => {
+                    setErrors((errors) => ({ ...errors, password: "" }));
+                    setPassword(e.target.value);
+                  }}
+                />
+                <p className="text-xs text-white/60">
+                  This password will be used to log in and participate in the
+                  event. Keep it safe and do not share with others.
+                </p>
+                {errors.password && (
+                  <p className="text-red-400 text-sm">{errors.password}</p>
                 )}
               </div>
 
@@ -313,9 +325,10 @@ function CreateTeamPage() {
           </Card>
         </div>
       </div>
-      <ToastContainer />
+      <Toaster richColors position="top-right" />
     </div>
   );
 }
 
 export default withProtectedRoute(CreateTeamPage);
+// export default CreateTeamPage;

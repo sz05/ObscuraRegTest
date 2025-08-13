@@ -15,8 +15,8 @@ import {
   InputLabel,
 } from "@mui/material";
 import withProtectedRoute from "../_components/ProtectedRoute";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast, Toaster } from "sonner";
+import Logos from "../_components/Logos";
 
 function JoinTeam() {
   const router = useRouter();
@@ -26,6 +26,7 @@ function JoinTeam() {
   const [teamCode, setTeamCode] = useState("");
   const [year, setYear] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [password, setPassword] = useState("");
 
   const [errors, setErrors] = useState({
     username: "",
@@ -33,6 +34,7 @@ function JoinTeam() {
     discord_id: "",
     teamCode: "",
     year: "",
+    password: "",
   });
 
   const validateInputs = () => {
@@ -42,7 +44,14 @@ function JoinTeam() {
       discord_id: "",
       teamCode: "",
       year: "",
+      password: "",
     };
+
+    if (!password.trim()) {
+      newErrors.password = "Password is required.";
+    } else if (password.trim().length < 6) {
+      newErrors.password = "Password must be at least 6 characters long.";
+    }
 
     if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(username)) {
       newErrors.username =
@@ -89,6 +98,7 @@ function JoinTeam() {
             discord_id: discord_id,
             team_code: teamCode,
             year: year,
+            password: password.trim(),
           }),
         }
       );
@@ -110,15 +120,6 @@ function JoinTeam() {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden flex flex-col">
-      <Box className="absolute top-4 right-4 z-20">
-        <Button
-          onClick={() => router.push("/")}
-          className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2"
-        >
-          Home
-        </Button>
-      </Box>
-
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -128,22 +129,18 @@ function JoinTeam() {
 
       <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-black/60 z-0"></div>
 
-      <div className="relative z-10 pt-4 md:pt-6 flex items-center justify-between px-4 md:px-6">
-        <div className="flex items-center">
-          <CCSLogoLarge />
-        </div>
-      </div>
+      <Logos />
 
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 md:py-12 relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-1 md:py-12 relative z-10">
         <div className="w-full max-w-md mx-auto">
           <h1
-            className="text-4xl md:text-5xl font-bold text-center mb-8 md:mb-10 tracking-wider"
+            className="text-4xl md:text-5xl font-bold text-center mb-8 md:mb-2 tracking-wider"
             style={{
               fontFamily: "Zen Dots",
               textShadow: "0 0 8px rgba(239, 68, 68, 0.9)",
             }}
           >
-            Join a team
+            Join a Team
           </h1>
 
           <Card className="border-2 border-red-600/50 bg-black/60 backdrop-blur-md shadow-lg shadow-red-500/20">
@@ -153,7 +150,7 @@ function JoinTeam() {
               </CardTitle>
             </CardHeader>
 
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4">
               <div className="space-y-1">
                 <Label htmlFor="name" className="text-red-100">
                   Username
@@ -217,16 +214,28 @@ function JoinTeam() {
                 </Label>
                 <FormControl fullWidth>
                   <MuiSelect
+                    displayEmpty
                     value={year}
                     onChange={(e) => {
                       setErrors((errors) => ({ ...errors, year: "" }));
                       setYear(e.target.value);
                     }}
                     sx={{
-                      backgroundColor: "rgba(127, 29, 29, 0.2)",
+                      height: "44px",
+                      borderRadius: "0.375rem",
                       border: "1px solid rgba(239, 68, 68, 0.5)",
-                      "&:focus": {
-                        borderColor: "rgba(239, 68, 68, 0.4)",
+                      backgroundColor: "rgba(127, 29, 29, 0.2)",
+                      boxShadow: "0 0 10px 1px rgba(255, 0, 90, 0.1)",
+                      backdropFilter: "blur(8px)",
+                      paddingX: "16px",
+                      fontSize: "0.875rem",
+                      transition: "all 0.2s ease",
+                      color: year ? "white" : "rgba(252, 165, 165, 0.5)",
+
+                      "&.Mui-focused": {
+                        outline: "none",
+                        border: "1px solid rgba(239, 68, 68, 0.5)",
+                        boxShadow: "0 0 0 2px rgba(244, 63, 94, 0.5)",
                       },
                       "& .MuiSelect-icon": {
                         color: "rgba(239, 68, 68, 0.7)",
@@ -234,15 +243,9 @@ function JoinTeam() {
                       "& .MuiOutlinedInput-notchedOutline": {
                         border: "none",
                       },
-                      "&:hover .MuiOutlinedInput-notchedOutline": {
-                        border: "none",
-                      },
-                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                        border: "none",
-                      },
-                      color: "white",
                       "& .MuiSelect-select": {
-                        color: "white",
+                        padding: "0",
+                        paddingLeft: "0px",
                       },
                     }}
                     MenuProps={{
@@ -260,14 +263,40 @@ function JoinTeam() {
                       },
                     }}
                   >
+                    <MenuItem value="" disabled>
+                      Enter Year
+                    </MenuItem>
                     <MenuItem value="1">1st Year</MenuItem>
                     <MenuItem value="2">2nd Year</MenuItem>
                     <MenuItem value="3">3rd Year</MenuItem>
                     <MenuItem value="4">4th Year</MenuItem>
                   </MuiSelect>
                 </FormControl>
+
                 {errors.year && (
                   <p className="text-red-400 text-sm">{errors.year}</p>
+                )}
+              </div>
+
+              <div className="space-y-1">
+                <Label htmlFor="password">Create Password for Game</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Enter a secure password"
+                  value={password}
+                  onChange={(e) => {
+                    setErrors((errors) => ({ ...errors, password: "" }));
+                    setPassword(e.target.value);
+                  }}
+                  className="bg-red-900/20 border-red-500/50 focus:border-red-400 placeholder:text-red-300/50"
+                />
+                <p className="text-xs text-white/60">
+                  This password will be used to log in and participate in the
+                  event. Keep it safe and do not share with others.
+                </p>
+                {errors.password && (
+                  <p className="text-red-400 text-sm">{errors.password}</p>
                 )}
               </div>
 
@@ -311,9 +340,10 @@ function JoinTeam() {
           </Card>
         </div>
       </div>
-      <ToastContainer />
+      <Toaster richColors position="top-right" />
     </div>
   );
 }
 
 export default withProtectedRoute(JoinTeam);
+// export default JoinTeam;

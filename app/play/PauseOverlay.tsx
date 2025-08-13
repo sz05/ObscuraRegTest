@@ -18,9 +18,9 @@ function Leaderboard() {
           }
         );
         const json = await res.json();
-        // console.log("start");
-        // console.log("Leaderboard response:", json);
-        // console.log("end");
+        console.log("start");
+        console.log("Leaderboard response:", json);
+        console.log("end");
         if (Array.isArray(json)) {
           setData(json);
         } else {

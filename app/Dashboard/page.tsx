@@ -19,12 +19,12 @@ import {
 } from "@mui/material";
 import { ContentCopy, InfoOutlined, Label } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import CCSLogoLarge from "../_components/CCSLogoLarge";
 import withProtectedRoute from "../_components/ProtectedRoute";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import EditIcon from "@mui/icons-material/Edit";
+import { toast, Toaster } from "sonner";
+import Logos from "../_components/Logos";
+import ShowPasswordBox from "./components/ShowPass";
 
 type Role = "WIZARD" | "HACKER";
 
@@ -37,6 +37,7 @@ type Member = {
   is_wizard: boolean;
   is_hacker: boolean;
   year: string;
+  password: string;
 };
 
 function TeamDashboard() {
@@ -46,6 +47,7 @@ function TeamDashboard() {
   const [isLeader, setIsLeader] = useState(false);
   const [copied, setCopied] = useState(false);
   const [currentUserEmail, setCurrentUserEmail] = useState("");
+  const [currentUserPassword, setCurrentUserPassword] = useState("");
   const [rulebookOpen, setRulebookOpen] = useState(false);
   const [editDiscord, setEditDiscord] = useState(false);
   // const [editTeamName , setEditTeamName] = useState(false)
@@ -86,17 +88,6 @@ function TeamDashboard() {
     // return Object.values(newErrors).every((e) => e === "");
   };
 
-  const handleLogout = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, {
-      method: "POST",
-      credentials: "include",
-    });
-
-    const data = await res.json();
-    if (!res.ok) toast.error("Logout failed");
-    else window.location.href = "/";
-  };
-
   const fetchDashboard = async () => {
     try {
       const res = await fetch(
@@ -117,6 +108,7 @@ function TeamDashboard() {
         is_wizard: p.is_wizard ?? false,
         is_hacker: p.is_hacker ?? true,
         year: p.year,
+        password: p.password,
       }));
 
       setMembers(players);
@@ -148,6 +140,7 @@ function TeamDashboard() {
   //       id: p.id,
   //       is_wizard: p.is_wizard ?? false,
   //       is_hacker: p.is_hacker ?? true,
+  //       password: p.password,
   //     }));
 
   //     setMembers(players);
@@ -156,46 +149,55 @@ function TeamDashboard() {
 
   //     setIsLeader(data.is_leader);
   //     setCurrentUserEmail(data.currentUserEmail);
+  //     setCurrentUserPassword(data.currentUserPassword);
   //   } catch (error) {
-  //     toast.error("Failed to load dashboard. Loading demo data...");
+  //     // toast.error("Failed to load dashboard. Loading demo data...");
 
   //     // Load dummy data
   //     setMembers([
   //       {
   //         id: "1",
+  //         password: "password123",
   //         name: "Alice Wonderland",
   //         email: "alice@example.com",
   //         rollno: "CS101",
   //         discord_id: "Al",
   //         is_wizard: true,
   //         is_hacker: false,
+  //         year: "1",
   //       },
   //       {
   //         id: "2",
+  //         password: "password456",
   //         name: "Bob Matrix",
   //         email: "bob@example.com",
   //         rollno: "CS102",
   //         discord_id: "Bob#5678",
   //         is_wizard: false,
   //         is_hacker: true,
+  //         year: "2",
   //       },
   //       {
   //         id: "3",
+  //         password: "password789",
   //         name: "Charlie Quantum",
   //         email: "charlie@example.com",
   //         rollno: "CS103",
   //         discord_id: "Charlie#4321",
   //         is_wizard: true,
   //         is_hacker: false,
+  //         year: "2",
   //       },
   //       {
   //         id: "4",
+  //         password: "password012",
   //         name: "Dana Cyber",
   //         email: "dana@example.com",
   //         rollno: "CS104",
   //         discord_id: "Dana#9876",
   //         is_wizard: false,
   //         is_hacker: true,
+  //         year: "3",
   //       },
   //     ]);
   //     setTeamCode("DEMO1234");
@@ -601,7 +603,7 @@ function TeamDashboard() {
         backgroundPosition: "center",
       }}
     >
-      <ToastContainer />
+      <Toaster richColors position="top-right" />
 
       <Box
         sx={{
@@ -612,27 +614,16 @@ function TeamDashboard() {
         }}
       />
 
-      <Box
-        width="100%"
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        sx={{ zIndex: 1 }}
-      >
-        <Box sx={{ width: { xs: "120px", sm: "150px" } }}>
-          <CCSLogoLarge />
-        </Box>
-        <Button
-          onClick={handleLogout}
-          color="error"
-          variant="contained"
-          size="small"
-        >
-          Logout
-        </Button>
-      </Box>
+      <Logos />
+
       <Box display="flex" justifyContent="center" alignItems="center" gap={2}>
-        <Typography zIndex={2} variant="h2" fontWeight="bold" color="white">
+        <Typography
+          zIndex={2}
+          variant="h2"
+          fontWeight="bold"
+          color="white"
+          mb={2}
+        >
           {teamName}
         </Typography>
         {isLeader && (
@@ -651,17 +642,11 @@ function TeamDashboard() {
 
       <Container maxWidth="sm" sx={{ zIndex: 1 }}>
         <Box textAlign="center" mb={3}>
-          <Box display="flex" justifyContent="center">
-            <Typography variant="h6" fontWeight="bold" color="red">
-              TEAM CODE
-            </Typography>
-          </Box>
-
           <Box
             display="flex"
             alignItems="center"
             justifyContent="center"
-            gap={1}
+            gap={2}
           >
             <Typography variant="h4" fontWeight="bold" color="white">
               {teamCode}
@@ -693,6 +678,7 @@ function TeamDashboard() {
             mt={4}
             flexDirection="column"
           >
+            <ShowPasswordBox password={currentUserPassword} />
             <Box display="flex" gap={2} flexWrap="wrap" justifyContent="center">
               {/* <Typography color="red">
                 {`Add ${
@@ -704,7 +690,7 @@ function TeamDashboard() {
                 color="primary"
                 onClick={handleSave}
                 sx={{
-                  minWidth: 140,
+                  minWidth: 180,
                 }}
               >
                 Save Roles
@@ -909,7 +895,7 @@ function TeamDashboard() {
             py: 3,
           }}
         >
-          OBSCURA RULEBOOK
+          Checkmate RULEBOOK
         </DialogTitle>
         <DialogContent
           sx={{

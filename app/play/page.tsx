@@ -77,7 +77,7 @@ const Game = () => {
         <div className="relative w-full h-full rounded-xl overflow-hidden">
           <iframe
             src="https://obscura-demo.ccstiet.com/"
-            title="Obscura Demo Game"
+            title="Checkmate Demo Game"
             className="w-full h-full min-h-[600px] bg-black border-none rounded-xl"
             allowFullScreen
           />
