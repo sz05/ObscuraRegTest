@@ -18,8 +18,9 @@ function Leaderboard() {
           }
         );
         const json = await res.json();
-        console.log("Leaderboard response:", json);
-
+        // console.log("start");
+        // console.log("Leaderboard response:", json);
+        // console.log("end");
         if (Array.isArray(json)) {
           setData(json);
         } else {
@@ -32,7 +33,7 @@ function Leaderboard() {
       }
     };
     fetchData();
-  }, []);
+  }, [data]);
 
   if (loading) return <div className="text-gray-400">Loading...</div>;
   if (error) return <div className="text-red-400">{error}</div>;
@@ -48,12 +49,12 @@ function Leaderboard() {
         <span>Cleared</span>
         <span>Solved</span>
       </li>
-      {data.map((entry, i) => (
-        <li key={i} className="flex justify-between text-white">
+      {data.map((entry, index) => (
+        <li key={index} className="flex justify-between text-white">
           <span>{entry.team_code}</span>
           <span className="font-mono">{entry.Points}</span>
-          <span className="font-mono">{entry.Current_level}</span>
-          <span className="font-mono">{entry.Levels_Cleared}</span>
+          <span className="font-mono">{entry.Current_level ?? "N/A"}</span>
+          <span className="font-mono">{entry.Levels_Cleared ?? "N/A"}</span>
           <span className="font-mono">{entry.Question_solved}</span>
         </li>
       ))}
