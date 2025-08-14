@@ -172,6 +172,22 @@ export default function Page() {
               CHECKMATE
             </h1>
 
+            <h3
+              className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-400 to-red-500 
+             text-3xl sm:text-4xl md:text-5xl font-['GothamXNarrow'] tracking-wide animate-pulse
+             drop-shadow-[0_0_15px_rgba(255,200,0,0.8)]"
+            >
+              Prizes Worth ₹40K
+            </h3>
+
+            {/* <h3
+              className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-red-400 to-blue-500 
+             text-3xl sm:text-4xl md:text-5xl font-['GothamXNarrow'] tracking-wide
+             drop-shadow-[0_0_15px_rgba(255,200,0,0.8)]"
+            >
+              Prizes Worth ₹40K
+            </h3> */}
+
             <div className="mt-4 sm:mt-6 mb-6 sm:mb-8 w-full max-w-[280px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]">
               <ShiftingCountdown />
             </div>
