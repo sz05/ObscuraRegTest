@@ -136,6 +136,7 @@ import "./globals.css";
 import DynamicTitle from "@/components/DynamicTitle";
 import AuthProvider from "./_components/AuthContext";
 import { Toaster } from "sonner";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://checkmate.ccstiet.com"),
@@ -252,7 +253,9 @@ export default function RootLayout({
           }}
         />
       </head>
+
       <body>
+        <Script src="/level/syrinx_lvl1.js" strategy="beforeInteractive" />
         <DynamicTitle />
         <AuthProvider>
           {children}
