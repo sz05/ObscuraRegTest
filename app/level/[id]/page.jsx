@@ -1,10 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 // import { games } from "../Config/gdConfig";
 
-import games from "../../_components/Config/gdConfig.js";
-
+import games from "../../_components/Config/gdConfig.js"
 import axios from "axios";
 import { toast } from "react-toastify";
 import Pagination from "../../_components/Pagination";
@@ -14,9 +13,13 @@ import GdLoader from "../../_components/godot/gdLoader.jsx";
 // import "../Css/Leader.css";
 import "../../_components/Css/Leader.css";
 
-export default function Level() {
-  let { id } = useParams();
+export default function Level({ params }) {
+  const { id } = params;
+
   let gameId = parseInt(id, 10);
+  console.log(gameId)
+
+  console.log(games[gameId])
   const [isPaused, setIsPaused] = useState(false);
   const [leaderboard, setLeaderboard] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
