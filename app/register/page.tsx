@@ -35,10 +35,10 @@ export default function RegisterPage() {
     <div className="relative h-screen w-full overflow-hidden bg-black text-white">
       <div className="absolute inset-0 z-0">
         <div
-          className="w-full h-full bg-cover bg-center bg-no-repeat opacity-20"
-          style={{ backgroundImage: "url('/bg_image2.png')" }}
+          className="w-full h-full bg-cover bg-center bg-no-repeat opacity-100"
+          style={{ backgroundImage: "url('/ukillbg.png')" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/20 to-black/30" />
       </div>
         <Box className="fixed top-0 left-2 right-2 sm:left-4 sm:right-4 md:left-10 md:right-10 z-[99] px-2 py-2 sm:px-4 sm:py-3 md:px-0 md:py-4">
         <Logos />
@@ -57,7 +57,7 @@ export default function RegisterPage() {
               REGISTER
             </h1>
             <Typography className="text-white/80 tracking-wide text-sm sm:text-base">
-              Join the resistance. Form your squad. Escape the Labyrinth.
+              Form your squad. Solve the riddles. Escape the Labyrinth.
             </Typography>
           </div>
 
