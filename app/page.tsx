@@ -157,8 +157,8 @@ export default function Page() {
                 alt="Frosh Logo"
                 sx={{
                   width: {
-                    xs: "140px",
-                    sm: "180px",
+                    xs: "175px",
+                    sm: "200px",
                     md: "235px",
                   },
                   height: "auto",
