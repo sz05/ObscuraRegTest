@@ -1,83 +1,59 @@
 "use client";
 
-import CCSLogo from "./_components/CCSLogoLarge";
 import ShiftingCountdown from "../components/ui/countdown-timer";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Sparkles } from "lucide-react";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { toast, Toaster } from "sonner";
 import CCSLogoLarge from "./_components/CCSLogoLarge";
+import { BrandsGrid } from "./_components/BrandGrid";
 
-// Define sponsor type
 type Sponsor = {
   id: number;
   name: string;
   logo: string;
-  tier: "platinum" | "gold" | "silver" | "bronze";
   website: string;
 };
 
-// Hardcoded list of sponsors
 const sponsors: Sponsor[] = [
   {
-    id: 1,
-    name: "TechCorp Global",
-    logo: "/sponsors/techcorp.png", // Placeholder path - you'll need actual images
-    tier: "platinum",
-    website: "https://example.com/techcorp",
+    id: 2,
+    name: "Syntx",
+    logo: "/sponsors/syntx.svg",
+    website: "https://syntx.dev/",
   },
   {
     id: 2,
-    name: "Innovate Solutions",
-    logo: "/sponsors/innovate.png",
-    tier: "gold",
-    website: "https://example.com/innovate",
+    name: "Deradh",
+    logo: "/sponsors/deradh.png",
+    website: "https://www.deradh.com/",
   },
   {
     id: 3,
-    name: "Digital Dynamics",
-    logo: "/sponsors/digital.png",
-    tier: "gold",
-    website: "https://example.com/digital",
+    name: "KOMPTE",
+    logo: "/sponsors/kompte.webp",
+    website: "https://www.kompte.com/",
   },
   {
     id: 4,
-    name: "ByteForge",
-    logo: "/sponsors/byteforge.png",
-    tier: "silver",
-    website: "https://example.com/byteforge",
+    name: "MedX",
+    logo: "/sponsors/medx.png",
+    website: "https://medx.org.in/",
   },
   {
     id: 5,
-    name: "NextGen Systems",
-    logo: "/sponsors/nextgen.png",
-    tier: "silver",
-    website: "https://example.com/nextgen",
+    name: "Rebec",
+    logo: "/sponsors/rebec.png",
+    website: "https://rebec.in/",
   },
   {
     id: 6,
-    name: "CloudPeak",
-    logo: "/sponsors/cloudpeak.png",
-    tier: "bronze",
-    website: "https://example.com/cloudpeak",
-  },
-  {
-    id: 7,
-    name: "Quantum Labs",
-    logo: "/sponsors/quantum.png",
-    tier: "bronze",
-    website: "https://example.com/quantum",
-  },
-  {
-    id: 8,
-    name: "Cyber Secure",
-    logo: "/sponsors/cybersecure.png",
-    tier: "bronze",
-    website: "https://example.com/cybersecure",
+    name: "Talkeys",
+    logo: "/sponsors/talkeys.png",
+    website: "https://www.talkeys.xyz/",
   },
 ];
 
@@ -390,6 +366,17 @@ export default function Page() {
             </motion.div>
           </motion.div>
         </motion.div>
+      </section>
+      <section
+        id="sponsors"
+        className="relative py-16 sm:py-24 md:py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
+      >
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-megarok mb-10 text-center tracking-wider leading-tight text-white">
+            Our Sponsors
+          </h2>
+          <BrandsGrid brands={sponsors} />
+        </div>
       </section>
     </>
   );
