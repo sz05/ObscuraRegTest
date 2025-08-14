@@ -148,6 +148,7 @@ export default function Page() {
       {registered ? (
         <Box className="absolute top-4 right-4 z-20">
           <Button
+            sx={{ cursor: "pointer" }}
             onClick={handleLogout}
             color="error"
             variant="contained"
