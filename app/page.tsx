@@ -367,17 +367,17 @@ export default function Page() {
           </motion.div>
         </motion.div>
       </section>
-      <section
+      {/* <section
         id="sponsors"
         className="relative py-16 sm:py-24 md:py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
       >
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-megarok mb-10 text-center tracking-wider leading-tight text-white">
+          <h2 className="text-3xl sm:text-4xl md:text-8xl font-megarok mb-10 text-center tracking-wider leading-tight text-white">
             Our Sponsors
           </h2>
           <BrandsGrid brands={sponsors} />
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

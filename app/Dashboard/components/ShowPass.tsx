@@ -48,6 +48,7 @@ const ShowPasswordBox = ({
       <Box
         onClick={() => setShowPassword((prev) => !prev)}
         display="flex"
+        sx={{ cursor: "pointer" }}
         flexDirection="row"
         alignItems="center"
         gap={1}
