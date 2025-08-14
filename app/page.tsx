@@ -61,7 +61,7 @@ export default function Page() {
   const router = useRouter();
 
   const handleLogin = () => {
-    if (registered) {
+    if (verify) {
       router.push("/Dashboard");
       return;
     }
@@ -73,30 +73,27 @@ export default function Page() {
     document.title = "Checkmate";
   }, []);
 
-  const [registered, setRegistered] = useState(false);
+  const [verify, setVerified] = useState(false);
 
-  const checkRegistered = async () => {
+  const checkVerified = async () => {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
-        {
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/verify`, {
+        credentials: "include",
+      });
       const data = await res.json();
-      setRegistered(data.registered);
+      setVerified(data.registered);
       if (!res.ok) throw new Error(data.error);
     } catch {
       alert("Failed");
-      setRegistered(false);
+      setVerified(false);
     }
   };
   useEffect(() => {
-    checkRegistered();
+    checkVerified();
   }, []);
 
   const handleDashboardClick = () => {
-    if (registered) {
+    if (verify) {
       router.push("/Dashboard");
       return;
     } else {
@@ -115,14 +112,14 @@ export default function Page() {
     if (!res.ok) toast.error("Logout failed");
     // else window.location.href = "/";
     else {
-      window.location.href = "/";
+      // window.location.href = "/";
       toast.success("Logged out successfully");
     }
   };
 
   return (
     <>
-      {registered ? (
+      {verify ? (
         <Box className="fixed top-4 right-4" zIndex={999}>
           <Button
             sx={{ cursor: "pointer" }}
