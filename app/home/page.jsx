@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Link from "next/link";
+
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
@@ -67,7 +69,7 @@ export default function Home() {
                     {hoverIndex === index}
                     {item.name != "LOGOUT" && (
                       <Link
-                        to={item.path}
+                        href={item.path}
                         className={
                           hoverIndex == index ? "text-blue-500" : "text-white"
                         }
@@ -75,6 +77,7 @@ export default function Home() {
                         {item.name}
                       </Link>
                     )}
+
                     {item.name == "LOGOUT" && (
                       <div
                         className={"text-red-500 hover:cursor-pointer"}
