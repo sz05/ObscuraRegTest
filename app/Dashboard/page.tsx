@@ -120,7 +120,7 @@ function TeamDashboard() {
       setTeamName(data.team_name);
       setIsLeader(data.is_leader);
       setCurrentUserEmail(data.currentUserEmail);
-      let member = members.find((m) => m.email === data.currentUserEmail);
+      let member = players.find((m) => m.email === data.currentUserEmail);
       setMember(member);
     } catch {
       toast.error("Failed to load dashboard..");
