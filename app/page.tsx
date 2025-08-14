@@ -134,11 +134,12 @@ export default function Page() {
       credentials: "include",
     });
 
-    const data = await res.json();
+    // const data = await res.json();
 
     if (!res.ok) toast.error("Logout failed");
     // else window.location.href = "/";
     else {
+      window.location.href = "/";
       toast.success("Logged out successfully");
     }
   };

@@ -354,6 +354,7 @@ function TeamDashboard() {
         is_hacker: m.is_hacker,
         is_wizard: m.is_wizard,
         year: m.year,
+        password: m.password,
       })),
     };
 
