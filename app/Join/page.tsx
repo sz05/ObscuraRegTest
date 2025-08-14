@@ -49,8 +49,8 @@ function JoinTeam() {
 
     if (!password.trim()) {
       newErrors.password = "Password is required.";
-    } else if (password.trim().length < 6) {
-      newErrors.password = "Password must be at least 6 characters long.";
+    } else if (password.trim().length < 8) {
+      newErrors.password = "Password must be at least 8 characters long.";
     }
 
     if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(username)) {
