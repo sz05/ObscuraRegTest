@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const menuItems = [
   { name: "PLAY GAME", path: "/level" },
@@ -12,7 +13,7 @@ const menuItems = [
 ];
 
 export default function Home() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [hoverIndex, setHoveredIndex] = useState(0);
 
   const handleKeyDown = (e) => {
@@ -25,13 +26,13 @@ export default function Home() {
         prevIndex < menuItems.length - 1 ? prevIndex + 1 : 0
       );
     } else if (e.key === "Enter") {
-      navigate(menuItems[hoverIndex].path);
+      router.push(menuItems[hoverIndex].path);
     }
   };
 
   const handleLogout = () => {
     Cookies.remove("token");
-    navigate("/");
+    router.push("/");
   };
 
   useEffect(() => {
