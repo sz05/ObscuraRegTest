@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import "../Css/godot.css";
 
@@ -14,11 +16,36 @@ export default function GdLoader(props) {
   useEffect(() => {
     const GODOT_CONFIG = props.gdConfig;
 
+    // async function loadEngineScript(executable) {
+    //   const tagKey = `__godotEngineTag`;
+    //   const currentTag = typeof window !== 'undefined' ? window[tagKey] : undefined;
+    //   const desiredTag = executable;
+
+    //   if (typeof window !== 'undefined' && window.Engine && currentTag === desiredTag) {
+    //     return; // already loaded matching engine
+    //   }
+
+    //   // If a different engine is present, we still load the new one; Godot's loader attaches Engine on window.
+    //   await new Promise((resolve, reject) => {
+    //     const script = document.createElement('script');
+    //     script.src = `/level/level-1-pakka.js`;
+    //     script.async = true;
+    //     script.onload = () => {
+    //       window[tagKey] = desiredTag;
+    //       resolve();
+    //     };
+    //     script.onerror = () => reject(new Error(`Failed to load engine script: ${script.src}`));
+    //     document.head.appendChild(script);
+    //   });
+    // }
+
     const loadPck = async () => {
       return true;
     };
 
     const initGame = async (retryCount = 3) => {
+      // // Ensure correct engine JS for this level is loaded
+      // await loadEngineScript(GODOT_CONFIG.executable);
       if (typeof window.Engine === "undefined") {
         console.error("Godot Engine is not loaded");
         return;

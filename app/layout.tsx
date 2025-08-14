@@ -96,7 +96,7 @@ export default function RootLayout({
           type="font/otf"
           crossOrigin="anonymous"
         />
-        {/* <script src="/level/syrinx_lvl1.js"></script> */}
+        <script src="/level/level-1-pakka.js"></script>
          <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -123,8 +123,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body>
-        {/* <Script src="/level/syrinx_lvl1.js" strategy="beforeInteractive" /> */}
+  <body>
         <DynamicTitle />
         <AuthProvider>
           {children}
