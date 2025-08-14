@@ -172,13 +172,6 @@ export default function Page() {
 
         <div className="relative z-20 flex flex-col justify-center items-center min-h-[80vh] sm:min-h-[90vh] md:min-h-screen px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-10 sm:py-12 md:py-16 lg:py-20">
           <div className="flex flex-col items-center text-center gap-4 sm:gap-6 md:gap-8 pt-8 sm:pt-0">
-            {/* <div className=" flex flex-row ">
-              <CCSLogo className="w-full h-full" />
-              <Typography fontSize="100px" fontFamily="Megarok">
-                X
-              </Typography>
-              <img src="froshLogo.png" width="220px" height="220px" />
-            </div> */}
             <div className="flex flex-row items-center justify-center gap-4">
               <CCSLogoLarge />
 

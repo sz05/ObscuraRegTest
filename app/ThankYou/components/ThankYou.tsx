@@ -1,7 +1,7 @@
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Logos from "@/app/_components/Logos";
+import CCSLogoLarge from "@/app/_components/CCSLogoLarge";
 
 export default function ThankYou() {
   const searchParams = useSearchParams();
@@ -9,7 +9,6 @@ export default function ThankYou() {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden flex flex-col font-sans">
-      {/* Background Image */}
       <div className="absolute inset-0">
         <div
           className="w-full h-full bg-cover bg-center bg-no-repeat opacity-30"
@@ -18,6 +17,19 @@ export default function ThankYou() {
       </div>
 
       {/* <Logos /> */}
+      <div className="flex flex-row items-center justify-center gap-4">
+        <CCSLogoLarge />
+
+        <img
+          src="/froshLogo.png"
+          alt="Frosh Logo"
+          width={235}
+          height={250}
+          style={{
+            objectFit: "contain",
+          }}
+        />
+      </div>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 md:py-12 relative z-10">
