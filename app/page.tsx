@@ -158,7 +158,7 @@ export default function Page() {
                 style={{
                   width: "100%",
                   height: "auto",
-                  maxWidth: "235px",
+                  maxWidth: "150px",
                   objectFit: "contain",
                 }}
               />
