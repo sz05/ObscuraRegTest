@@ -53,7 +53,7 @@ function CreateTeamPage() {
     }
 
     if (!/^\d{4,12}$/.test(rollno)) {
-      newErrors.rollno = "Roll number must be between 4 and 12 digits";
+      newErrors.rollno = "Must be between 4 and 12 digits";
     }
 
     if (!/^[a-zA-Z0-9._]{2,32}$/.test(discordId)) {
@@ -179,10 +179,10 @@ function CreateTeamPage() {
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="rollno">Roll Number</Label>
+                <Label htmlFor="rollno">Roll Number / Application Number</Label>
                 <Input
                   id="rollno"
-                  placeholder="Enter your Roll Number"
+                  placeholder="Enter your Roll / Application Number"
                   value={rollno}
                   onChange={(e) => {
                     setErrors((errors) => ({ ...errors, rollno: "" }));

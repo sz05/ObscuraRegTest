@@ -59,7 +59,7 @@ function JoinTeam() {
     }
 
     if (!/^\d{4,12}$/.test(rollno)) {
-      newErrors.rollno = "Roll number must be between 4 and 12 digits";
+      newErrors.rollno = "Must be between 4 and 12 digits";
     }
 
     if (!/^[a-zA-Z0-9._]{2,32}$/.test(discord_id)) {
@@ -191,11 +191,11 @@ function JoinTeam() {
 
               <div className="space-y-1">
                 <Label htmlFor="rollno" className="text-red-100">
-                  Roll Number
+                  Roll Number / Application Number
                 </Label>
                 <Input
                   id="rollno"
-                  placeholder="Enter your Roll Number"
+                  placeholder="Enter your Roll Number / Application Number"
                   value={rollno}
                   onChange={(e) => {
                     setErrors((errors) => ({ ...errors, rollno: "" }));

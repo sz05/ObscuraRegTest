@@ -146,7 +146,7 @@ export default function Page() {
   return (
     <>
       {registered ? (
-        <Box className="absolute top-4 right-4 z-20">
+        <Box className="absolute top-4 right-4 z-100">
           <Button
             sx={{ cursor: "pointer" }}
             onClick={handleLogout}
