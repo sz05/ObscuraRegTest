@@ -5,44 +5,20 @@ import { useEffect } from "react";
 export default function DynamicTitle() {
   useEffect(() => {
     const originalTitle = "Checkmate";
-    const titleMessages = ["Come back!", "Register now!"];
-    let currentMessageIndex = 0;
-    let titleInterval: NodeJS.Timeout | null = null;
+    const awayTitle = "Come back!";
 
-    const startTitleAnimation = () => {
-      if (!titleInterval) {
-        titleInterval = setInterval(() => {
-          document.title = titleMessages[currentMessageIndex];
-          currentMessageIndex =
-            (currentMessageIndex + 1) % titleMessages.length;
-        }, 1000);
-      }
+    const updateTitle = () => {
+      document.title = document.hidden ? awayTitle : originalTitle;
     };
 
-    const stopTitleAnimation = () => {
-      if (titleInterval) {
-        clearInterval(titleInterval);
-        titleInterval = null;
-      }
-      document.title = originalTitle;
-    };
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        startTitleAnimation();
-      } else {
-        stopTitleAnimation();
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    window.addEventListener("blur", startTitleAnimation);
-    window.addEventListener("focus", stopTitleAnimation);
+    document.addEventListener("visibilitychange", updateTitle);
+    window.addEventListener("blur", () => (document.title = awayTitle));
+    window.addEventListener("focus", () => (document.title = originalTitle));
 
     return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      window.removeEventListener("blur", startTitleAnimation);
-      window.removeEventListener("focus", stopTitleAnimation);
+      document.removeEventListener("visibilitychange", updateTitle);
+      window.removeEventListener("blur", () => (document.title = awayTitle));
+      window.removeEventListener("focus", () => (document.title = originalTitle));
     };
   }, []);
 
