@@ -42,7 +42,7 @@ const ShowPasswordBox = ({
           letterSpacing: 1,
         }}
       >
-        {showPassword ? `password: ${password}` : "•".repeat(password.length)}
+        {showPassword ? `password: ${password}` : null}
       </Typography>
       <IconButton
         onClick={() => setShowPassword((prev) => !prev)}

@@ -420,7 +420,7 @@ function TeamDashboard() {
 
   const getUsername = (email: string) => {
     const currentMember = members.find((m) => m.email === email);
-    return currentMember?.discord_id ?? "";
+    return currentMember?.name ?? "";
   };
   const getPassword = (email: string) => {
     const currentMember = members.find((m) => m.email === email);
