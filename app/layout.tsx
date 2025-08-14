@@ -4,8 +4,6 @@
 // import "./globals.css";
 // import DynamicTitle from "@/components/DynamicTitle";
 // import AuthProvider from "./_components/AuthContext";
-// import { ToastContainer } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 
 // export const metadata: Metadata = {
 //   metadataBase: new URL("https://obscura.ccstiet.com"),
@@ -137,14 +135,14 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import DynamicTitle from "@/components/DynamicTitle";
 import AuthProvider from "./_components/AuthContext";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "sonner";
+import Script from "next/script";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://obscura.ccstiet.com"),
-  title: "Obscura - Hack The Maze | Creative Computing Society",
+  metadataBase: new URL("https://checkmate.ccstiet.com"),
+  title: "Checkmate - Hack The Maze | Creative Computing Society",
   description:
-    "In a fractured realm between logic and sorcery, a rogue demonic entity named Obscura has hijacked the overworld's robotic army. Join the ultimate hacking competition and escape the digital labyrinth. Register now!",
+    "Where logic collides with sorcery, the rogue mastermind Checkmate has seized control of the overworld’s robotic legions. Enter the ultimate hacking gauntlet, navigate the digital labyrinth, and claim your triumph. Register now — the battle begins.",
   keywords: [
     "hackathon",
     "coding competition",
@@ -154,24 +152,24 @@ export const metadata: Metadata = {
     "tech event",
     "Creative Computing Society",
     "CCS",
-    "Obscura",
+    "Checkmate",
     "digital maze",
   ],
   authors: [{ name: "Creative Computing Society" }],
   creator: "Creative Computing Society",
   publisher: "Creative Computing Society",
   openGraph: {
-    title: "Obscura - Hack The Maze | Ultimate Hacking Competition",
+    title: "Checkmate - Hack The Maze | Ultimate Hacking Competition",
     description:
       "Trapped in a shifting digital labyrinth, you and your team must outwit firewalls, dodge arcane traps, and decode corrupted transmissions. Are you smart enough to escape?",
-    url: "https://obscura.ccstiet.com",
-    siteName: "Obscura",
+    url: "https://checkmate.ccstiet.com",
+    siteName: "Checkmate",
     images: [
       {
         url: "/bg_image.png",
         width: 1200,
         height: 630,
-        alt: "Obscura - Hack The Maze Competition",
+        alt: "Checkmate - Hack The Maze Competition",
       },
     ],
     locale: "en_US",
@@ -179,9 +177,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Obscura - Hack The Maze | Ultimate Hacking Competition",
+    title: "Checkmate - Hack The Maze | Ultimate Hacking Competition",
     description:
-      "Join the ultimate hacking competition. Escape the digital labyrinth before Obscura's power consumes you!",
+      "Join the ultimate hacking competition. Escape the digital labyrinth before Checkmate's power consumes you!",
     images: ["/bg_image.png"],
     creator: "@ccs_tiet",
   },
@@ -236,7 +234,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Event",
-              name: "Obscura - Hack The Maze",
+              name: "checkmate - Hack The Maze",
               description:
                 "Creative Computing Society's ultimate hacking competition where teams must escape a digital labyrinth",
               organizer: {
@@ -246,7 +244,7 @@ export default function RootLayout({
               },
               location: {
                 "@type": "VirtualLocation",
-                url: "https://obscura.ccstiet.com",
+                url: "https://checkmate.ccstiet.com",
               },
               eventStatus: "https://schema.org/EventScheduled",
               eventAttendanceMode:
@@ -255,19 +253,23 @@ export default function RootLayout({
           }}
         />
       </head>
+
       <body>
+        <Script src="/level/syrinx_lvl1.js" strategy="beforeInteractive" />
         <DynamicTitle />
         <AuthProvider>
           {children}
-          <ToastContainer
+          <Toaster
+            richColors
             position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={true}
-            closeOnClick
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
+            // position="top-right"
+            // autoClose={3000}
+            // hideProgressBar={false}
+            // newestOnTop={true}
+            // closeOnClick
+            // pauseOnFocusLoss
+            // draggable
+            // pauseOnHover
             theme="dark"
           />
         </AuthProvider>

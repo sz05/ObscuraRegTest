@@ -1,80 +1,59 @@
 "use client";
 
-import CCSLogo from "./_components/CCSLogoLarge";
 import ShiftingCountdown from "../components/ui/countdown-timer";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Sparkles } from "lucide-react";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { useEffect } from "react";
+import { Box, Button } from "@mui/material";
+import { toast, Toaster } from "sonner";
+import CCSLogoLarge from "./_components/CCSLogoLarge";
+import { BrandsGrid } from "./_components/BrandGrid";
 
-// Define sponsor type
 type Sponsor = {
   id: number;
   name: string;
   logo: string;
-  tier: "platinum" | "gold" | "silver" | "bronze";
   website: string;
 };
 
-// Hardcoded list of sponsors
 const sponsors: Sponsor[] = [
   {
     id: 1,
-    name: "TechCorp Global",
-    logo: "/sponsors/techcorp.png", // Placeholder path - you'll need actual images
-    tier: "platinum",
-    website: "https://example.com/techcorp",
+    name: "Syntx",
+    logo: "/sponsors/syntx.svg",
+    website: "https://syntx.dev/",
   },
   {
     id: 2,
-    name: "Innovate Solutions",
-    logo: "/sponsors/innovate.png",
-    tier: "gold",
-    website: "https://example.com/innovate",
+    name: "Deradh",
+    logo: "/sponsors/deradh.png",
+    website: "https://www.deradh.com/",
   },
   {
     id: 3,
-    name: "Digital Dynamics",
-    logo: "/sponsors/digital.png",
-    tier: "gold",
-    website: "https://example.com/digital",
+    name: "KOMPTE",
+    logo: "/sponsors/kompte.webp",
+    website: "https://www.kompte.com/",
   },
   {
     id: 4,
-    name: "ByteForge",
-    logo: "/sponsors/byteforge.png",
-    tier: "silver",
-    website: "https://example.com/byteforge",
+    name: "MedX",
+    logo: "/sponsors/medx.png",
+    website: "https://medx.org.in/",
   },
   {
     id: 5,
-    name: "NextGen Systems",
-    logo: "/sponsors/nextgen.png",
-    tier: "silver",
-    website: "https://example.com/nextgen",
+    name: "Rebec",
+    logo: "/sponsors/rebec.png",
+    website: "https://rebec.in/",
   },
   {
     id: 6,
-    name: "CloudPeak",
-    logo: "/sponsors/cloudpeak.png",
-    tier: "bronze",
-    website: "https://example.com/cloudpeak",
-  },
-  {
-    id: 7,
-    name: "Quantum Labs",
-    logo: "/sponsors/quantum.png",
-    tier: "bronze",
-    website: "https://example.com/quantum",
-  },
-  {
-    id: 8,
-    name: "Cyber Secure",
-    logo: "/sponsors/cybersecure.png",
-    tier: "bronze",
-    website: "https://example.com/cybersecure",
+    name: "Talkeys",
+    logo: "/sponsors/talkeys.png",
+    website: "https://www.talkeys.xyz/",
   },
 ];
 
@@ -82,7 +61,7 @@ export default function Page() {
   const router = useRouter();
 
   const handleLogin = () => {
-    if (registered) {
+    if (verify) {
       router.push("/Dashboard");
       return;
     }
@@ -91,33 +70,30 @@ export default function Page() {
 
   // Set initial title on component mount
   useEffect(() => {
-    document.title = "Obscura";
+    document.title = "Checkmate";
   }, []);
 
-  const [registered, setRegistered] = useState(false);
+  const [verify, setVerified] = useState(false);
 
-  const checkRegistered = async () => {
+  const checkVerified = async () => {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
-        {
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/verify`, {
+        credentials: "include",
+      });
       const data = await res.json();
-      setRegistered(data.registered);
+      setVerified(data.registered);
       if (!res.ok) throw new Error(data.error);
     } catch {
       alert("Failed");
-      setRegistered(false);
+      setVerified(false);
     }
   };
   useEffect(() => {
-    checkRegistered();
+    checkVerified();
   }, []);
 
   const handleDashboardClick = () => {
-    if (registered) {
+    if (verify) {
       router.push("/Dashboard");
       return;
     } else {
@@ -125,8 +101,38 @@ export default function Page() {
     }
   };
 
+  const handleLogout = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+
+    // const data = await res.json();
+
+    if (!res.ok) toast.error("Logout failed");
+    // else window.location.href = "/";
+    else {
+      // window.location.href = "/";
+      toast.success("Logged out successfully");
+    }
+  };
+
   return (
     <>
+      {verify ? (
+        <Box className="fixed top-4 right-4" zIndex={999}>
+          <Button
+            sx={{ cursor: "pointer" }}
+            onClick={handleLogout}
+            color="error"
+            variant="contained"
+            size="small"
+          >
+            Logout
+          </Button>
+        </Box>
+      ) : null}
+      <Toaster richColors position="top-right" />
       <div
         className="relative min-h-[80vh] sm:min-h-[90vh] md:min-h-screen flex flex-col"
         style={{
@@ -140,17 +146,47 @@ export default function Page() {
 
         <div className="relative z-20 flex flex-col justify-center items-center min-h-[80vh] sm:min-h-[90vh] md:min-h-screen px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-10 sm:py-12 md:py-16 lg:py-20">
           <div className="flex flex-col items-center text-center gap-4 sm:gap-6 md:gap-8 pt-8 sm:pt-0">
-            <div className="w-24 h-16 sm:w-28 sm:h-18 md:w-36 md:h-22 lg:w-44 lg:h-26 xl:w-52 xl:h-32">
-              <CCSLogo className="w-full h-full" />
+            <div className="flex flex-row items-center justify-center gap-4">
+              <CCSLogoLarge />
+              <Box
+                component="img"
+                src="/froshLogo.png"
+                alt="Frosh Logo"
+                sx={{
+                  width: {
+                    xs: "175px",
+                    sm: "200px",
+                    md: "235px",
+                  },
+                  height: "auto",
+                  objectFit: "contain",
+                }}
+              />
             </div>
 
-            <h2 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-megarok leading-none tracking-wider drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
+            <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-megarok leading-none tracking-wider drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
               PRESENTS
             </h2>
 
             <h1 className="text-white text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-9xl font-megarok leading-none tracking-wider drop-shadow-[0_0_15px_rgba(0,0,0,0.9)]">
-              OBSCURA
+              CHECKMATE
             </h1>
+
+            <h3
+              className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-400 to-red-500 
+             text-3xl sm:text-4xl md:text-5xl font-['GothamXNarrow'] tracking-wide animate-pulse
+             drop-shadow-[0_0_15px_rgba(255,200,0,0.8)]"
+            >
+              Prizes Worth ₹40K
+            </h3>
+
+            {/* <h3
+              className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-red-400 to-blue-500 
+             text-3xl sm:text-4xl md:text-5xl font-['GothamXNarrow'] tracking-wide
+             drop-shadow-[0_0_15px_rgba(255,200,0,0.8)]"
+            >
+              Prizes Worth ₹40K
+            </h3> */}
 
             <div className="mt-4 sm:mt-6 mb-6 sm:mb-8 w-full max-w-[280px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]">
               <ShiftingCountdown />
@@ -302,17 +338,17 @@ export default function Page() {
                 visible: { opacity: 1, y: 0 },
               }}
             >
-              In a{" "}
-              <span className="text-red-400 font-bold">fractured realm</span>{" "}
-              between logic and sorcery, a rogue demonic entity named{" "}
-              <span className="text-orange-400 font-bold">Obscura</span> has
-              hijacked the overworld's robotic army and fractured two souls into
-              hacker and wizard. Now , with your{" "}
-              <span className="text-red-400 font-bold"> team of 4 </span> ,
-              you're trapped in a shifting digital labyrinth, you and your team
-              must outwit firewalls, dodge arcane traps, and decode corrupted
-              transmissions.
+              Where logic collides with sorcery, the rogue mastermind{" "}
+              <span className="text-orange-400 font-bold">Checkmate</span> has
+              seized control of the overworld’s robotic legions. Enter the{" "}
+              <span className="text-red-400 font-bold">
+                ultimate hacking gauntlet
+              </span>
+              , navigate the{" "}
+              <span className="text-red-400 font-bold">digital labyrinth</span>,
+              and claim your triumph.{" "}
             </motion.p>
+
             <motion.p
               className="text-lg sm:text-3xl md:text-4xl text-red-300 font-megarok mb-12 tracking-wide"
               variants={{
@@ -347,6 +383,17 @@ export default function Page() {
             </motion.div>
           </motion.div>
         </motion.div>
+      </section>
+      <section
+        id="sponsors"
+        className="relative py-16 sm:py-24 md:py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
+      >
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+          <h2 className="text-3xl sm:text-4xl md:text-8xl font-megarok mb-10 text-center tracking-wider leading-tight text-white">
+            Our Sponsors
+          </h2>
+          <BrandsGrid brands={sponsors} />
+        </div>
       </section>
     </>
   );

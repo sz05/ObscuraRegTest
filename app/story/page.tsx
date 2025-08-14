@@ -4,16 +4,16 @@ import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
-const story = `🌀 OBSCURA — Unleashed Between Worlds. 🌀
+const story = `🌀 Checkmate — Unleashed Between Worlds. 🌀
 
 In the depths of a forgotten prison, the engineers tore open a portal,
-unknowingly unleashing Obscura, the ancient force sealed away by sorcery.
+unknowingly unleashing Checkmate, the ancient force sealed away by sorcery.
 
 Now free, he has seized control of the overworld’s robots, twisting them into his legion.
 To stop him, the engineers and warlocks forged two champions:
 “Scurra”, the arcane guardian, and “Scarra”, the digital savant.
 
-But Obscura struck first.
+But Checkmate struck first.
 He split their souls and banished them to the Labyrinth — a realm between realms, 
 riddled with traps, riddles, and echoes of a broken world.
 
@@ -21,7 +21,7 @@ Your mission:
 -- Escape the Labyrinth.
 -- Reunite the fractured souls.
 -- Sever the portal.
--- End Obscura's reign before both realms fall.
+-- End Checkmate's reign before both realms fall.
 
 🕒 The clock is ticking. Will you find your way out… or be lost forever?`;
 
@@ -50,8 +50,8 @@ export default function Story() {
   }, []);
 
   const handleLogin = () => {
-  window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
-};
+    window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`;
+  };
 
   useEffect(() => {
     if (!loading && !isComplete && currentIndex < story.length) {

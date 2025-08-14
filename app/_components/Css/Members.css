@@ -1,0 +1,35 @@
+.members-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 43vh;
+  gap: 15vw;
+  background-color: #000; /* Optional: to match the background of the image */
+}
+
+.margin-top-50 {
+  margin-top: 180px;
+}
+
+.member {
+  text-align: center;
+  color: #fff;
+}
+
+.member-image {
+  width: 100px;
+  height: auto;
+}
+
+.member-info {
+  margin-top: 10px;
+}
+
+.member-name {
+  font-size: 1.9em;
+  font-weight: bold;
+}
+
+.member-role {
+  font-size: 1em;
+}

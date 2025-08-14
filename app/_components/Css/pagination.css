@@ -1,0 +1,19 @@
+.pixelated-btn {
+    font-family: 'VT323', monospace;
+    border: 2px solid #000;
+    box-shadow: 0 0 0 2px #000;
+    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    /* padding: 0.75rem 1.5rem; */
+    transition: background-color 0.2s, color 0.2s;
+  }
+  
+  .pixelated-btn:hover {
+    background-color: #b8860b;
+    color: #fff;
+  }
+  
+  .pixelated-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff;
+  }
+  

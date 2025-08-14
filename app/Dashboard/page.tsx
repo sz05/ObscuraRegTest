@@ -14,17 +14,16 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Input,
   TextField,
 } from "@mui/material";
 import { ContentCopy, InfoOutlined, Label } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import CCSLogoLarge from "../_components/CCSLogoLarge";
 import withProtectedRoute from "../_components/ProtectedRoute";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import EditIcon from "@mui/icons-material/Edit";
+import { toast, Toaster } from "sonner";
+import Logos from "../_components/Logos";
+import ShowPasswordBox from "./components/ShowPass";
 
 type Role = "WIZARD" | "HACKER";
 
@@ -36,25 +35,37 @@ type Member = {
   id: string;
   is_wizard: boolean;
   is_hacker: boolean;
+  year: string;
+  password: string;
 };
 
 function TeamDashboard() {
   const [members, setMembers] = useState<Member[]>([]);
   const [teamCode, setTeamCode] = useState("");
+  const [teamName, setTeamName] = useState("");
   const [isLeader, setIsLeader] = useState(false);
   const [copied, setCopied] = useState(false);
   const [currentUserEmail, setCurrentUserEmail] = useState("");
   const [rulebookOpen, setRulebookOpen] = useState(false);
-  const [edit, setEdit] = useState(false);
+  const [editDiscord, setEditDiscord] = useState(false);
+  // const [editTeamName , setEditTeamName] = useState(false)
   const [new_id, setNew_id] = useState<string>("");
   const [new_id_errors, setNew_id_error] = useState("");
+  const [teamNameDialogOpen, setTeamNameDialogOpen] = useState(false);
+  const [new_team_name, setNewTeamName] = useState("");
+  const [newTeamNameError, setNewTeamNameError] = useState("");
 
-  const validateNewID = () => {
+  const validateNewDiscordID = () => {
     let new_id_error = "";
 
-    if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(new_id)) {
+    // if (!/^(?![_\.])[a-zA-Z0-9._]{2,32}(?<![_\.])$/.test(new_id)) {
+    //   new_id_error =
+    //     "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores). No trailing or leading underscores.";
+    // }
+
+    if (!/^[a-zA-Z0-9._]{2,32}$/.test(new_id)) {
       new_id_error =
-        "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores). No trailing or leading underscores.";
+        "Invalid Discord username. Use 2–32 characters (letters, numbers, dots, underscores).";
     }
 
     setNew_id_error(new_id_error);
@@ -62,15 +73,17 @@ function TeamDashboard() {
     // return Object.values(newErrors).every((e) => e === "");
   };
 
-  const handleLogout = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, {
-      method: "POST",
-      credentials: "include",
-    });
+  const validateNewTeamName = () => {
+    let error = "";
 
-    const data = await res.json();
-    if (!res.ok) toast.error("Logout failed");
-    else window.location.href = "/";
+    if (!/^[\w\s]{1,20}$/.test(new_team_name)) {
+      error =
+        "Team name must be between 1 and 20 characters and can include letters, numbers, spaces, or underscores.";
+    }
+
+    setNewTeamNameError(error);
+    return error === "";
+    // return Object.values(newErrors).every((e) => e === "");
   };
 
   const fetchDashboard = async () => {
@@ -92,14 +105,17 @@ function TeamDashboard() {
         id: p.id,
         is_wizard: p.is_wizard ?? false,
         is_hacker: p.is_hacker ?? true,
+        year: p.year,
+        password: p.password,
       }));
 
       setMembers(players);
       setTeamCode(data.team_code);
+      setTeamName(data.team_name);
       setIsLeader(data.is_leader);
       setCurrentUserEmail(data.currentUserEmail);
     } catch {
-      toast.error("Failed to load dashboard.");
+      toast.error("Failed to load dashboard..");
     }
   };
 
@@ -122,55 +138,68 @@ function TeamDashboard() {
   //       id: p.id,
   //       is_wizard: p.is_wizard ?? false,
   //       is_hacker: p.is_hacker ?? true,
+  //       password: p.password,
   //     }));
 
   //     setMembers(players);
   //     setTeamCode(data.team_code);
+  //     setTeamName(data.team_name);
+
   //     setIsLeader(data.is_leader);
   //     setCurrentUserEmail(data.currentUserEmail);
+  //     setCurrentUserPassword(data.currentUserPassword);
   //   } catch (error) {
-  //     toast.error("Failed to load dashboard. Loading demo data...");
+  //     // toast.error("Failed to load dashboard. Loading demo data...");
 
   //     // Load dummy data
   //     setMembers([
   //       {
   //         id: "1",
+  //         password: "password123",
   //         name: "Alice Wonderland",
   //         email: "alice@example.com",
   //         rollno: "CS101",
   //         discord_id: "Al",
   //         is_wizard: true,
   //         is_hacker: false,
+  //         year: "1",
   //       },
   //       {
   //         id: "2",
+  //         password: "password456",
   //         name: "Bob Matrix",
   //         email: "bob@example.com",
   //         rollno: "CS102",
   //         discord_id: "Bob#5678",
   //         is_wizard: false,
   //         is_hacker: true,
+  //         year: "2",
   //       },
   //       {
   //         id: "3",
+  //         password: "password789",
   //         name: "Charlie Quantum",
   //         email: "charlie@example.com",
   //         rollno: "CS103",
   //         discord_id: "Charlie#4321",
   //         is_wizard: true,
   //         is_hacker: false,
+  //         year: "2",
   //       },
   //       {
   //         id: "4",
+  //         password: "password012",
   //         name: "Dana Cyber",
   //         email: "dana@example.com",
   //         rollno: "CS104",
   //         discord_id: "Dana#9876",
   //         is_wizard: false,
   //         is_hacker: true,
+  //         year: "3",
   //       },
   //     ]);
   //     setTeamCode("DEMO1234");
+  //     setTeamName("Team");
   //     setIsLeader(true);
   //     setCurrentUserEmail("alice@example.com");
   //   }
@@ -237,13 +266,36 @@ function TeamDashboard() {
   };
   const router = useRouter();
 
+  const handleTeamNameEdit = async () => {
+    if (!validateNewTeamName()) return;
+    const payload = {
+      new_team_name: new_team_name,
+    };
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/change_team_name`,
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    const data = await res.json();
+    if (!res.ok) toast.error(data.error || "Update failed");
+    else {
+      toast.success("Team Name updated successfully!");
+      setTeamNameDialogOpen(false);
+      fetchDashboard();
+    }
+  };
+
   const handleDiscordEdit = async () => {
-    if (!validateNewID()) return;
+    if (!validateNewDiscordID()) return;
     const payload = {
       discord_id: new_id,
     };
-
-    // console.log(payload);
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/change_discord`,
@@ -258,7 +310,7 @@ function TeamDashboard() {
     const data = await res.json();
     if (!res.ok) toast.error(data.error || "Update failed");
     else toast.success("Discord ID updated successfully !");
-    setEdit(false);
+    setEditDiscord(false);
     fetchDashboard();
   };
 
@@ -266,17 +318,17 @@ function TeamDashboard() {
     const hackerCount = members.filter((m) => m.is_hacker).length;
     const wizardCount = members.filter((m) => m.is_wizard).length;
     {
-      hackerCount + wizardCount < 4
+      hackerCount + wizardCount < 2
         ? toast.error(
             `Add ${
-              4 - (hackerCount + wizardCount)
+              2 - (hackerCount + wizardCount)
             } more members to complete registration of your team `
           )
         : null;
     }
 
-    if (hackerCount < 2 || wizardCount < 2) {
-      toast.error("You must assign exactly 2 Hackers and 2 Wizards.");
+    if (hackerCount < 1 || wizardCount < 1) {
+      toast.error("You must assign atleast 1 Hacker and atleast 1 Wizard");
       return;
     }
 
@@ -301,6 +353,8 @@ function TeamDashboard() {
         discord_id: m.discord_id,
         is_hacker: m.is_hacker,
         is_wizard: m.is_wizard,
+        year: m.year,
+        password: m.password,
       })),
     };
 
@@ -365,6 +419,15 @@ function TeamDashboard() {
   const getAvatarUrl = (role: string) =>
     role === "WIZARD" ? "scarra.png" : "scurra.png";
 
+  const getUsername = (email: string) => {
+    const currentMember = members.find((m) => m.email === email);
+    return currentMember?.name ?? "";
+  };
+  const getPassword = (email: string) => {
+    const currentMember = members.find((m) => m.email === email);
+    return currentMember?.password ?? "";
+  };
+
   const renderCard = (member: Member, index: number) => {
     const role = getRole(member);
     const badgeColor = role === "HACKER" ? "#3B82F6" : "#EF4444";
@@ -398,7 +461,7 @@ function TeamDashboard() {
             <Typography variant="body2" color="gray">
               {member.email}
             </Typography>
-            {edit && member.email === currentUserEmail ? (
+            {editDiscord && member.email === currentUserEmail ? (
               <Box
                 display="flex"
                 flexDirection={{ xs: "column", sm: "row" }}
@@ -454,7 +517,7 @@ function TeamDashboard() {
                     variant="contained"
                     size="small"
                     // disabled={!new_id}
-                    onClick={() => setEdit(false)}
+                    onClick={() => setEditDiscord(false)}
                     sx={{
                       bgcolor: "#FF5555",
                       "&:hover": { bgcolor: "#FF3333" },
@@ -472,7 +535,7 @@ function TeamDashboard() {
                   Discord: {member.discord_id || "Not provided"}
                 </Typography>
                 {member.email === currentUserEmail && (
-                  <IconButton onClick={() => setEdit(true)}>
+                  <IconButton onClick={() => setEditDiscord(true)}>
                     <EditIcon sx={{ fontSize: 18, color: "#2188E5" }} />
                   </IconButton>
                 )}
@@ -548,7 +611,7 @@ function TeamDashboard() {
         backgroundPosition: "center",
       }}
     >
-      <ToastContainer />
+      <Toaster richColors position="top-right" />
 
       <Box
         sx={{
@@ -559,38 +622,39 @@ function TeamDashboard() {
         }}
       />
 
-      <Box
-        width="100%"
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        mb={4}
-        sx={{ zIndex: 1 }}
-      >
-        <Box sx={{ width: { xs: "120px", sm: "150px" } }}>
-          <CCSLogoLarge />
-        </Box>
-        <Button
-          onClick={handleLogout}
-          color="error"
-          variant="contained"
-          size="small"
+      <Logos />
+
+      <Box display="flex" justifyContent="center" alignItems="center" gap={2}>
+        <Typography
+          zIndex={2}
+          variant="h2"
+          fontWeight="bold"
+          color="white"
+          mb={2}
         >
-          Logout
-        </Button>
+          {teamName}
+        </Typography>
+        {isLeader && (
+          <IconButton
+            onClick={() => {
+              setNewTeamName(teamName);
+              setNewTeamNameError("");
+              setTeamNameDialogOpen(true);
+            }}
+            sx={{ zIndex: 2 }}
+          >
+            <EditIcon sx={{ zIndex: 2, color: "white" }} />
+          </IconButton>
+        )}
       </Box>
 
       <Container maxWidth="sm" sx={{ zIndex: 1 }}>
         <Box textAlign="center" mb={3}>
-          <Typography variant="h6" fontWeight="bold" color="red">
-            TEAM CODE
-          </Typography>
-
           <Box
             display="flex"
             alignItems="center"
             justifyContent="center"
-            gap={1}
+            gap={2}
           >
             <Typography variant="h4" fontWeight="bold" color="white">
               {teamCode}
@@ -612,6 +676,10 @@ function TeamDashboard() {
 
         {members.map((member, i) => renderCard(member, i))}
 
+        <ShowPasswordBox
+          username={getUsername(currentUserEmail)}
+          password={getPassword(currentUserEmail)}
+        />
         {isLeader && (
           <Box
             display="flex"
@@ -633,7 +701,7 @@ function TeamDashboard() {
                 color="primary"
                 onClick={handleSave}
                 sx={{
-                  minWidth: 140,
+                  minWidth: 180,
                 }}
               >
                 Save Roles
@@ -714,10 +782,10 @@ function TeamDashboard() {
                 textAlign="center"
               >
                 Your team must have{" "}
-                <strong style={{ color: "#FFF" }}>exactly 4 members</strong>{" "}
+                <strong style={{ color: "#FFF" }}>atleast 2 members</strong>{" "}
                 consisting of{" "}
                 <strong style={{ color: "#FFF" }}>
-                  2 Hackers and 2 Wizards
+                  atleast 1 Hacker and atleast 1 Wizard
                 </strong>{" "}
                 to complete registration
               </Typography>
@@ -813,7 +881,6 @@ function TeamDashboard() {
         )}
       </Container>
 
-      {/* Rulebook Modal */}
       <Dialog
         open={rulebookOpen}
         onClose={() => setRulebookOpen(false)}
@@ -839,7 +906,7 @@ function TeamDashboard() {
             py: 3,
           }}
         >
-          OBSCURA RULEBOOK
+          Checkmate RULEBOOK
         </DialogTitle>
         <DialogContent
           sx={{
@@ -882,9 +949,10 @@ function TeamDashboard() {
               1. TEAM COMPOSITION
             </Typography>
             <Typography className="rule-text">
-              • Teams must have exactly{" "}
-              <span className="highlight">4 players</span>
-              <br />• <span className="highlight">2 Hackers + 2 Wizards</span>
+              • Teams must have atleast{" "}
+              <span className="highlight">2 players</span>
+              <br />•{" "}
+              <span className="highlight">Atleast 1 Hacker + 1 Wizard</span>
               <br />
               • Roles assigned by Team Leader
               <br />
@@ -898,7 +966,7 @@ function TeamDashboard() {
             <Typography className="rule-text">
               • Join your team using the code
               <br />• Game starts once{" "}
-              <span className="highlight">all 4 players join</span>
+              <span className="highlight">atleast 2 players join</span>
             </Typography>
           </Box>
 
@@ -906,9 +974,7 @@ function TeamDashboard() {
             <Typography className="section-title">3. GAMEPLAY RULES</Typography>
             <Typography className="rule-text">
               • Map split into <span className="highlight">2 sections</span>
-              <br />• Hackers and Wizards spawn in{" "}
-              <span className="highlight">separate zones</span>
-              <br />• Each role faces{" "}
+              <br />• Hackers and Wizards spawn <br />• Each role faces{" "}
               <span className="highlight">unique puzzles</span>
               <br />• <span className="warning">Teamwork is essential</span> to
               progress
@@ -952,8 +1018,103 @@ function TeamDashboard() {
           </Button>
         </DialogActions>
       </Dialog>
+      <Dialog
+        open={teamNameDialogOpen}
+        onClose={() => setTeamNameDialogOpen(false)}
+        maxWidth="xs"
+        fullWidth
+        PaperProps={{
+          sx: {
+            bgcolor: "#111",
+            border: "2px solid #333",
+            borderRadius: "12px",
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            bgcolor: "#111",
+            color: "#fff",
+            borderBottom: "2px solid #333",
+            fontWeight: "bold",
+            textAlign: "center",
+            py: 1,
+          }}
+        >
+          Edit Team Name
+        </DialogTitle>
+
+        <DialogContent
+          sx={{
+            bgcolor: "#111",
+            color: "#ddd",
+            p: 1,
+          }}
+        >
+          <TextField
+            fullWidth
+            variant="outlined"
+            label="New Team Name"
+            value={new_team_name}
+            onChange={(e) => {
+              setNewTeamNameError("");
+              setNewTeamName(e.target.value);
+            }}
+            error={Boolean(newTeamNameError)}
+            helperText={newTeamNameError}
+            sx={{
+              mt: 2,
+              input: { color: "white" },
+              label: { color: "#bbb" },
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "#222",
+                borderRadius: "6px",
+                "& fieldset": {
+                  borderColor: "#444",
+                },
+              },
+              "& .MuiFormHelperText-root": {
+                color: "red",
+              },
+            }}
+          />
+        </DialogContent>
+
+        <DialogActions
+          sx={{
+            bgcolor: "#111",
+            borderTop: "2px solid #333",
+            justifyContent: "center",
+            p: 2,
+          }}
+        >
+          <Button
+            onClick={handleTeamNameEdit}
+            variant="contained"
+            sx={{
+              bgcolor: "#ef4444",
+              "&:hover": { bgcolor: "#dc2626" },
+              fontWeight: "bold",
+            }}
+          >
+            Save
+          </Button>
+          <Button
+            onClick={() => setTeamNameDialogOpen(false)}
+            variant="outlined"
+            sx={{
+              borderColor: "#666",
+              color: "#ddd",
+              "&:hover": { borderColor: "#999" },
+            }}
+          >
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
 
 export default withProtectedRoute(TeamDashboard);
+// export default TeamDashboard;

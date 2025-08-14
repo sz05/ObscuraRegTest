@@ -1,0 +1,9 @@
+/* .blur{
+    position: fixed;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 99;
+} */
+.noblur{
+    backdrop-filter: none;
+}

@@ -1,0 +1,14 @@
+.bggrad123{
+    position: absolute;
+    top:80vh;
+    width: 100%;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 31%, rgba(255,255,255,0) 81%);
+  }
+  .bggrad456{
+    position: absolute;
+    top:213vh;
+    width: 100%;
+    background: rgb(0,0,0);
+    /* background: linear-gradient(0deg, #96b352 21%, rgba(0, 0, 0, 0) 81%); */
+  }

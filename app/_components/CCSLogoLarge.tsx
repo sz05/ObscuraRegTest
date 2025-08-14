@@ -6,8 +6,8 @@ const CCSLogoLarge: React.FC<
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
-    width="150"
-    height="100"
+    width="200"
+    height="150"
     fill="none"
     viewBox="0 0 247 131"
     className={className}
