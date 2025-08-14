@@ -45,14 +45,16 @@ const ShowPasswordBox = ({
       >
         {showPassword ? `password: ${password}` : null}
       </Typography>
-      <Box display="flex" flexDirection="row">
+      <Box display="flex" flexDirection="row" alignItems="center" gap={1}>
         <IconButton
           onClick={() => setShowPassword((prev) => !prev)}
           sx={{ color: "black" }}
         >
           {showPassword ? <VisibilityOff /> : <Visibility />}
         </IconButton>
-        {showPassword ? null : <Typography>Click to show password</Typography>}
+        {showPassword ? null : (
+          <Typography color="black">Click to show password</Typography>
+        )}
       </Box>
     </Box>
   );
