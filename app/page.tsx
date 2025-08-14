@@ -151,14 +151,17 @@ export default function Page() {
           <div className="flex flex-col items-center text-center gap-4 sm:gap-6 md:gap-8 pt-8 sm:pt-0">
             <div className="flex flex-row items-center justify-center gap-4">
               <CCSLogoLarge />
-
-              <img
+              <Box
+                component="img"
                 src="/froshLogo.png"
                 alt="Frosh Logo"
-                style={{
-                  width: "100%",
+                sx={{
+                  width: {
+                    xs: "140px",
+                    sm: "180px",
+                    md: "235px",
+                  },
                   height: "auto",
-                  maxWidth: "150px",
                   objectFit: "contain",
                 }}
               />
