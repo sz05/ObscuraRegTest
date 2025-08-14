@@ -14,7 +14,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Input,
   TextField,
 } from "@mui/material";
 import { ContentCopy, InfoOutlined, Label } from "@mui/icons-material";
@@ -47,7 +46,6 @@ function TeamDashboard() {
   const [isLeader, setIsLeader] = useState(false);
   const [copied, setCopied] = useState(false);
   const [currentUserEmail, setCurrentUserEmail] = useState("");
-  const [currentUserPassword, setCurrentUserPassword] = useState("");
   const [rulebookOpen, setRulebookOpen] = useState(false);
   const [editDiscord, setEditDiscord] = useState(false);
   // const [editTeamName , setEditTeamName] = useState(false)
@@ -420,6 +418,15 @@ function TeamDashboard() {
   const getAvatarUrl = (role: string) =>
     role === "WIZARD" ? "scarra.png" : "scurra.png";
 
+  const getUsername = (email: string) => {
+    const currentMember = members.find((m) => m.email === currentUserEmail);
+    return currentMember?.discord_id ?? "";
+  };
+  const getPassword = (email: string) => {
+    const currentMember = members.find((m) => m.email === currentUserEmail);
+    return currentMember?.password ?? "";
+  };
+
   const renderCard = (member: Member, index: number) => {
     const role = getRole(member);
     const badgeColor = role === "HACKER" ? "#3B82F6" : "#EF4444";
@@ -668,6 +675,10 @@ function TeamDashboard() {
 
         {members.map((member, i) => renderCard(member, i))}
 
+        <ShowPasswordBox
+          username={getUsername(currentUserEmail)}
+          password={getPassword(currentUserEmail)}
+        />
         {isLeader && (
           <Box
             display="flex"
@@ -678,7 +689,6 @@ function TeamDashboard() {
             mt={4}
             flexDirection="column"
           >
-            <ShowPasswordBox password={currentUserPassword} />
             <Box display="flex" gap={2} flexWrap="wrap" justifyContent="center">
               {/* <Typography color="red">
                 {`Add ${

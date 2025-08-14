@@ -1,7 +1,7 @@
 import { useSearchParams } from "next/navigation";
-import CCSLogoLarge from "@/app/_components/CCSLogoLarge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Logos from "@/app/_components/Logos";
 
 export default function ThankYou() {
   const searchParams = useSearchParams();
@@ -17,10 +17,7 @@ export default function ThankYou() {
         />
       </div>
 
-      {/* Logo Header */}
-      <div className="relative z-10 pt-6 md:pt-8 flex justify-center">
-        <CCSLogoLarge />
-      </div>
+      <Logos />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 md:py-12 relative z-10">

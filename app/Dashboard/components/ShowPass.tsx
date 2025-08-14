@@ -3,7 +3,13 @@ import { Box, IconButton, Typography } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const ShowPasswordBox = ({ password }: { password: string }) => {
+const ShowPasswordBox = ({
+  password,
+  username,
+}: {
+  username: string;
+  password: string;
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -26,6 +32,16 @@ const ShowPasswordBox = ({ password }: { password: string }) => {
         }}
       >
         {showPassword ? password : "•".repeat(password.length)}
+      </Typography>
+      <Typography
+        variant="body1"
+        sx={{
+          color: "black",
+          fontFamily: "monospace",
+          letterSpacing: 1,
+        }}
+      >
+        {username}
       </Typography>
       <IconButton
         onClick={() => setShowPassword((prev) => !prev)}
