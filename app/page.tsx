@@ -371,7 +371,7 @@ export default function Page() {
           </motion.div>
         </motion.div>
       </section>
-      {/* <section
+      <section
         id="sponsors"
         className="relative py-16 sm:py-24 md:py-32 bg-gradient-to-br from-black via-gray-900 to-black text-white overflow-hidden"
       >
@@ -381,7 +381,7 @@ export default function Page() {
           </h2>
           <BrandsGrid brands={sponsors} />
         </div>
-      </section> */}
+      </section>
     </>
   );
 }
