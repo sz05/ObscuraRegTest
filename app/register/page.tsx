@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import CCSLogoLarge from "../_components/CCSLogoLarge";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Logos from "../_components/Logos";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -40,9 +41,21 @@ export default function RegisterPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/80" />
       </div>
 
-      <div className="absolute top-6 left-4 sm:left-8 z-10">
+      {/* <div className="absolute top-6 left-4 sm:left-8 z-10">
         <CCSLogoLarge />
-      </div>
+        <img
+          src="/froshLogo.png"
+          alt="Frosh Logo"
+          style={{
+            width: "100%",
+            height: "auto",
+            maxWidth: "235px", 
+            objectFit: "contain",
+          }}
+        />
+      </div> */}
+
+      <Logos />
 
       <div className="relative z-10 flex justify-center items-center h-full px-6">
         <div className="w-full max-w-md mx-auto text-center space-y-10">

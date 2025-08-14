@@ -155,15 +155,16 @@ export default function Page() {
               <img
                 src="/froshLogo.png"
                 alt="Frosh Logo"
-                width={235}
-                height={250}
                 style={{
+                  width: "100%",
+                  height: "auto",
+                  maxWidth: "235px",
                   objectFit: "contain",
                 }}
               />
             </div>
 
-            <h2 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-7xl font-megarok leading-none tracking-wider drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
+            <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-megarok leading-none tracking-wider drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
               PRESENTS
             </h2>
 
