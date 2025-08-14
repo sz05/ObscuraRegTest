@@ -2,9 +2,8 @@
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import CCSLogoLarge from "../_components/CCSLogoLarge";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Logos from "../_components/Logos";
 import { Box } from "@mui/material";
 
@@ -41,21 +40,7 @@ export default function RegisterPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/80" />
       </div>
-
-      {/* <div className="absolute top-6 left-4 sm:left-8 z-10">
-        <CCSLogoLarge />
-        <img
-          src="/froshLogo.png"
-          alt="Frosh Logo"
-          style={{
-            width: "100%",
-            height: "auto",
-            maxWidth: "235px", 
-            objectFit: "contain",
-          }}
-        />
-      </div> */}
-      <Box zIndex={99}>
+        <Box className="fixed top-0 left-2 right-2 sm:left-4 sm:right-4 md:left-10 md:right-10 z-[99] px-2 py-2 sm:px-4 sm:py-3 md:px-0 md:py-4">
         <Logos />
       </Box>
 
