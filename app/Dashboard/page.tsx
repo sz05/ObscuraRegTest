@@ -16,7 +16,7 @@ import {
   DialogActions,
   TextField,
 } from "@mui/material";
-import { ContentCopy, InfoOutlined, Label } from "@mui/icons-material";
+import { ContentCopy, InfoOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import withProtectedRoute from "../_components/ProtectedRoute";
 import { useRouter } from "next/navigation";
@@ -24,6 +24,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import { toast, Toaster } from "sonner";
 import Logos from "../_components/Logos";
 import ShowPasswordBox from "./components/ShowPass";
+
+import axios from "axios";
+import Cookies from "js-cookie";
+import DOMPurify from "dompurify";
 
 type Role = "WIZARD" | "HACKER";
 
@@ -54,6 +58,8 @@ function TeamDashboard() {
   const [teamNameDialogOpen, setTeamNameDialogOpen] = useState(false);
   const [new_team_name, setNewTeamName] = useState("");
   const [newTeamNameError, setNewTeamNameError] = useState("");
+
+  const [member, setMember] = useState<Member>();
 
   const validateNewDiscordID = () => {
     let new_id_error = "";
@@ -114,6 +120,8 @@ function TeamDashboard() {
       setTeamName(data.team_name);
       setIsLeader(data.is_leader);
       setCurrentUserEmail(data.currentUserEmail);
+      let member = players.find((m) => m.email === data.currentUserEmail);
+      setMember(member);
     } catch {
       toast.error("Failed to load dashboard..");
     }
@@ -408,6 +416,53 @@ function TeamDashboard() {
     else {
       toast.success("Team Left!");
       router.push("/register");
+    }
+  };
+
+  const sanitizeInput = (input: string) => {
+    return DOMPurify.sanitize(input);
+  };
+
+  const handlePostToSyrinx = async () => {
+    console.log(member);
+    if (!member) return;
+    const sanitizedUsername = sanitizeInput(member.name);
+    const sanitizedPassword = sanitizeInput(member.password);
+
+    try {
+      const response = await axios.post(
+        "https://api.syrinx.ccstiet.com/authanticate",
+        {
+          Username: sanitizedUsername,
+          Password: sanitizedPassword,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.data.error) {
+        toast.error("Invalid Credentials\n" + response.data.error);
+      }
+
+      if (response.data.SessionID) {
+        Cookies.set("token", response.data.SessionID, {
+          expires: 1,
+          secure: true,
+          sameSite: "strict",
+        });
+        console.log("Login successful!");
+        router.push("/home");
+      }
+    } catch (err: any) {
+      console.log(err.response.data.error);
+      if (err.response.data.error) {
+        if (err.response.data.error === "mongo: no documents in result") {
+          toast.error("Invalid Credentials\n");
+        }
+      }
+      // toast.error("Login error:" + e);
     }
   };
 
@@ -764,6 +819,8 @@ function TeamDashboard() {
                 Choose Your Roles
               </Typography>
             </Box>
+
+            <Button onClick={handlePostToSyrinx}>Play</Button>
 
             <Box
               sx={{
