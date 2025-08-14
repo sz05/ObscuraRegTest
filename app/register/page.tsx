@@ -6,6 +6,7 @@ import CCSLogoLarge from "../_components/CCSLogoLarge";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logos from "../_components/Logos";
+import { Box } from "@mui/material";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -54,8 +55,9 @@ export default function RegisterPage() {
           }}
         />
       </div> */}
-
-      <Logos />
+      <Box zIndex={99}>
+        <Logos />
+      </Box>
 
       <div className="relative z-10 flex justify-center items-center h-full px-6">
         <div className="w-full max-w-md mx-auto text-center space-y-10">
