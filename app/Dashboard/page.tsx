@@ -419,11 +419,11 @@ function TeamDashboard() {
     role === "WIZARD" ? "scarra.png" : "scurra.png";
 
   const getUsername = (email: string) => {
-    const currentMember = members.find((m) => m.email === currentUserEmail);
+    const currentMember = members.find((m) => m.email === email);
     return currentMember?.discord_id ?? "";
   };
   const getPassword = (email: string) => {
-    const currentMember = members.find((m) => m.email === currentUserEmail);
+    const currentMember = members.find((m) => m.email === email);
     return currentMember?.password ?? "";
   };
 

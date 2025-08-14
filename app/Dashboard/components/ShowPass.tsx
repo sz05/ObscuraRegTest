@@ -17,6 +17,7 @@ const ShowPasswordBox = ({
       sx={{
         display: "flex",
         alignItems: "center",
+        justifyContent: "center",
         backgroundColor: "red",
         padding: "8px 12px",
         borderRadius: "8px",
@@ -31,7 +32,7 @@ const ShowPasswordBox = ({
           letterSpacing: 1,
         }}
       >
-        {showPassword ? password : "•".repeat(password.length)}
+        Username: {username}
       </Typography>
       <Typography
         variant="body1"
@@ -41,7 +42,7 @@ const ShowPasswordBox = ({
           letterSpacing: 1,
         }}
       >
-        {username}
+        {showPassword ? `password: ${password}` : "•".repeat(password.length)}
       </Typography>
       <IconButton
         onClick={() => setShowPassword((prev) => !prev)}
