@@ -16,6 +16,7 @@ const ShowPasswordBox = ({
     <Box
       sx={{
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "red",
