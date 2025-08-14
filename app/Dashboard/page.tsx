@@ -59,7 +59,7 @@ function TeamDashboard() {
   const [new_team_name, setNewTeamName] = useState("");
   const [newTeamNameError, setNewTeamNameError] = useState("");
 
-  const [member, setMember] = useState<Member | null>(null);
+  const [member, setMember] = useState<Member>();
 
   const validateNewDiscordID = () => {
     let new_id_error = "";
@@ -121,7 +121,7 @@ function TeamDashboard() {
       setIsLeader(data.is_leader);
       setCurrentUserEmail(data.currentUserEmail);
       let member = members.find((m) => m.email === data.currentUserEmail);
-      setMember(member || null);
+      setMember(member);
     } catch {
       toast.error("Failed to load dashboard..");
     }
@@ -424,6 +424,7 @@ function TeamDashboard() {
   };
 
   const handlePostToSyrinx = async () => {
+    console.log(member);
     if (!member) return;
     const sanitizedUsername = sanitizeInput(member.name);
     const sanitizedPassword = sanitizeInput(member.password);
