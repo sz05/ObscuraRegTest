@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { useEffect } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { toast, Toaster } from "sonner";
 import CCSLogoLarge from "./_components/CCSLogoLarge";
 import { BrandsGrid } from "./_components/BrandGrid";
@@ -20,7 +20,7 @@ type Sponsor = {
 
 const sponsors: Sponsor[] = [
   {
-    id: 2,
+    id: 1,
     name: "Syntx",
     logo: "/sponsors/syntx.svg",
     website: "https://syntx.dev/",
@@ -123,7 +123,7 @@ export default function Page() {
   return (
     <>
       {registered ? (
-        <Box className="absolute top-4 right-4 z-100">
+        <Box className="fixed top-4 right-4" zIndex={999}>
           <Button
             sx={{ cursor: "pointer" }}
             onClick={handleLogout}
