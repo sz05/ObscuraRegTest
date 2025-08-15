@@ -7,6 +7,7 @@ import { PanelRightOpen, Pause, Play } from "lucide-react";
 
 import PauseOverlay from "./PauseOverlay";
 import CountdownTimer from "./CountdownTimer";
+import { useRouter } from "next/navigation";
 
 const isMobileDevice = () => {
   if (typeof window === "undefined") return false;
@@ -19,6 +20,10 @@ const isMobileDevice = () => {
 
 const Game = () => {
   const [paused, setPaused] = useState(false);
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/");
+  });
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -28,6 +33,28 @@ const Game = () => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const checkRegistered = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
+        {
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      if (data.registered === false) {
+        alert("You are not part of a team!");
+        router.push("/");
+      }
+    } catch {
+      // alert("Failed");
+    }
+  };
+  useEffect(() => {
+    checkRegistered();
   }, []);
 
   // Mobile view
@@ -77,7 +104,7 @@ const Game = () => {
         <div className="relative w-full h-full rounded-xl overflow-hidden">
           <iframe
             src="https://obscura-demo.ccstiet.com/"
-            title="Checkmate Demo Game"
+            title="Obscura Demo Game"
             className="w-full h-full min-h-[600px] bg-black border-none rounded-xl"
             allowFullScreen
           />
