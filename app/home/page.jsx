@@ -5,7 +5,7 @@ import Link from "next/link";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
-import withProtectedRoute from "../_components/withProtectedRoute";
+import withProtectedRoute from "../_components/ProtectedRoute";
 
 const menuItems = [
   { name: "PLAY GAME", path: "/levels" },
