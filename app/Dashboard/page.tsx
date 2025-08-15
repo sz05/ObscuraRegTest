@@ -824,35 +824,35 @@ function TeamDashboard() {
                 View Rulebook
               </Button>
             </Box>
-
-            <Button
-              onClick={handlePostToSyrinx}
-              sx={{
-                minWidth: 200,
-                px: 5,
-                py: 1.8,
-                fontWeight: 600,
-                fontSize: "1rem",
-                borderRadius: 3,
-                background:
-                  "linear-gradient(135deg, #FFD700 0%, #FFC107 50%, #FFB300 100%)",
-                color: "#fff",
-                border: "1px solid rgba(255, 215, 0, 0.8)",
-                boxShadow: "0 6px 15px rgba(255, 215, 0, 0.4)",
-                textTransform: "none",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  background:
-                    "linear-gradient(135deg, #FFB300 0%, #FFC107 50%, #FFD700 100%)",
-                  boxShadow: "0 8px 20px rgba(255, 215, 0, 0.6)",
-                  transform: "translateY(-2px) scale(1.03)",
-                },
-              }}
-            >
-              Play
-            </Button>
           </Box>
         )}
+
+        <Button
+          onClick={handlePostToSyrinx}
+          sx={{
+            minWidth: 200,
+            px: 5,
+            py: 1.8,
+            fontWeight: 600,
+            fontSize: "1rem",
+            borderRadius: 3,
+            background:
+              "linear-gradient(135deg, #FFD700 0%, #FFC107 50%, #FFB300 100%)",
+            color: "#fff",
+            border: "1px solid rgba(255, 215, 0, 0.8)",
+            boxShadow: "0 6px 15px rgba(255, 215, 0, 0.4)",
+            textTransform: "none",
+            transition: "all 0.3s ease",
+            "&:hover": {
+              background:
+                "linear-gradient(135deg, #FFB300 0%, #FFC107 50%, #FFD700 100%)",
+              boxShadow: "0 8px 20px rgba(255, 215, 0, 0.6)",
+              transform: "translateY(-2px) scale(1.03)",
+            },
+          }}
+        >
+          Play
+        </Button>
 
         {isLeader && (
           <Box
