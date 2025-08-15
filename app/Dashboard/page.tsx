@@ -796,6 +796,8 @@ function TeamDashboard() {
           </Box>
         )}
 
+        <Button onClick={handlePostToSyrinx}>Play</Button>
+
         {isLeader && (
           <Box
             sx={{
@@ -819,8 +821,6 @@ function TeamDashboard() {
                 Choose Your Roles
               </Typography>
             </Box>
-
-            <Button onClick={handlePostToSyrinx}>Play</Button>
 
             <Box
               sx={{
