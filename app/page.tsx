@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { useEffect } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { toast, Toaster } from "sonner";
 import CCSLogoLarge from "./_components/CCSLogoLarge";
 import { BrandsGrid } from "./_components/BrandGrid";
@@ -382,6 +382,41 @@ export default function Page() {
               </ShimmerButton>
             </motion.div>
           </motion.div>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            // mt={4}
+            gap={2}
+            flexDirection="column"
+          >
+            <Box bgcolor="#2C2F33" p={2} borderRadius={4}>
+              <Typography
+                zIndex={99}
+                fontSize={25}
+                component="a"
+                href="https://discord.gg/6fKxYrHvXw"
+                target="_blank"
+                sx={{
+                  color: "#7289DA",
+                  fontWeight: "bold",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 1,
+                  mt: 1,
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}
+              >
+                Join our Discord
+              </Typography>
+            </Box>
+            <Typography color="red">
+              Note: It is compulsory to join discord to participate in the event
+            </Typography>
+          </Box>
         </motion.div>
       </section>
       <section

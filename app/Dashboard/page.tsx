@@ -155,7 +155,7 @@ function TeamDashboard() {
 
   //     setIsLeader(data.is_leader);
   //     setCurrentUserEmail(data.currentUserEmail);
-  //     setCurrentUserPassword(data.currentUserPassword);
+  //     // setCurrentUserPassword(data.currentUserPassword);
   //   } catch (error) {
   //     // toast.error("Failed to load dashboard. Loading demo data...");
 
@@ -679,6 +679,43 @@ function TeamDashboard() {
 
       <Logos />
 
+      <Box
+        zIndex={99}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        // mt={4}
+        gap={2}
+        flexDirection="column"
+      >
+        <Box bgcolor="#2C2F33" p={2} borderRadius={4}>
+          <Typography
+            zIndex={99}
+            fontSize={25}
+            component="a"
+            href="https://discord.gg/6fKxYrHvXw"
+            target="_blank"
+            sx={{
+              color: "#7289DA",
+              fontWeight: "bold",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 1,
+              mt: 1,
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+          >
+            Join our Discord
+          </Typography>
+        </Box>
+        <Typography color="red">
+          Note: It is compulsory to join discord to participate in the event
+        </Typography>
+      </Box>
+
       <Box display="flex" justifyContent="center" alignItems="center" gap={2}>
         <Typography
           zIndex={2}
@@ -735,26 +772,16 @@ function TeamDashboard() {
           username={getUsername(currentUserEmail)}
           password={getPassword(currentUserEmail)}
         />
-        {/* <Box bgcolor="black">
-          <Button onClick={handlePostToSyrinx}>Play</Button>
-        </Box> */}
 
         {isLeader && (
           <Box
             display="flex"
-            justifyContent="center"
-            alignItems="center"
-            gap={2}
-            flexWrap="wrap"
-            mt={4}
             flexDirection="column"
+            alignItems="center"
+            gap={3}
+            mt={4}
           >
             <Box display="flex" gap={2} flexWrap="wrap" justifyContent="center">
-              {/* <Typography color="red">
-                {`Add ${
-                  4 - (hackerCount + wizardCount)
-                } more members to complete registration of your team `}
-              </Typography> */}
               <Button
                 variant="contained"
                 color="primary"
@@ -778,25 +805,52 @@ function TeamDashboard() {
                   Delete Team
                 </Button>
               )}
+
+              <Button
+                variant="outlined"
+                onClick={() => setRulebookOpen(true)}
+                startIcon={<InfoOutlined />}
+                sx={{
+                  backgroundColor: "red",
+                  borderColor: "#666",
+                  color: "#ddd",
+                  minWidth: 160,
+                  "&:hover": {
+                    borderColor: "#999",
+                    bgcolor: "rgba(255,255,255,0.1)",
+                  },
+                }}
+              >
+                View Rulebook
+              </Button>
             </Box>
 
-            <Button
-              variant="outlined"
-              onClick={() => setRulebookOpen(true)}
-              startIcon={<InfoOutlined />}
+            {/* <Button
+              onClick={handlePostToSyrinx}
               sx={{
-                backgroundColor: "red",
-                borderColor: "#666",
-                color: "#ddd",
-                minWidth: 160,
+                minWidth: 200,
+                px: 5,
+                py: 1.8,
+                fontWeight: 600,
+                fontSize: "1rem",
+                borderRadius: 3,
+                background:
+                  "linear-gradient(135deg, #FFD700 0%, #FFC107 50%, #FFB300 100%)",
+                color: "#fff",
+                border: "1px solid rgba(255, 215, 0, 0.8)",
+                boxShadow: "0 6px 15px rgba(255, 215, 0, 0.4)",
+                textTransform: "none",
+                transition: "all 0.3s ease",
                 "&:hover": {
-                  borderColor: "#999",
-                  bgcolor: "rgba(255,255,255,0.1)",
+                  background:
+                    "linear-gradient(135deg, #FFB300 0%, #FFC107 50%, #FFD700 100%)",
+                  boxShadow: "0 8px 20px rgba(255, 215, 0, 0.6)",
+                  transform: "translateY(-2px) scale(1.03)",
                 },
               }}
             >
-              View Rulebook
-            </Button>
+              Play
+            </Button> */}
           </Box>
         )}
 
