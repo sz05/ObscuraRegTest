@@ -12,7 +12,7 @@ import GdLoader from "../../_components/godot/gdLoader.jsx";
 
 // import "../Css/Leader.css";
 import "../../_components/Css/Leader.css";
-import withProtectedRoute from "@/app/_components/ProtectedRoute.jsx";
+import withProtectedRoute from "../../_components/ProtectedRoute.tsx";
 
 const Level = ({ params }) => {
   const { id } = reactUse(params);
