@@ -110,7 +110,9 @@ const Levels = () => {
             </div>
           </div>
           <div
-            onClick={() => (isActive[2] ? handleClick(2) : handleempty)}
+            onClick={() =>
+              isActive[2] ? router.push("/112-108-97-121") : handleempty
+            }
             className={`h-[40vh] w-[18vw] relative border-[2px] hover:border-white border-black bg-green-500 rounded-2xl ${
               !isActive[2]
                 ? "grayscale hover:cursor-not-allowed"
