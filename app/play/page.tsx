@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { PanelRightOpen, Pause, Play } from "lucide-react";
 
 import PauseOverlay from "./PauseOverlay";
-import CountdownTimer from "./CountdownTimer";
 import { useRouter } from "next/navigation";
 import withProtectedRoute from "../_components/ProtectedRoute";
 
@@ -22,9 +21,7 @@ const isMobileDevice = () => {
 const Game = () => {
   const [paused, setPaused] = useState(false);
   const router = useRouter();
-  useEffect(() => {
-    router.push("/");
-  });
+
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
