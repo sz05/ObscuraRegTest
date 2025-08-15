@@ -11,7 +11,7 @@ interface CountdownItemProps {
 }
 
 // Change this date to your target countdown date
-const COUNTDOWN_FROM = "2025-08-15T17:30:00";
+const COUNTDOWN_FROM = "2025-08-15T17:40:00";
 
 const SECOND = 1000;
 const MINUTE = SECOND * 60;
