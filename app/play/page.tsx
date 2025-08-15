@@ -82,7 +82,7 @@ const Game = () => {
       <div className="absolute top-8 left-1/2 -translate-x-1/2 z-30">
         <Button
           variant="outline"
-          onClick={() => setPaused(true)}
+          onClick={() => setPaused(!paused)}
           className="text-xl px-8 py-5 flex items-center gap-2"
         >
           <Pause className="w-5 h-5 mr-2" /> Pause
@@ -91,10 +91,7 @@ const Game = () => {
 
       {/* Pause Overlay */}
       {paused && (
-        <PauseOverlay
-          onClose={() => setPaused(false)}
-          targetDate="2025-07-21T00:00:00+05:30"
-        />
+        <PauseOverlay />
       )}
 
       {/* Fullscreen Game Iframe */}
