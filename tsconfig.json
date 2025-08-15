@@ -30,7 +30,8 @@
     "app/levels/page.jsx",
     "app/Rulebook/page.jsx",
     "app/members/page.jsx",
-    "app/level/page.jsx"
+    "app/level/page.jsx",
+    "app/play/PauseOverlay.jsx"
   ],
   "exclude": ["node_modules"]
 }
