@@ -8,6 +8,7 @@ import { PanelRightOpen, Pause, Play } from "lucide-react";
 import PauseOverlay from "./PauseOverlay";
 import CountdownTimer from "./CountdownTimer";
 import { useRouter } from "next/navigation";
+import withProtectedRoute from "../_components/ProtectedRoute";
 
 const isMobileDevice = () => {
   if (typeof window === "undefined") return false;
@@ -35,27 +36,27 @@ const Game = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const checkRegistered = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
-        {
-          credentials: "include",
-        }
-      );
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
-      if (data.registered === false) {
-        alert("You are not part of a team!");
-        router.push("/");
-      }
-    } catch {
-      // alert("Failed");
-    }
-  };
-  useEffect(() => {
-    checkRegistered();
-  }, []);
+  //   const checkRegistered = async () => {
+  //     try {
+  //       const res = await fetch(
+  //         `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
+  //         {
+  //           credentials: "include",
+  //         }
+  //       );
+  //       const data = await res.json();
+  //       if (!res.ok) throw new Error(data.error);
+  //       if (data.registered === false) {
+  //         alert("You are not part of a team!");
+  //         router.push("/");
+  //       }
+  //     } catch {
+  //       // alert("Failed");
+  //     }
+  //   };
+  //   useEffect(() => {
+  //     checkRegistered();
+  //   }, []);
 
   // Mobile view
   if (isMobile) {
@@ -114,4 +115,4 @@ const Game = () => {
   );
 };
 
-export default Game;
+export default withProtectedRoute(Game);
