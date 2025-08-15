@@ -96,7 +96,7 @@ export default function RootLayout({
           type="font/otf"
           crossOrigin="anonymous"
         />
-        <script src="/level/level-1-pakka.js"></script>
+        <script src="/level/syrinx_lvl1.js"></script>
          <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
