@@ -105,5 +105,5 @@ const Home = () => {
   );
 };
 
-export default Home;
-// export default  withProtectedRoute(Home)
+// export default Home;
+export default withProtectedRoute(Home);
