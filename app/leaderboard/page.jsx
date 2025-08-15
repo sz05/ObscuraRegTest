@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import "../Css/Leader.css";
+import "../_components/Css/Leader.css";
 import { toast } from "react-toastify";
-import Pagination from "../Components/Pagination";
+import Pagination from "../_components/Pagination";
 
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
