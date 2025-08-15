@@ -3,7 +3,7 @@ import { useState, useEffect, use as reactUse } from "react";
 // import { useParams } from "react-router-dom";
 // import { games } from "../Config/gdConfig";
 
-import {games} from "../../../Config/gdConfig.js"
+import { games } from "../../../Config/gdConfig.js";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Pagination from "../../_components/Pagination";
@@ -12,8 +12,9 @@ import GdLoader from "../../_components/godot/gdLoader.jsx";
 
 // import "../Css/Leader.css";
 import "../../_components/Css/Leader.css";
+import withProtectedRoute from "@/app/_components/ProtectedRoute.jsx";
 
-export default function Level({ params }) {
+const Level = ({ params }) => {
   const { id } = reactUse(params);
 
   let gameId = parseInt(id, 10);
@@ -141,4 +142,6 @@ export default function Level({ params }) {
       <GdLoader gdConfig={games[gameId]} />
     </div>
   );
-}
+};
+
+export default withProtectedRoute(Level);

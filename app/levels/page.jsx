@@ -5,6 +5,7 @@ import axios from "axios";
 import { FaLock } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import withProtectedRoute from "../_components/ProtectedRoute";
 
 const Levels = () => {
   const [isActive, setIsActive] = useState([false, false, false]);
@@ -139,4 +140,4 @@ const Levels = () => {
   );
 };
 
-export default Levels;
+export default withProtectedRoute(Levels);
