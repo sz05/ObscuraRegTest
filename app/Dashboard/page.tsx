@@ -424,7 +424,7 @@ function TeamDashboard() {
   };
 
   const handlePostToSyrinx = async () => {
-    console.log(member);
+    // console.log(member);
     if (!member) return;
     const sanitizedUsername = sanitizeInput(member.name);
     const sanitizedPassword = sanitizeInput(member.password);
