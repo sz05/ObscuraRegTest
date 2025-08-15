@@ -144,4 +144,4 @@ const Level = ({ params }) => {
   );
 };
 
-export default withProtectedRoute(Level);
+export default Level;

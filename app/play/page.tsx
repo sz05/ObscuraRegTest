@@ -33,27 +33,27 @@ const Game = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  //   const checkRegistered = async () => {
-  //     try {
-  //       const res = await fetch(
-  //         `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
-  //         {
-  //           credentials: "include",
-  //         }
-  //       );
-  //       const data = await res.json();
-  //       if (!res.ok) throw new Error(data.error);
-  //       if (data.registered === false) {
-  //         alert("You are not part of a team!");
-  //         router.push("/");
-  //       }
-  //     } catch {
-  //       // alert("Failed");
-  //     }
-  //   };
-  //   useEffect(() => {
-  //     checkRegistered();
-  //   }, []);
+  const checkRegistered = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/checkRegistered`,
+        {
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      if (data.registered === false) {
+        alert("You are not part of a team!");
+        router.push("/");
+      }
+    } catch {
+      // alert("Failed");
+    }
+  };
+  useEffect(() => {
+    checkRegistered();
+  }, []);
 
   // Mobile view
   if (isMobile) {
@@ -112,4 +112,4 @@ const Game = () => {
   );
 };
 
-export default withProtectedRoute(Game);
+export default Game;
