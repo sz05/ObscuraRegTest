@@ -825,7 +825,7 @@ function TeamDashboard() {
               </Button>
             </Box>
 
-            {/* <Button
+            <Button
               onClick={handlePostToSyrinx}
               sx={{
                 minWidth: 200,
@@ -850,7 +850,7 @@ function TeamDashboard() {
               }}
             >
               Play
-            </Button> */}
+            </Button>
           </Box>
         )}
 
