@@ -190,8 +190,8 @@ export default function Page() {
 
             <div className="mt-4 sm:mt-6 mb-6 sm:mb-8 w-full max-w-[280px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]">
 {/*               <ShiftingCountdown /> */}
-              <Typography fontFamily="gothamXNarrow" fontSize={20}>
-  The Event is Now Live!
+              <Typography fontFamily="gothamXNarrow" fontSize={50}>
+  The Event is Live!
 </Typography>
 
             </div>
