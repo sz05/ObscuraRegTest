@@ -735,9 +735,9 @@ function TeamDashboard() {
           username={getUsername(currentUserEmail)}
           password={getPassword(currentUserEmail)}
         />
-        <Box bgcolor="black">
+        {/* <Box bgcolor="black">
           <Button onClick={handlePostToSyrinx}>Play</Button>
-        </Box>
+        </Box> */}
 
         {isLeader && (
           <Box
