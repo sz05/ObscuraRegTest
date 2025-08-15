@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import CountdownTimer from "./CountdownTimer";
 
 function Leaderboard() {
-  const [data, setData] = useState < any > [];
+  const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -95,8 +95,8 @@ export default function PauseOverlay({
   onClose,
   targetDate,
 }: {
-  onClose: () => void,
-  targetDate: string,
+  onClose: () => void;
+  targetDate: string;
 }) {
   return (
     <div className="fixed inset-0 z-50 bg-background/90 flex items-center justify-center">
