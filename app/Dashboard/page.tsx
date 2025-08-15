@@ -735,6 +735,10 @@ function TeamDashboard() {
           username={getUsername(currentUserEmail)}
           password={getPassword(currentUserEmail)}
         />
+        <Box bgcolor="black">
+          <Button onClick={handlePostToSyrinx}>Play</Button>
+        </Box>
+
         {isLeader && (
           <Box
             display="flex"
@@ -819,8 +823,6 @@ function TeamDashboard() {
                 Choose Your Roles
               </Typography>
             </Box>
-
-            <Button onClick={handlePostToSyrinx}>Play</Button>
 
             <Box
               sx={{

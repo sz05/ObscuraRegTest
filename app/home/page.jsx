@@ -5,15 +5,17 @@ import Link from "next/link";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
+import withProtectedRoute from "../_components/ProtectedRoute";
+
 const menuItems = [
-  { name: "PLAY GAME", path: "/level" },
-  { name: "RULEBOOK", path: "/rulebook" },
+  { name: "PLAY GAME", path: "/levels" },
+  { name: "RULEBOOK", path: "/Rulebook" },
   { name: "LEADERBOARD", path: "/leaderboard" },
   { name: "MEMBERS", path: "/members" },
   { name: "LOGOUT", path: "/" },
 ];
 
-export default function Home() {
+const Home = () => {
   const router = useRouter();
   const [hoverIndex, setHoveredIndex] = useState(0);
 
@@ -103,4 +105,7 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+// export default Home;
+export default withProtectedRoute(Home);
