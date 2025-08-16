@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import "../Css/godot.css";
 
@@ -19,6 +21,8 @@ export default function GdLoader(props) {
     };
 
     const initGame = async (retryCount = 3) => {
+      // // Ensure correct engine JS for this level is loaded
+      // await loadEngineScript(GODOT_CONFIG.executable);
       if (typeof window.Engine === "undefined") {
         console.error("Godot Engine is not loaded");
         return;

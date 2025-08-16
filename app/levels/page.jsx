@@ -1,11 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { FaLock } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+
+import withProtectedRoute from "../_components/ProtectedRoute";
 
 const Levels = () => {
   const [isActive, setIsActive] = useState([false, false, false]);
@@ -111,7 +112,9 @@ const Levels = () => {
             </div>
           </div>
           <div
-            onClick={() => (isActive[2] ? handleClick(2) : handleempty)}
+            onClick={() =>
+              isActive[2] ? router.push("/112-108-97-121") : handleempty
+            }
             className={`h-[40vh] w-[18vw] relative border-[2px] hover:border-white border-black bg-green-500 rounded-2xl ${
               !isActive[2]
                 ? "grayscale hover:cursor-not-allowed"

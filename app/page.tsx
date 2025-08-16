@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { useEffect } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { toast, Toaster } from "sonner";
 import CCSLogoLarge from "./_components/CCSLogoLarge";
 import { BrandsGrid } from "./_components/BrandGrid";
@@ -189,7 +189,11 @@ export default function Page() {
             </h3> */}
 
             <div className="mt-4 sm:mt-6 mb-6 sm:mb-8 w-full max-w-[280px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]">
-              <ShiftingCountdown />
+{/*               <ShiftingCountdown /> */}
+              <Typography fontFamily="gothamXNarrow" fontSize={50}>
+  The Event is Live!
+</Typography>
+
             </div>
           </div>
         </div>
@@ -378,10 +382,45 @@ export default function Page() {
                 onClick={handleDashboardClick}
                 className="w-full sm:w-auto px-8 py-4 rounded-lg bg-gradient-to-r from-orange-700 to-red-900 text-white font-bold text-lg font-['GothamXNarrow'] uppercase tracking-wide transition-all duration-300 ease-in-out border-2 border-orange-500/70 hover:border-orange-400 hover:scale-105 hover:bg-gradient-to-r hover:from-purple-800 hover:to-indigo-950 relative overflow-hidden group"
               >
-                Team Dashboard
+                Play
               </ShimmerButton>
             </motion.div>
           </motion.div>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            // mt={4}
+            gap={2}
+            flexDirection="column"
+          >
+            <Box bgcolor="#2C2F33" p={2} borderRadius={4}>
+              <Typography
+                zIndex={99}
+                fontSize={25}
+                component="a"
+                href="https://discord.gg/6fKxYrHvXw"
+                target="_blank"
+                sx={{
+                  color: "#7289DA",
+                  fontWeight: "bold",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 1,
+                  mt: 1,
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}
+              >
+                Join our Discord
+              </Typography>
+            </Box>
+            <Typography color="red">
+              Note: It is compulsory to join discord to participate in the event
+            </Typography>
+          </Box>
         </motion.div>
       </section>
       <section

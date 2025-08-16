@@ -16,7 +16,7 @@ import {
   DialogActions,
   TextField,
 } from "@mui/material";
-import { ContentCopy, InfoOutlined, Label } from "@mui/icons-material";
+import { ContentCopy, InfoOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import withProtectedRoute from "../_components/ProtectedRoute";
 import { useRouter } from "next/navigation";
@@ -24,6 +24,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import { toast, Toaster } from "sonner";
 import Logos from "../_components/Logos";
 import ShowPasswordBox from "./components/ShowPass";
+
+import axios from "axios";
+import Cookies from "js-cookie";
+import DOMPurify from "dompurify";
 
 type Role = "WIZARD" | "HACKER";
 
@@ -54,6 +58,8 @@ function TeamDashboard() {
   const [teamNameDialogOpen, setTeamNameDialogOpen] = useState(false);
   const [new_team_name, setNewTeamName] = useState("");
   const [newTeamNameError, setNewTeamNameError] = useState("");
+
+  const [member, setMember] = useState<Member>();
 
   const validateNewDiscordID = () => {
     let new_id_error = "";
@@ -114,6 +120,8 @@ function TeamDashboard() {
       setTeamName(data.team_name);
       setIsLeader(data.is_leader);
       setCurrentUserEmail(data.currentUserEmail);
+      let member = players.find((m) => m.email === data.currentUserEmail);
+      setMember(member);
     } catch {
       toast.error("Failed to load dashboard..");
     }
@@ -147,7 +155,7 @@ function TeamDashboard() {
 
   //     setIsLeader(data.is_leader);
   //     setCurrentUserEmail(data.currentUserEmail);
-  //     setCurrentUserPassword(data.currentUserPassword);
+  //     // setCurrentUserPassword(data.currentUserPassword);
   //   } catch (error) {
   //     // toast.error("Failed to load dashboard. Loading demo data...");
 
@@ -411,6 +419,53 @@ function TeamDashboard() {
     }
   };
 
+  const sanitizeInput = (input: string) => {
+    return DOMPurify.sanitize(input);
+  };
+
+  const handlePostToSyrinx = async () => {
+    // console.log(member);
+    if (!member) return;
+    const sanitizedUsername = sanitizeInput(member.name);
+    const sanitizedPassword = sanitizeInput(member.password);
+
+    try {
+      const response = await axios.post(
+        "https://api.syrinx.ccstiet.com/authanticate",
+        {
+          Username: sanitizedUsername,
+          Password: sanitizedPassword,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.data.error) {
+        toast.error("Invalid Credentials\n" + response.data.error);
+      }
+
+      if (response.data.SessionID) {
+        Cookies.set("token", response.data.SessionID, {
+          expires: 1,
+          secure: true,
+          sameSite: "strict",
+        });
+        console.log("Login successful!");
+        router.push("/home");
+      }
+    } catch (err: any) {
+      console.log(err.response.data.error);
+      if (err.response.data.error) {
+        if (err.response.data.error === "mongo: no documents in result") {
+          toast.error("Invalid Credentials\n");
+        }
+      }
+      // toast.error("Login error:" + e);
+    }
+  };
+
   useEffect(() => {
     fetchDashboard();
   }, []);
@@ -624,6 +679,43 @@ function TeamDashboard() {
 
       <Logos />
 
+      <Box
+        zIndex={99}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        // mt={4}
+        gap={2}
+        flexDirection="column"
+      >
+        <Box bgcolor="#2C2F33" p={2} borderRadius={4}>
+          <Typography
+            zIndex={99}
+            fontSize={25}
+            component="a"
+            href="https://discord.gg/6fKxYrHvXw"
+            target="_blank"
+            sx={{
+              color: "#7289DA",
+              fontWeight: "bold",
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 1,
+              mt: 1,
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+          >
+            Join our Discord
+          </Typography>
+        </Box>
+        <Typography color="red">
+          Note: It is compulsory to join discord to participate in the event
+        </Typography>
+      </Box>
+
       <Box display="flex" justifyContent="center" alignItems="center" gap={2}>
         <Typography
           zIndex={2}
@@ -680,22 +772,16 @@ function TeamDashboard() {
           username={getUsername(currentUserEmail)}
           password={getPassword(currentUserEmail)}
         />
+
         {isLeader && (
           <Box
             display="flex"
-            justifyContent="center"
-            alignItems="center"
-            gap={2}
-            flexWrap="wrap"
-            mt={4}
             flexDirection="column"
+            alignItems="center"
+            gap={3}
+            mt={4}
           >
             <Box display="flex" gap={2} flexWrap="wrap" justifyContent="center">
-              {/* <Typography color="red">
-                {`Add ${
-                  4 - (hackerCount + wizardCount)
-                } more members to complete registration of your team `}
-              </Typography> */}
               <Button
                 variant="contained"
                 color="primary"
@@ -719,27 +805,54 @@ function TeamDashboard() {
                   Delete Team
                 </Button>
               )}
-            </Box>
 
-            <Button
-              variant="outlined"
-              onClick={() => setRulebookOpen(true)}
-              startIcon={<InfoOutlined />}
-              sx={{
-                backgroundColor: "red",
-                borderColor: "#666",
-                color: "#ddd",
-                minWidth: 160,
-                "&:hover": {
-                  borderColor: "#999",
-                  bgcolor: "rgba(255,255,255,0.1)",
-                },
-              }}
-            >
-              View Rulebook
-            </Button>
+              <Button
+                variant="outlined"
+                onClick={() => setRulebookOpen(true)}
+                startIcon={<InfoOutlined />}
+                sx={{
+                  backgroundColor: "red",
+                  borderColor: "#666",
+                  color: "#ddd",
+                  minWidth: 160,
+                  "&:hover": {
+                    borderColor: "#999",
+                    bgcolor: "rgba(255,255,255,0.1)",
+                  },
+                }}
+              >
+                View Rulebook
+              </Button>
+            </Box>
           </Box>
         )}
+
+        <Button
+          onClick={handlePostToSyrinx}
+          sx={{
+            minWidth: 200,
+            px: 5,
+            py: 1.8,
+            fontWeight: 600,
+            fontSize: "1rem",
+            borderRadius: 3,
+            background:
+              "linear-gradient(135deg, #FFD700 0%, #FFC107 50%, #FFB300 100%)",
+            color: "#fff",
+            border: "1px solid rgba(255, 215, 0, 0.8)",
+            boxShadow: "0 6px 15px rgba(255, 215, 0, 0.4)",
+            textTransform: "none",
+            transition: "all 0.3s ease",
+            "&:hover": {
+              background:
+                "linear-gradient(135deg, #FFB300 0%, #FFC107 50%, #FFD700 100%)",
+              boxShadow: "0 8px 20px rgba(255, 215, 0, 0.6)",
+              transform: "translateY(-2px) scale(1.03)",
+            },
+          }}
+        >
+          Play
+        </Button>
 
         {isLeader && (
           <Box

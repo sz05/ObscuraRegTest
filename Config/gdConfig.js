@@ -1,3 +1,4 @@
+
 const games = [
   {
     name: "level-1",
@@ -5,25 +6,25 @@ const games = [
     canvasResizePolicy: 2,
     executable: "syrinx_lvl1",
     experimentalVK: true,
-    fileSizes: { "syrinx_lvl1.pck": 24219360, syrinx_lvl1: 1758196 },
+    fileSizes: { "syrinx_lvl1.pck": 36631840, "syrinx_lvl1.wasm": 43591638 },
     focusCanvas: true,
     gdextensionLibs: [],
     serviceWorker: "syrinx_lvl1.service.worker.js",
-    mainPack: "/level/syrinx_lvl1.pck",
+    mainPack:"/level/syrinx_lvl1.pck",
   },
   {
     name: "level-2",
     args: [],
     canvasResizePolicy: 2,
-    executable: "syrinx_lvl2",
+  executable: "syrinx_lvl2",
     experimentalVK: true,
-    fileSizes: { "syrinx_lvl2.pck": 24219360, syrinx_lvl2: 1758196 },
+  fileSizes: { "syrinx_lvl2.pck": 40377440, "syrinx_lvl2.wasm": 35708238 },
     focusCanvas: true,
     gdextensionLibs: [],
-    serviceWorker: "syrinx_lvl2.service.worker.js",
-    mainPack: "/level/syrinx_lvl2.pck",
+    serviceWorker: "/syrinx_lvl2.service.worker.js",
+    mainPack:"/level/syrinx_lvl2.pck",
   },
-  {
+   {
     name: "level-3",
     args: [],
     canvasResizePolicy: 2,
@@ -33,8 +34,10 @@ const games = [
     focusCanvas: true,
     gdextensionLibs: [],
     serviceWorker: "level-3.service.worker.js",
-    mainPack: "https://srinx-ccs.blr1.cdn.digitaloceanspaces.com/level-3.pck",
+    mainPack:"https://srinx-ccs.blr1.cdn.digitaloceanspaces.com/level-3.pck",
   },
 ];
 
 export { games };
+
+
